@@ -1,0 +1,2700 @@
+AAACATACAACCAC-1,Naive B cells
+AAACATTGAGCTAC-1,Non-classical monocytes
+AAACATTGATCAGC-1,Naive B cells
+AAACCGTGCTTCCG-1,Classical Monocytes
+AAACCGTGTATGCG-1,Classical Monocytes
+AAACGCACTGGTAC-1,Naive B cells
+AAACGCTGACCAGT-1,Natural killer  cells
+AAACGCTGGTTCTT-1,Natural killer  cells
+AAACGCTGTAGCCA-1,Naive CD8+ T cells
+AAACGCTGTTTCTG-1,Classical Monocytes
+AAACTTGAAAAACG-1,Non-classical monocytes
+AAACTTGATCCAGA-1,Memory CD4+ T cells
+AAAGAGACGAGATA-1,Naive B cells
+AAAGAGACGCGAGA-1,CD8+ NKT-like cells
+AAAGAGACGGACTT-1,Naive CD8+ T cells
+AAAGAGACGGCATT-1,Naive CD8+ T cells
+AAAGATCTGGGCAA-1,Naive CD8+ T cells
+AAAGCAGAAGCCAT-1,Natural killer  cells
+AAAGCAGATATCGG-1,CD8+ NKT-like cells
+AAAGCCTGTATGCG-1,Naive B cells
+AAAGGCCTGTCTAG-1,Non-classical monocytes
+AAAGTTTGATCACG-1,Non-classical monocytes
+AAAGTTTGGGGTGA-1,Non-classical monocytes
+AAAGTTTGTAGAGA-1,Naive CD8+ T cells
+AAAGTTTGTAGCGT-1,Naive CD8+ T cells
+AAATCAACAATGCC-1,Non-classical monocytes
+AAATCAACACCAGT-1,Naive CD8+ T cells
+AAATCAACCAGGAG-1,Memory CD4+ T cells
+AAATCAACCCTATT-1,Classical Monocytes
+AAATCAACGGAAGC-1,Memory CD4+ T cells
+AAATCAACTCGCAA-1,Naive B cells
+AAATCATGACCACA-1,Classical Monocytes
+AAATCCCTCCACAA-1,Naive CD8+ T cells
+AAATCCCTGCTATG-1,Non-classical monocytes
+AAATGTTGAACGAA-1,CD8+ NKT-like cells
+AAATGTTGCCACAA-1,Naive B cells
+AAATGTTGTGGCAT-1,CD8+ NKT-like cells
+AAATTCGAAGGTTC-1,Naive CD8+ T cells
+AAATTCGAATCACG-1,Naive CD8+ T cells
+AAATTCGAGCTGAT-1,Classical Monocytes
+AAATTCGAGGAGTG-1,Memory CD4+ T cells
+AAATTCGATTCTCA-1,Natural killer  cells
+AAATTGACACGACT-1,Natural killer  cells
+AAATTGACTCGCTC-1,Natural killer  cells
+AACAAACTCATTTC-1,Memory CD4+ T cells
+AACAAACTTTCGTT-1,Memory CD4+ T cells
+AACAATACGACGAG-1,Memory CD4+ T cells
+AACACGTGCAGAGG-1,Naive B cells
+AACACGTGGAAAGT-1,Memory CD4+ T cells
+AACACGTGGAACCT-1,CD8+ NKT-like cells
+AACACGTGGCTACA-1,Memory CD4+ T cells
+AACACGTGTACGAC-1,Classical Monocytes
+AACAGCACAAGAGT-1,Naive CD8+ T cells
+AACATTGATGGGAG-1,Classical Monocytes
+AACCAGTGATACCG-1,Classical Monocytes
+AACCCAGATCGCTC-1,Memory CD4+ T cells
+AACCGATGCTCCCA-1,Naive B cells
+AACCGATGGTCATG-1,Non-classical monocytes
+AACCGATGTTCTAC-1,CD8+ NKT-like cells
+AACCGCCTAGCGTT-1,Naive B cells
+AACCGCCTCTACGA-1,CD8+ NKT-like cells
+AACCTACTGTGAGG-1,CD8+ NKT-like cells
+AACCTACTGTGTTG-1,Memory CD4+ T cells
+AACCTTACGAGACG-1,Memory CD4+ T cells
+AACCTTACGCGAGA-1,Classical Monocytes
+AACCTTACTAACGC-1,Classical Monocytes
+AACCTTTGGACGGA-1,Memory CD4+ T cells
+AACCTTTGTACGCA-1,Classical Monocytes
+AACGCAACAAGTAG-1,Naive B cells
+AACGCATGACCCAA-1,Naive B cells
+AACGCATGCCTTCG-1,Memory CD4+ T cells
+AACGCATGTACTTC-1,Naive B cells
+AACGCCCTCGGGAA-1,Naive B cells
+AACGCCCTCGTACA-1,Classical Monocytes
+AACGCCCTGCTTAG-1,Non-classical monocytes
+AACGCCCTGGCATT-1,Naive B cells
+AACGTCGAGTATCG-1,Classical Monocytes
+AACGTGTGAAAGCA-1,Memory CD4+ T cells
+AACGTGTGGCGGAA-1,Non-classical monocytes
+AACGTGTGTCCAAG-1,Memory CD4+ T cells
+AACGTGTGTGCTTT-1,Naive B cells
+AACTACCTTAGAGA-1,Memory CD4+ T cells
+AACTCACTCAAGCT-1,CD8+ NKT-like cells
+AACTCACTTGGAGG-1,Naive CD8+ T cells
+AACTCGGAAAGTGA-1,Natural killer  cells
+AACTCGGAAGGTCT-1,Naive CD8+ T cells
+AACTCTTGCAGGAG-1,Naive B cells
+AACTGTCTCCCTTG-1,Naive CD8+ T cells
+AACTTGCTACGCTA-1,Non-classical monocytes
+AACTTGCTGGGACA-1,Memory CD4+ T cells
+AAGAACGAGTGTTG-1,Naive CD8+ T cells
+AAGAAGACGTAGGG-1,Non-classical monocytes
+AAGACAGAAGTCTG-1,Non-classical monocytes
+AAGACAGAGGATCT-1,Memory CD4+ T cells
+AAGACAGATTACCT-1,CD8+ NKT-like cells
+AAGAGATGGGTAGG-1,Non-classical monocytes
+AAGATGGAAAACAG-1,Non-classical monocytes
+AAGATGGAGAACTC-1,CD8+ NKT-like cells
+AAGATGGAGATAAG-1,CD8+ NKT-like cells
+AAGATTACAACCTG-1,Memory CD4+ T cells
+AAGATTACAGATCC-1,CD8+ NKT-like cells
+AAGATTACCCGTTC-1,CD8+ NKT-like cells
+AAGATTACCGCCTT-1,Myeloid Dendritic cells
+AAGATTACCTCAAG-1,Classical Monocytes
+AAGATTACTCCTCG-1,Naive CD8+ T cells
+AAGCAAGAGCGAGA-1,Naive B cells
+AAGCAAGAGCTTAG-1,Natural killer  cells
+AAGCAAGAGGTGTT-1,Classical Monocytes
+AAGCACTGAGCAAA-1,Non-classical monocytes
+AAGCACTGCATACG-1,Naive CD8+ T cells
+AAGCACTGGTTCTT-1,Non-classical monocytes
+AAGCCAACGTGTTG-1,Memory CD4+ T cells
+AAGCCATGAACTGC-1,Myeloid Dendritic cells
+AAGCCATGACACGT-1,Naive CD8+ T cells
+AAGCCATGCGTGAT-1,Memory CD4+ T cells
+AAGCCATGTCTCGC-1,Natural killer  cells
+AAGCCTGACATGCA-1,Naive B cells
+AAGCCTGACCGAAT-1,Naive CD8+ T cells
+AAGCGACTCCTCAC-1,Classical Monocytes
+AAGCGACTGTGTCA-1,Memory CD4+ T cells
+AAGCGACTTACAGC-1,Non-classical monocytes
+AAGCGACTTTGACG-1,Classical Monocytes
+AAGCGTACGTCTTT-1,Naive CD8+ T cells
+AAGGCTTGCGAACT-1,Natural killer  cells
+AAGGTCACGGTTAC-1,Naive CD8+ T cells
+AAGGTCACTGTTTC-1,Non-classical monocytes
+AAGGTCACTTCCCG-1,Natural killer  cells
+AAGGTCTGACAGTC-1,Naive B cells
+AAGGTCTGCAGATC-1,Naive CD8+ T cells
+AAGGTCTGGTATGC-1,Naive CD8+ T cells
+AAGTAACTCTGAAC-1,Naive CD8+ T cells
+AAGTAACTGAGATA-1,Non-classical monocytes
+AAGTAGGATACAGC-1,Classical Monocytes
+AAGTATACCGAACT-1,Memory CD4+ T cells
+AAGTCCGACTTGTT-1,Memory CD4+ T cells
+AAGTCCGATAGAAG-1,Memory CD4+ T cells
+AAGTCTCTAGTCGT-1,Memory CD4+ T cells
+AAGTCTCTCGGAGA-1,Natural killer  cells
+AAGTGGCTTGGAGG-1,Non-classical monocytes
+AAGTTCCTCATTCT-1,Classical Monocytes
+AAGTTCCTTCTTAC-1,Naive B cells
+AATAAGCTCGAATC-1,Naive B cells
+AATAAGCTCGTTGA-1,Memory CD4+ T cells
+AATACCCTGGACGA-1,Non-classical monocytes
+AATACCCTGGCATT-1,Naive B cells
+AATACTGAAAGGGC-1,Natural killer  cells
+AATACTGAATTGGC-1,Classical Monocytes
+AATAGGGAACCCTC-1,Non-classical monocytes
+AATAGGGAGAATGA-1,Natural killer  cells
+AATCAAACTATCGG-1,Natural killer  cells
+AATCCGGAATGCTG-1,Non-classical monocytes
+AATCCTACCGGTAT-1,Memory CD4+ T cells
+AATCCTTGACGGGA-1,CD8+ NKT-like cells
+AATCCTTGGTGAGG-1,Classical Monocytes
+AATCGGTGGAACTC-1,Natural killer  cells
+AATCGGTGTGCTTT-1,Memory CD4+ T cells
+AATCTAGAAAAGTG-1,Naive B cells
+AATCTAGAATCGGT-1,Memory CD4+ T cells
+AATCTCACAGCCTA-1,CD8+ NKT-like cells
+AATCTCACTCTAGG-1,Memory CD4+ T cells
+AATCTCTGAACAGA-1,Memory CD4+ T cells
+AATCTCTGCTTTAC-1,Classical Monocytes
+AATGATACACCAAC-1,Natural killer  cells
+AATGATACGGTCAT-1,CD8+ NKT-like cells
+AATGCGTGACACCA-1,Non-classical monocytes
+AATGCGTGGACGGA-1,Myeloid Dendritic cells
+AATGCGTGGCTATG-1,Non-classical monocytes
+AATGGAGAATCGTG-1,CD8+ NKT-like cells
+AATGGAGATCCTTA-1,Natural killer  cells
+AATGGCTGACACCA-1,Non-classical monocytes
+AATGGCTGCGTGAT-1,Naive B cells
+AATGGCTGTAAAGG-1,Natural killer  cells
+AATGGCTGTACTCT-1,Natural killer  cells
+AATGGCTGTGAAGA-1,Memory CD4+ T cells
+AATGTAACGGTGGA-1,Memory CD4+ T cells
+AATGTAACGTTTGG-1,Natural killer  cells
+AATGTCCTCTTCTA-1,Naive B cells
+AATGTTGACAGTCA-1,Naive B cells
+AATGTTGAGTTGAC-1,Naive CD8+ T cells
+AATGTTGATCTACT-1,Naive B cells
+AATTACGAATTCCT-1,Myeloid Dendritic cells
+AATTACGACTTCTA-1,Memory CD4+ T cells
+AATTACGAGTAGCT-1,Natural killer  cells
+AATTACGAGTGAGG-1,Naive B cells
+AATTACGATTGGCA-1,Non-classical monocytes
+AATTCCTGCTCAGA-1,Non-classical monocytes
+AATTGATGTCGCAA-1,Classical Monocytes
+AATTGTGACTTGGA-1,Non-classical monocytes
+ACAAAGGAGGGTGA-1,Memory CD4+ T cells
+ACAAATTGATTCTC-1,Classical Monocytes
+ACAAATTGCTCAGA-1,Naive CD8+ T cells
+ACAAATTGTTGCGA-1,Classical Monocytes
+ACAACCGAGGGATG-1,Classical Monocytes
+ACAACCGAGTTACG-1,Naive B cells
+ACAAGAGAAGTCGT-1,CD8+ NKT-like cells
+ACAAGAGACTTATC-1,Naive CD8+ T cells
+ACAAGAGAGTTGAC-1,Non-classical monocytes
+ACAATCCTAACCGT-1,Naive B cells
+ACAATCCTTAGCGT-1,Non-classical monocytes
+ACAATTGACTGACA-1,Natural killer  cells
+ACAATTGATGACTG-1,Classical Monocytes
+ACACAGACACCTGA-1,Naive CD8+ T cells
+ACACAGACCATACG-1,Natural killer  cells
+ACACCAGAGGGCAA-1,Natural killer  cells
+ACACCCTGGTGTTG-1,Classical Monocytes
+ACACGAACAGTTCG-1,Naive B cells
+ACACGATGACGCAT-1,Natural killer  cells
+ACACGATGATGTGC-1,Naive CD8+ T cells
+ACACGATGTCGTAG-1,Natural killer  cells
+ACACGATGTGGTCA-1,Natural killer  cells
+ACAGACACGGCATT-1,Naive B cells
+ACAGACACGTTGTG-1,Naive B cells
+ACAGCAACACCTAG-1,Naive CD8+ T cells
+ACAGCAACCTCAAG-1,Classical Monocytes
+ACAGGTACCCCACT-1,Memory CD4+ T cells
+ACAGGTACGCTGTA-1,Natural killer  cells
+ACAGGTACTGGTGT-1,Classical Monocytes
+ACAGTCGACCCAAA-1,Natural killer  cells
+ACAGTCGACCGATA-1,Natural killer  cells
+ACAGTGACTCACCC-1,Natural killer  cells
+ACAGTGACTCTATC-1,Natural killer  cells
+ACAGTGTGGTCACA-1,Naive CD8+ T cells
+ACAGTGTGTTGCGA-1,Naive CD8+ T cells
+ACATCACTCTACTT-1,CD8+ NKT-like cells
+ACATGGTGAAGCCT-1,Memory CD4+ T cells
+ACATGGTGCAACCA-1,Non-classical monocytes
+ACATGGTGCGAGTT-1,Memory CD4+ T cells
+ACATGGTGCGTTGA-1,Natural killer  cells
+ACATTCTGGCATAC-1,Memory CD4+ T cells
+ACATTCTGGGAACG-1,Naive CD8+ T cells
+ACCAACGACATGCA-1,Naive CD8+ T cells
+ACCACAGAAAGTAG-1,Naive CD8+ T cells
+ACCACAGAGTTGGT-1,Memory CD4+ T cells
+ACCACCTGTGTGCA-1,Naive CD8+ T cells
+ACCACGCTACAGCT-1,Memory CD4+ T cells
+ACCACGCTACCCAA-1,Natural killer  cells
+ACCACGCTGCGAGA-1,Memory CD4+ T cells
+ACCACGCTGCTGTA-1,Naive B cells
+ACCAGCCTGACAGG-1,Naive B cells
+ACCAGTGAACGGTT-1,Non-classical monocytes
+ACCAGTGAATACCG-1,Classical Monocytes
+ACCAGTGAGGGATG-1,Memory CD4+ T cells
+ACCAGTGATGACTG-1,Naive CD8+ T cells
+ACCATTACCTTCTA-1,Memory CD4+ T cells
+ACCATTACGAGATA-1,Naive B cells
+ACCATTTGTCATTC-1,Memory CD4+ T cells
+ACCCAAGAACTGTG-1,Natural killer  cells
+ACCCAAGAATTCCT-1,Classical Monocytes
+ACCCAAGAGGACAG-1,Naive B cells
+ACCCAAGATTCACT-1,Non-classical monocytes
+ACCCACTGCGCCTT-1,Naive CD8+ T cells
+ACCCACTGGACAGG-1,Naive CD8+ T cells
+ACCCACTGGTTCAG-1,Platelets
+ACCCACTGTCGTAG-1,CD8+ NKT-like cells
+ACCCAGCTCAGAAA-1,Naive B cells
+ACCCAGCTGTTAGC-1,CD8+ NKT-like cells
+ACCCAGCTTGCTTT-1,Memory CD4+ T cells
+ACCCGTTGATGACC-1,Non-classical monocytes
+ACCCGTTGCTGCAA-1,Memory CD4+ T cells
+ACCCGTTGCTTCTA-1,Myeloid Dendritic cells
+ACCCTCGACCTATT-1,Naive B cells
+ACCCTCGACGGTAT-1,Non-classical monocytes
+ACCCTCGATAAGGA-1,CD8+ NKT-like cells
+ACCCTCGATCAAGC-1,Naive CD8+ T cells
+ACCGTGCTACCAGT-1,Memory CD4+ T cells
+ACCGTGCTGGAACG-1,Non-classical monocytes
+ACCTATTGCTGAGT-1,Non-classical monocytes
+ACCTATTGTGCCCT-1,Classical Monocytes
+ACCTCCGAGTCCTC-1,Naive B cells
+ACCTCCGATATGCG-1,Memory CD4+ T cells
+ACCTCCGATGCTGA-1,Naive CD8+ T cells
+ACCTCGTGAACCAC-1,Natural killer  cells
+ACCTGAGATATCGG-1,Platelets
+ACCTGGCTAAGTAG-1,Classical Monocytes
+ACCTGGCTGTCTTT-1,Naive CD8+ T cells
+ACCTTTGACTCCCA-1,CD8+ NKT-like cells
+ACCTTTGAGGAACG-1,CD8+ NKT-like cells
+ACCTTTGAGGAAGC-1,CD8+ NKT-like cells
+ACGAACACCTTGTT-1,Classical Monocytes
+ACGAACTGGCTATG-1,Platelets
+ACGAAGCTCTCCAC-1,Naive CD8+ T cells
+ACGAAGCTCTGAGT-1,Non-classical monocytes
+ACGACCCTATCTCT-1,CD8+ NKT-like cells
+ACGACCCTGATGAA-1,Naive CD8+ T cells
+ACGACCCTTGACAC-1,Non-classical monocytes
+ACGACCCTTGACCA-1,Memory CD4+ T cells
+ACGAGGGACAGGAG-1,Myeloid Dendritic cells
+ACGAGGGACGAACT-1,Memory CD4+ T cells
+ACGAGGGATGTAGC-1,Naive B cells
+ACGAGTACCCTAAG-1,Non-classical monocytes
+ACGAGTACGAATCC-1,Non-classical monocytes
+ACGATCGAGGACTT-1,Natural killer  cells
+ACGATCGAGTCACA-1,CD8+ NKT-like cells
+ACGATGACAATGCC-1,Naive B cells
+ACGATGACTGGTCA-1,Naive B cells
+ACGATTCTACGGGA-1,Naive CD8+ T cells
+ACGCAATGGTTCAG-1,Classical Monocytes
+ACGCACCTGTTAGC-1,Non-classical monocytes
+ACGCCACTGAACTC-1,Naive CD8+ T cells
+ACGCCGGAAACCAC-1,CD8+ NKT-like cells
+ACGCCGGAAAGCCT-1,Memory CD4+ T cells
+ACGCCGGAAATGCC-1,Naive B cells
+ACGCCTTGCTCCCA-1,Classical Monocytes
+ACGCGGTGGCGAGA-1,Memory CD4+ T cells
+ACGCGGTGTGTGGT-1,Non-classical monocytes
+ACGCGGTGTTTGCT-1,Natural killer  cells
+ACGCTCACAGTACC-1,Memory CD4+ T cells
+ACGCTCACCCTTGC-1,Memory CD4+ T cells
+ACGCTGCTGTTCTT-1,Classical Monocytes
+ACGGAACTCAGATC-1,Classical Monocytes
+ACGGAACTGTCGTA-1,Classical Monocytes
+ACGGAGGACTCTTA-1,CD8+ NKT-like cells
+ACGGATTGGGAGGT-1,Non-classical monocytes
+ACGGATTGGTTAGC-1,Naive B cells
+ACGGCTCTGAGCAG-1,Naive B cells
+ACGGCTCTTGCACA-1,Memory CD4+ T cells
+ACGGTAACCGCTAA-1,Naive B cells
+ACGGTAACCTTCGC-1,Natural killer  cells
+ACGGTAACGGTGGA-1,Naive CD8+ T cells
+ACGGTAACTCGCAA-1,Naive CD8+ T cells
+ACGGTATGAGTCGT-1,Naive CD8+ T cells
+ACGGTATGGGTATC-1,Non-classical monocytes
+ACGGTATGGTTGTG-1,Non-classical monocytes
+ACGGTCCTAACGGG-1,Naive B cells
+ACGGTCCTCGGGAA-1,Naive B cells
+ACGTAGACAACCAC-1,Naive B cells
+ACGTAGACTACAGC-1,Non-classical monocytes
+ACGTCAGAAACGAA-1,Naive B cells
+ACGTCAGAGAGCTT-1,CD8+ NKT-like cells
+ACGTCAGAGGGATG-1,Naive B cells
+ACGTCCTGATAAGG-1,Naive CD8+ T cells
+ACGTCCTGTGAACC-1,CD8+ NKT-like cells
+ACGTCGCTCCTGAA-1,Classical Monocytes
+ACGTCGCTCTATTC-1,Naive CD8+ T cells
+ACGTCGCTTCTCAT-1,Non-classical monocytes
+ACGTGATGCCATGA-1,Myeloid Dendritic cells
+ACGTGATGGGTCTA-1,Memory CD4+ T cells
+ACGTGATGTAACCG-1,Classical Monocytes
+ACGTGATGTGACAC-1,Classical Monocytes
+ACGTGCCTCCGTAA-1,Naive B cells
+ACGTGCCTTCTATC-1,Naive CD8+ T cells
+ACGTTACTTTCCAT-1,Memory CD4+ T cells
+ACGTTGGAAAAGCA-1,Memory CD4+ T cells
+ACGTTGGAAACCTG-1,Natural killer  cells
+ACGTTGGACCGTAA-1,Naive CD8+ T cells
+ACGTTGGAGCCAAT-1,Classical Monocytes
+ACGTTGGATATGGC-1,Non-classical monocytes
+ACGTTGGATCAGGT-1,CD8+ NKT-like cells
+ACGTTTACATCAGC-1,Memory CD4+ T cells
+ACTAAAACCCACAA-1,Natural killer  cells
+ACTAAAACTCGACA-1,Naive CD8+ T cells
+ACTACGGAATTTCC-1,Naive B cells
+ACTACGGACCTATT-1,Memory CD4+ T cells
+ACTACGGATCGCTC-1,Memory CD4+ T cells
+ACTACTACTAAGGA-1,Memory CD4+ T cells
+ACTAGGTGGAACCT-1,Natural killer  cells
+ACTAGGTGGAACTC-1,Naive B cells
+ACTATCACCTTGGA-1,Natural killer  cells
+ACTATCACTGCCAA-1,Memory CD4+ T cells
+ACTCAGGACTGAAC-1,Memory CD4+ T cells
+ACTCAGGATCTATC-1,Non-classical monocytes
+ACTCAGGATTCGTT-1,Naive CD8+ T cells
+ACTCCTCTCAACTG-1,Naive B cells
+ACTCGCACGAAAGT-1,Naive CD8+ T cells
+ACTCGCACTACGAC-1,CD8+ NKT-like cells
+ACTCTCCTGACACT-1,Naive CD8+ T cells
+ACTCTCCTGCATAC-1,Naive B cells
+ACTCTCCTGTTTGG-1,Memory CD4+ T cells
+ACTGAGACAACCAC-1,Natural killer  cells
+ACTGAGACCCATAG-1,Classical Monocytes
+ACTGAGACGTTGGT-1,Non-classical monocytes
+ACTGCCACACACGT-1,Natural killer  cells
+ACTGCCACTCCGTC-1,Classical Monocytes
+ACTGGCCTTCAGTG-1,Classical Monocytes
+ACTGTGGACGTGTA-1,Natural killer  cells
+ACTGTGGATCTAGG-1,Non-classical monocytes
+ACTGTTACCCACAA-1,Naive CD8+ T cells
+ACTGTTACTGCAGT-1,Memory CD4+ T cells
+ACTTAAGAACCACA-1,Memory CD4+ T cells
+ACTTAAGACCACAA-1,Naive CD8+ T cells
+ACTTAAGATTACTC-1,Myeloid Dendritic cells
+ACTTAGCTGCGTAT-1,Classical Monocytes
+ACTTAGCTGGGAGT-1,Naive B cells
+ACTTCAACAAGCAA-1,Naive B cells
+ACTTCAACGTAGGG-1,Classical Monocytes
+ACTTCCCTTTCCGC-1,Memory CD4+ T cells
+ACTTCTGACATGCA-1,Non-classical monocytes
+ACTTGACTCCACAA-1,Non-classical monocytes
+ACTTGGGAGAAAGT-1,CD8+ NKT-like cells
+ACTTGGGAGGTTTG-1,Natural killer  cells
+ACTTGGGATGTGAC-1,Classical Monocytes
+ACTTGGGATTGACG-1,CD8+ NKT-like cells
+ACTTGTACCCGAAT-1,Memory CD4+ T cells
+ACTTGTACCTGTCC-1,Naive CD8+ T cells
+ACTTTGTGCGATAC-1,Naive CD8+ T cells
+ACTTTGTGGAAAGT-1,Naive CD8+ T cells
+ACTTTGTGGATAGA-1,CD8+ NKT-like cells
+AGAAACGAAAGTAG-1,Non-classical monocytes
+AGAAAGTGCGCAAT-1,Naive B cells
+AGAAAGTGGGGATG-1,Naive CD8+ T cells
+AGAACAGAAATGCC-1,Classical Monocytes
+AGAACAGACGACTA-1,Non-classical monocytes
+AGAACAGAGACAAA-1,Naive B cells
+AGAACGCTTTGCTT-1,Memory CD4+ T cells
+AGAAGATGTGACTG-1,Naive B cells
+AGAATGGAAGAAGT-1,Natural killer  cells
+AGAATTTGTAACCG-1,Memory CD4+ T cells
+AGAATTTGTAGAGA-1,Naive CD8+ T cells
+AGACACACTGTAGC-1,Memory CD4+ T cells
+AGACACTGTCAAGC-1,Naive CD8+ T cells
+AGACCTGAAGTAGA-1,CD8+ NKT-like cells
+AGACCTGACCAACA-1,Memory CD4+ T cells
+AGACCTGAGGAAGC-1,Natural killer  cells
+AGACGTACAGAGGC-1,Naive B cells
+AGACGTACCCCTAC-1,Non-classical monocytes
+AGACGTACCTCTTA-1,CD8+ NKT-like cells
+AGACGTACTCGTGA-1,Classical Monocytes
+AGACTGACCATCAG-1,Natural killer  cells
+AGACTGACCCTTTA-1,Memory CD4+ T cells
+AGACTTCTCATGCA-1,Non-classical monocytes
+AGAGATGACAGTCA-1,Non-classical monocytes
+AGAGATGACTGAAC-1,Memory CD4+ T cells
+AGAGATGAGGTTTG-1,CD8+ NKT-like cells
+AGAGATGATCTCGC-1,Non-classical monocytes
+AGAGATGATTGTGG-1,Memory CD4+ T cells
+AGAGCGGAGGCAAG-1,CD8+ NKT-like cells
+AGAGGTCTACAGCT-1,Classical Monocytes
+AGAGTCTGGTCGTA-1,Classical Monocytes
+AGAGTGCTCAGCTA-1,Naive CD8+ T cells
+AGAGTGCTCGAATC-1,Memory CD4+ T cells
+AGAGTGCTGTCATG-1,Naive B cells
+AGAGTGCTGTCCTC-1,Natural killer  cells
+AGAGTGCTGTGTTG-1,Non-classical monocytes
+AGATATACCCGTAA-1,Classical Monocytes
+AGATATACGATGAA-1,Naive B cells
+AGATATACTGTTCT-1,Non-classical monocytes
+AGATATTGCCTACC-1,Natural killer  cells
+AGATATTGGCCAAT-1,CD8+ NKT-like cells
+AGATCGTGTCTGGA-1,CD8+ NKT-like cells
+AGATCGTGTTTGTC-1,Non-classical monocytes
+AGATCTCTATCACG-1,Non-classical monocytes
+AGATTAACGTTCTT-1,Classical Monocytes
+AGATTCCTATCGTG-1,Memory CD4+ T cells
+AGATTCCTCACTTT-1,Naive CD8+ T cells
+AGATTCCTGACGAG-1,CD8+ NKT-like cells
+AGATTCCTGTTCAG-1,Classical Monocytes
+AGCAAAGATATGCG-1,Memory CD4+ T cells
+AGCACAACAGTCTG-1,Memory CD4+ T cells
+AGCACTGAGGGAGT-1,Memory CD4+ T cells
+AGCACTGATATGCG-1,Naive B cells
+AGCACTGATGCTTT-1,Myeloid Dendritic cells
+AGCACTGATTGCGA-1,Memory CD4+ T cells
+AGCATCGAAGATCC-1,Naive B cells
+AGCATCGAAGGGTG-1,Non-classical monocytes
+AGCATCGAGCTTCC-1,CD8+ NKT-like cells
+AGCATCGAGTGAGG-1,Naive B cells
+AGCATCGATAACCG-1,CD8+ NKT-like cells
+AGCATGACGATGAA-1,Natural killer  cells
+AGCCAATGGGGAGT-1,Classical Monocytes
+AGCCAATGTATCTC-1,Memory CD4+ T cells
+AGCCACCTGGATCT-1,Natural killer  cells
+AGCCGGTGCCAATG-1,Naive B cells
+AGCCGGTGTGTTTC-1,Memory CD4+ T cells
+AGCCGTCTCAATCG-1,Memory CD4+ T cells
+AGCCGTCTGAGAGC-1,Naive B cells
+AGCCTCACGTTCGA-1,Memory CD4+ T cells
+AGCCTCACTGTCAG-1,Classical Monocytes
+AGCCTCTGCAGTTG-1,Non-classical monocytes
+AGCCTCTGCCAATG-1,Classical Monocytes
+AGCGAACTGGATCT-1,Memory CD4+ T cells
+AGCGAACTTACTGG-1,Naive B cells
+AGCGATACGGAGCA-1,Naive CD8+ T cells
+AGCGATTGAGATCC-1,Classical Monocytes
+AGCGCCGAATCTCT-1,Naive CD8+ T cells
+AGCGCCGACAGAGG-1,Naive B cells
+AGCGCTCTACCTTT-1,Memory CD4+ T cells
+AGCGGCACCGGGAA-1,Naive CD8+ T cells
+AGCGGCTGATGTGC-1,Memory CD4+ T cells
+AGCGGGCTTGCCAA-1,Naive B cells
+AGCGTAACATGCTG-1,Naive B cells
+AGCGTAACTGAGAA-1,CD8+ NKT-like cells
+AGCTCGCTACTGGT-1,Memory CD4+ T cells
+AGCTCGCTCTGCTC-1,Memory CD4+ T cells
+AGCTGAACCATACG-1,Classical Monocytes
+AGCTGAACCTCTCG-1,Memory CD4+ T cells
+AGCTGCCTTGGGAG-1,Naive CD8+ T cells
+AGCTGCCTTTCATC-1,Naive B cells
+AGCTGCCTTTCTGT-1,Naive B cells
+AGCTGTGATCCAAG-1,Memory CD4+ T cells
+AGCTTTACAAGTAG-1,Memory CD4+ T cells
+AGCTTTACACCAAC-1,Natural killer  cells
+AGCTTTACTCTCAT-1,Non-classical monocytes
+AGGAAATGAGGAGC-1,Naive B cells
+AGGAACCTCTTAGG-1,Classical Monocytes
+AGGAACCTTGCCTC-1,Natural killer  cells
+AGGAATGATAACGC-1,Naive B cells
+AGGAATGATTTGTC-1,Naive B cells
+AGGAGTCTGGTTTG-1,Memory CD4+ T cells
+AGGAGTCTTGTCAG-1,Memory CD4+ T cells
+AGGATAGACATTTC-1,Naive B cells
+AGGATAGAGGATTC-1,Natural killer  cells
+AGGATGCTACTAGC-1,Non-classical monocytes
+AGGATGCTTTAGGC-1,Classical Monocytes
+AGGCAACTGAAGGC-1,Naive B cells
+AGGCAGGAGTACCA-1,Natural killer  cells
+AGGCCTCTAGTCGT-1,Memory CD4+ T cells
+AGGCCTCTCGGAGA-1,Naive B cells
+AGGCCTCTCGTAAC-1,Naive CD8+ T cells
+AGGGACGACGTTGA-1,Memory CD4+ T cells
+AGGGACGAGTCAAC-1,Classical Monocytes
+AGGGACGAGTTGTG-1,Memory CD4+ T cells
+AGGGACGATAGAGA-1,Natural killer  cells
+AGGGACGATGCATG-1,Natural killer  cells
+AGGGAGTGAGCCTA-1,Naive CD8+ T cells
+AGGGCCACCATACG-1,Memory CD4+ T cells
+AGGGCGCTAACCAC-1,Naive CD8+ T cells
+AGGGCGCTATGGTC-1,Natural killer  cells
+AGGGTGGACAGTCA-1,Non-classical monocytes
+AGGGTGGACTCAAG-1,CD8+ NKT-like cells
+AGGGTGGAGTTGCA-1,Natural killer  cells
+AGGGTTTGTTCATC-1,Naive CD8+ T cells
+AGGTCATGAGTGTC-1,Non-classical monocytes
+AGGTCATGCTTATC-1,Natural killer  cells
+AGGTCTGATTCTCA-1,Classical Monocytes
+AGGTGGGAAGAATG-1,Naive B cells
+AGGTGGGAAGTTCG-1,Memory CD4+ T cells
+AGGTGTTGGTTACG-1,Non-classical monocytes
+AGGTTCGAACCTCC-1,Naive CD8+ T cells
+AGGTTCGAACGTAC-1,Naive CD8+ T cells
+AGGTTCGAGGGTGA-1,Naive CD8+ T cells
+AGTAAGGAGTTTGG-1,Naive B cells
+AGTAAGGATTCTTG-1,Naive B cells
+AGTAATACATCACG-1,Classical Monocytes
+AGTAATACCGAACT-1,Non-classical monocytes
+AGTAATTGTCCCAC-1,Naive B cells
+AGTACGTGAGGGTG-1,Memory CD4+ T cells
+AGTACGTGCTGCAA-1,Memory CD4+ T cells
+AGTACGTGCTTGGA-1,Naive B cells
+AGTACTCTACGTGT-1,Non-classical monocytes
+AGTACTCTCAACCA-1,Natural killer  cells
+AGTACTCTCGGTAT-1,Naive B cells
+AGTAGGCTTGCCTC-1,Classical Monocytes
+AGTATAACTTGTCT-1,Classical Monocytes
+AGTATCCTAGAACA-1,Memory CD4+ T cells
+AGTCACGATGAGCT-1,Classical Monocytes
+AGTCAGACGAATAG-1,Naive B cells
+AGTCAGACGCTTAG-1,Naive CD8+ T cells
+AGTCAGACTAGAGA-1,Natural killer  cells
+AGTCAGACTGCACA-1,Naive B cells
+AGTCCAGATATCTC-1,Naive CD8+ T cells
+AGTCCAGATTTCAC-1,Naive B cells
+AGTCGAACCAACCA-1,Naive CD8+ T cells
+AGTCGCCTCCGTAA-1,Naive B cells
+AGTCTACTAGGGTG-1,Naive CD8+ T cells
+AGTCTACTTGCATG-1,CD8+ NKT-like cells
+AGTCTTACACCACA-1,Memory CD4+ T cells
+AGTCTTACTTCGCC-1,Natural killer  cells
+AGTCTTACTTCGGA-1,Platelets
+AGTGACTGCAACTG-1,Classical Monocytes
+AGTGTTCTAACCTG-1,Naive B cells
+AGTGTTCTATAAGG-1,Naive CD8+ T cells
+AGTGTTCTCACTTT-1,CD8+ NKT-like cells
+AGTTAAACCACTTT-1,Naive B cells
+AGTTATGAACAGTC-1,CD8+ NKT-like cells
+AGTTATGACTGAGT-1,Naive B cells
+AGTTATGAGTTCAG-1,Naive B cells
+AGTTCTACCAGCTA-1,Naive CD8+ T cells
+AGTTCTTGAAGCCT-1,Natural killer  cells
+AGTTGTCTACTACG-1,Memory CD4+ T cells
+AGTTTAGATGGTCA-1,Memory CD4+ T cells
+AGTTTCACGGTCTA-1,Natural killer  cells
+AGTTTGCTACAGTC-1,Memory CD4+ T cells
+AGTTTGCTACTGGT-1,Natural killer  cells
+AGTTTGCTCCAAGT-1,Memory CD4+ T cells
+ATAAACACAGTGCT-1,Non-classical monocytes
+ATAAACACCACCAA-1,Memory CD4+ T cells
+ATAACAACATGCTG-1,CD8+ NKT-like cells
+ATAACAACGTCTAG-1,Naive B cells
+ATAACAACTTTGTC-1,Memory CD4+ T cells
+ATAACATGTACTCT-1,Naive B cells
+ATAACCCTGTTGGT-1,Naive CD8+ T cells
+ATAACCCTTGGTAC-1,Naive B cells
+ATAAGTACGAATGA-1,Non-classical monocytes
+ATAAGTTGGTACGT-1,Classical Monocytes
+ATAAGTTGTCTAGG-1,Natural killer  cells
+ATAATCGAGCTGAT-1,Non-classical monocytes
+ATAATCGATGGTTG-1,Memory CD4+ T cells
+ATAATGACCTACTT-1,Naive B cells
+ATAATGACTCGTGA-1,CD8+ NKT-like cells
+ATACAATGTTAGGC-1,Memory CD4+ T cells
+ATACCACTCGTACA-1,CD8+ NKT-like cells
+ATACCACTCTAAGC-1,Myeloid Dendritic cells
+ATACCACTGCCAAT-1,Natural killer  cells
+ATACCGGAATGCTG-1,Myeloid Dendritic cells
+ATACCGGACATTTC-1,CD8+ NKT-like cells
+ATACCGGACTTCGC-1,Naive B cells
+ATACCGGAGGTGTT-1,Naive CD8+ T cells
+ATACCGGATCTCGC-1,Naive CD8+ T cells
+ATACCTACGCATCA-1,Naive B cells
+ATACCTTGGGGCAA-1,Memory CD4+ T cells
+ATACGGACAGACTC-1,Naive CD8+ T cells
+ATACGGACCTACTT-1,Naive CD8+ T cells
+ATACGGACGAGGTG-1,Non-classical monocytes
+ATACGGACTATGCG-1,Non-classical monocytes
+ATACGGACTCTGGA-1,Naive CD8+ T cells
+ATACGTCTTAACGC-1,Naive CD8+ T cells
+ATACTCTGCTTCGC-1,CD8+ NKT-like cells
+ATACTCTGGTATGC-1,Classical Monocytes
+ATAGATACCATGGT-1,Naive B cells
+ATAGATACGACGAG-1,Memory CD4+ T cells
+ATAGATTGGTGTAC-1,Non-classical monocytes
+ATAGCCGAACGGAG-1,Memory CD4+ T cells
+ATAGCGTGCAGATC-1,Memory CD4+ T cells
+ATAGCGTGCCCTTG-1,CD8+ NKT-like cells
+ATAGCGTGGTATCG-1,Naive CD8+ T cells
+ATAGCGTGTCTCTA-1,Naive B cells
+ATAGCTCTCTGATG-1,Naive CD8+ T cells
+ATAGCTCTGAGGTG-1,Memory CD4+ T cells
+ATAGGAGAAACAGA-1,CD8+ NKT-like cells
+ATAGGCTGTCAGAC-1,Memory CD4+ T cells
+ATAGTCCTAGTGTC-1,CD8+ NKT-like cells
+ATAGTCCTTGCATG-1,Natural killer  cells
+ATAGTCCTTGTCGA-1,Memory CD4+ T cells
+ATAGTTGACAACTG-1,Memory CD4+ T cells
+ATAGTTGACCCTCA-1,Classical Monocytes
+ATAGTTGAGACGTT-1,Naive CD8+ T cells
+ATAGTTGATAAGCC-1,Memory CD4+ T cells
+ATATACGAAGCCAT-1,Memory CD4+ T cells
+ATATACGAATTGGC-1,Naive B cells
+ATATAGTGGAATGA-1,Naive CD8+ T cells
+ATATGCCTAGATCC-1,Naive CD8+ T cells
+ATATGCCTGGACAG-1,Naive B cells
+ATATGCCTTCTCTA-1,Naive B cells
+ATATGCCTTGGTAC-1,Memory CD4+ T cells
+ATCAAATGAGCCTA-1,CD8+ NKT-like cells
+ATCAAATGGGTAAA-1,Classical Monocytes
+ATCAACCTAAACGA-1,Naive B cells
+ATCAACCTGAGGAC-1,Memory CD4+ T cells
+ATCAACCTTCTCTA-1,Natural killer  cells
+ATCAACCTTTGTCT-1,Natural killer  cells
+ATCACACTTTGTCT-1,Naive B cells
+ATCACGGATTGCTT-1,Naive CD8+ T cells
+ATCACGGATTTCGT-1,Non-classical monocytes
+ATCATCTGACACCA-1,Platelets
+ATCATGCTAGAGTA-1,Natural killer  cells
+ATCATGCTGAACCT-1,Non-classical monocytes
+ATCCAGGACGCTAA-1,Classical Monocytes
+ATCCAGGATGGAAA-1,Naive B cells
+ATCCATACTCCTTA-1,Naive CD8+ T cells
+ATCCATACTTCATC-1,Classical Monocytes
+ATCCCGTGCAGTCA-1,Classical Monocytes
+ATCCCGTGCATGCA-1,Non-classical monocytes
+ATCCCGTGGCTGAT-1,Non-classical monocytes
+ATCCGCACGCATCA-1,Non-classical monocytes
+ATCCTAACGACGGA-1,Non-classical monocytes
+ATCCTAACGCTACA-1,Natural killer  cells
+ATCGACGAAACTGC-1,CD8+ NKT-like cells
+ATCGACGAATGACC-1,Memory CD4+ T cells
+ATCGAGTGGACGTT-1,Natural killer  cells
+ATCGCAGAATCTCT-1,Classical Monocytes
+ATCGCAGAGTGTCA-1,Non-classical monocytes
+ATCGCCACTGAGGG-1,Natural killer  cells
+ATCGCCTGGGTCAT-1,Naive B cells
+ATCGCCTGTGGCAT-1,Non-classical monocytes
+ATCGCGCTCAGAGG-1,Naive CD8+ T cells
+ATCGCGCTGGGATG-1,Naive B cells
+ATCGCGCTTTTCGT-1,Non-classical monocytes
+ATCGGAACCAGTCA-1,Memory CD4+ T cells
+ATCGGTGAGTCAAC-1,Memory CD4+ T cells
+ATCGGTGATTGCAG-1,Memory CD4+ T cells
+ATCGTTTGCCTACC-1,CD8+ NKT-like cells
+ATCGTTTGGGTACT-1,Naive CD8+ T cells
+ATCGTTTGTGCCAA-1,Naive CD8+ T cells
+ATCTACACCCGCTT-1,Naive CD8+ T cells
+ATCTACACCGGGAA-1,Naive B cells
+ATCTCAACAGGAGC-1,Non-classical monocytes
+ATCTCAACCTCGAA-1,Naive CD8+ T cells
+ATCTCAACCTTGTT-1,Naive CD8+ T cells
+ATCTGGGAAACCAC-1,CD8+ NKT-like cells
+ATCTGGGAAGTGTC-1,CD8+ NKT-like cells
+ATCTGGGATTCCGC-1,Natural killer  cells
+ATCTGTTGAACGGG-1,Naive B cells
+ATCTGTTGACCTCC-1,Naive B cells
+ATCTGTTGCCTTCG-1,CD8+ NKT-like cells
+ATCTGTTGGTTGCA-1,Naive B cells
+ATCTTGACACCAAC-1,Naive B cells
+ATCTTGACCTCCCA-1,Naive CD8+ T cells
+ATCTTTCTGCATCA-1,Naive CD8+ T cells
+ATCTTTCTGTTTCT-1,Natural killer  cells
+ATCTTTCTTGTCCC-1,Classical Monocytes
+ATGAAACTCTGTGA-1,Naive B cells
+ATGAAACTGAGGCA-1,Memory CD4+ T cells
+ATGAAGGAACAGCT-1,Natural killer  cells
+ATGAAGGACCTGTC-1,Non-classical monocytes
+ATGAAGGACCTTAT-1,Non-classical monocytes
+ATGAAGGACTAGTG-1,Non-classical monocytes
+ATGAAGGACTTGCC-1,Classical Monocytes
+ATGACGTGACGACT-1,Non-classical monocytes
+ATGACGTGATCGGT-1,Classical Monocytes
+ATGAGAGAAAGTGA-1,Naive B cells
+ATGAGAGAACGCAT-1,Memory CD4+ T cells
+ATGAGAGAAGTAGA-1,Non-classical monocytes
+ATGAGCACACAGCT-1,Memory CD4+ T cells
+ATGAGCACATCTTC-1,Memory CD4+ T cells
+ATGATAACTTCACT-1,Classical Monocytes
+ATGATATGAAACAG-1,Naive B cells
+ATGATATGACTGGT-1,Memory CD4+ T cells
+ATGATATGAGCACT-1,Memory CD4+ T cells
+ATGATATGGTCATG-1,Memory CD4+ T cells
+ATGATATGGTGCTA-1,Classical Monocytes
+ATGATATGTTGTCT-1,CD8+ NKT-like cells
+ATGCACGAATGTCG-1,Non-classical monocytes
+ATGCACGACTGTAG-1,Naive B cells
+ATGCACGAGAACCT-1,Non-classical monocytes
+ATGCACGAGTTCGA-1,Memory CD4+ T cells
+ATGCACGATTGGTG-1,CD8+ NKT-like cells
+ATGCAGTGTTACCT-1,Non-classical monocytes
+ATGCAGTGTTCTAC-1,Naive B cells
+ATGCCAGAACGACT-1,Memory CD4+ T cells
+ATGCCAGACAGTCA-1,CD8+ NKT-like cells
+ATGCCGCTTGAACC-1,CD8+ NKT-like cells
+ATGCGATGCTATGG-1,CD8+ NKT-like cells
+ATGCGATGCTGAGT-1,Memory CD4+ T cells
+ATGCGATGGTTACG-1,Non-classical monocytes
+ATGCGCCTTCATTC-1,Memory CD4+ T cells
+ATGCTTTGCGAATC-1,Naive B cells
+ATGCTTTGGGCGAA-1,Naive CD8+ T cells
+ATGCTTTGTAGTCG-1,Non-classical monocytes
+ATGGACACATCGGT-1,Naive B cells
+ATGGACACGCATCA-1,Classical Monocytes
+ATGGGTACAACCTG-1,Non-classical monocytes
+ATGGGTACATCGGT-1,Classical Monocytes
+ATGGGTACTATTCC-1,Naive B cells
+ATGGGTACTGGGAG-1,Naive B cells
+ATGTAAACACCTCC-1,Memory CD4+ T cells
+ATGTAAACCCGCTT-1,Naive B cells
+ATGTAAACGGGATG-1,Myeloid Dendritic cells
+ATGTAAACTCTCCG-1,Naive B cells
+ATGTAAACTTCACT-1,CD8+ NKT-like cells
+ATGTACCTCAGTCA-1,Naive CD8+ T cells
+ATGTACCTTAGTCG-1,Naive B cells
+ATGTACCTTTATCC-1,Naive CD8+ T cells
+ATGTACCTTTCACT-1,Natural killer  cells
+ATGTCACTAATGCC-1,CD8+ NKT-like cells
+ATGTCACTCTGCTC-1,Naive CD8+ T cells
+ATGTCGGAGGTGAG-1,Naive B cells
+ATGTTCACAGTCTG-1,CD8+ NKT-like cells
+ATGTTCACCGTAGT-1,Naive B cells
+ATGTTGCTTTCAGG-1,Naive B cells
+ATTAACGATGAGAA-1,Classical Monocytes
+ATTAACGATGCAAC-1,Natural killer  cells
+ATTAAGACTGCAGT-1,Naive B cells
+ATTACCTGCCTTAT-1,CD8+ NKT-like cells
+ATTACCTGGAGGAC-1,Classical Monocytes
+ATTACCTGGGCATT-1,Non-classical monocytes
+ATTAGATGTTTCAC-1,Naive CD8+ T cells
+ATTATGGAATCTCT-1,Naive B cells
+ATTCAAGAACGGGA-1,Memory CD4+ T cells
+ATTCAAGACCTTTA-1,Naive B cells
+ATTCAGCTCATTGG-1,Platelets
+ATTCCAACCATTGG-1,CD8+ NKT-like cells
+ATTCCAACTTAGGC-1,Natural killer  cells
+ATTCGACTCACTAG-1,Natural killer  cells
+ATTCGACTGAATAG-1,CD8+ NKT-like cells
+ATTCGACTTTTGTC-1,Classical Monocytes
+ATTCGGGAAAGGCG-1,CD8+ NKT-like cells
+ATTCGGGATTAGGC-1,Naive B cells
+ATTCTTCTGATACC-1,Natural killer  cells
+ATTGAATGGACGGA-1,Naive CD8+ T cells
+ATTGATGAAGGTTC-1,Memory CD4+ T cells
+ATTGATGACTGAGT-1,Memory CD4+ T cells
+ATTGATGAGCGAAG-1,Naive B cells
+ATTGATGATCTATC-1,Memory CD4+ T cells
+ATTGCACTGACGGA-1,Memory CD4+ T cells
+ATTGCACTGAGAGC-1,Classical Monocytes
+ATTGCACTGGAGCA-1,Naive CD8+ T cells
+ATTGCACTTAGCCA-1,Naive B cells
+ATTGCACTTGCTTT-1,Classical Monocytes
+ATTGCTTGTTACTC-1,Non-classical monocytes
+ATTGGTCTGACTAC-1,Non-classical monocytes
+ATTGGTCTTGTCTT-1,Non-classical monocytes
+ATTGTAGATTCCCG-1,Myeloid Dendritic cells
+ATTGTAGATTGCAG-1,Naive B cells
+ATTGTCTGCGTACA-1,Naive B cells
+ATTTAGGAACCATG-1,Classical Monocytes
+ATTTAGGACAGAGG-1,Naive B cells
+ATTTCCGAGATGAA-1,Naive B cells
+ATTTCCGAGTGCTA-1,Naive B cells
+ATTTCGTGTATGGC-1,Natural killer  cells
+ATTTCTCTACTTTC-1,Classical Monocytes
+ATTTCTCTAGCAAA-1,Naive B cells
+ATTTCTCTCACTTT-1,Classical Monocytes
+ATTTCTCTTCCCAC-1,Memory CD4+ T cells
+ATTTGCACAAGATG-1,Naive CD8+ T cells
+CAAAGCACAGCTCA-1,Memory CD4+ T cells
+CAAAGCACCGTAAC-1,Non-classical monocytes
+CAAAGCACGGTAAA-1,Natural killer  cells
+CAAAGCTGAAAGTG-1,Naive B cells
+CAAAGCTGTTGCTT-1,Naive CD8+ T cells
+CAAATATGTGACAC-1,Memory CD4+ T cells
+CAAATTGAGGGCAA-1,Naive CD8+ T cells
+CAAATTGATGGAGG-1,Naive CD8+ T cells
+CAACCAGAAAAGTG-1,Memory CD4+ T cells
+CAACCAGAAGTGCT-1,Naive B cells
+CAACCAGAGTTCAG-1,CD8+ NKT-like cells
+CAACCAGATAGAAG-1,Naive CD8+ T cells
+CAACCGCTGTTCAG-1,Memory CD4+ T cells
+CAACCGCTTTGAGC-1,Naive B cells
+CAACGATGCGCAAT-1,CD8+ NKT-like cells
+CAACGTGACTCCAC-1,CD8+ NKT-like cells
+CAACGTGAGCCATA-1,Natural killer  cells
+CAACGTGATCAAGC-1,Classical Monocytes
+CAAGAAGACCACAA-1,Natural killer  cells
+CAAGAAGACGTCTC-1,CD8+ NKT-like cells
+CAAGAAGATTCTAC-1,Memory CD4+ T cells
+CAAGACTGACCTGA-1,Non-classical monocytes
+CAAGACTGAGTAGA-1,Non-classical monocytes
+CAAGCTGACCATAG-1,Classical Monocytes
+CAAGCTGATCTATC-1,Natural killer  cells
+CAAGGACTGTTCAG-1,Memory CD4+ T cells
+CAAGGACTTCTTTG-1,Natural killer  cells
+CAAGGTTGCTCCAC-1,Naive B cells
+CAAGGTTGTCATTC-1,Non-classical monocytes
+CAAGGTTGTCTGGA-1,Classical Monocytes
+CAAGTCGAAACAGA-1,Non-classical monocytes
+CAAGTCGATAGCGT-1,CD8+ NKT-like cells
+CAATAAACGCCATA-1,Naive CD8+ T cells
+CAATAATGAACTGC-1,Naive CD8+ T cells
+CAATATGACATGGT-1,Naive B cells
+CAATATGACCTTCG-1,Natural killer  cells
+CAATATGACGTTAG-1,Memory CD4+ T cells
+CAATATGAGGAGCA-1,Naive B cells
+CAATCGGAGAAACA-1,Memory CD4+ T cells
+CAATCTACTGACTG-1,Classical Monocytes
+CAATTCACCCAACA-1,Natural killer  cells
+CAATTCACGATAGA-1,Memory CD4+ T cells
+CAATTCACTTGTGG-1,Naive CD8+ T cells
+CAATTCTGCTTGTT-1,CD8+ NKT-like cells
+CAATTCTGGCGTAT-1,Classical Monocytes
+CACAACGATACGAC-1,Memory CD4+ T cells
+CACAATCTTGTTCT-1,Natural killer  cells
+CACAATCTTTCCAT-1,Natural killer  cells
+CACACCTGCTTGAG-1,Memory CD4+ T cells
+CACACCTGTATGGC-1,Naive CD8+ T cells
+CACAGAACCCTTGC-1,Natural killer  cells
+CACAGAACCTGATG-1,Naive B cells
+CACAGATGGGATTC-1,Naive B cells
+CACAGATGGTTTCT-1,Naive CD8+ T cells
+CACAGCCTGATACC-1,Naive B cells
+CACAGCCTTGCCAA-1,Classical Monocytes
+CACAGCCTTGTAGC-1,Memory CD4+ T cells
+CACAGTGATGAAGA-1,CD8+ NKT-like cells
+CACATACTACAGCT-1,Natural killer  cells
+CACATGGAACACGT-1,Naive B cells
+CACATGGAAGTCGT-1,Memory CD4+ T cells
+CACCACTGCCAACA-1,Memory CD4+ T cells
+CACCACTGGCGAAG-1,Natural killer  cells
+CACCCATGTTCTGT-1,Naive CD8+ T cells
+CACCGGGAATCGAC-1,Naive B cells
+CACCGGGACGAGAG-1,Natural killer  cells
+CACCGGGACGTGTA-1,Naive B cells
+CACCGGGACTTCTA-1,Naive B cells
+CACCGGGACTTGCC-1,Natural killer  cells
+CACCGGGATTCGGA-1,Natural killer  cells
+CACCGTACTAAGGA-1,Non-classical monocytes
+CACCGTACTAGCGT-1,Memory CD4+ T cells
+CACCTGACACCCAA-1,Natural killer  cells
+CACCTGACCAGAAA-1,Naive B cells
+CACCTGACCTCAAG-1,Natural killer  cells
+CACCTGACGAAAGT-1,Non-classical monocytes
+CACCTGACTCGTAG-1,Memory CD4+ T cells
+CACGAAACTTCCGC-1,Non-classical monocytes
+CACGACCTCGATAC-1,Non-classical monocytes
+CACGCTACAGAAGT-1,Naive CD8+ T cells
+CACGCTACTGTTCT-1,Non-classical monocytes
+CACGCTACTTGACG-1,Naive CD8+ T cells
+CACGGGACAGAGTA-1,Memory CD4+ T cells
+CACGGGACATAAGG-1,Memory CD4+ T cells
+CACGGGACGTAGGG-1,Naive B cells
+CACGGGTGCTTCGC-1,Natural killer  cells
+CACGGGTGGAGGAC-1,Natural killer  cells
+CACGGGTGTGTTTC-1,Naive CD8+ T cells
+CACTAACTCCTAAG-1,Non-classical monocytes
+CACTAACTGAAAGT-1,Memory CD4+ T cells
+CACTAGGATGATGC-1,Non-classical monocytes
+CACTATACCCCGTT-1,Non-classical monocytes
+CACTATACGTTTGG-1,Natural killer  cells
+CACTGAGACAGTCA-1,Naive CD8+ T cells
+CACTGCACTTCATC-1,Memory CD4+ T cells
+CACTGCTGAGACTC-1,Classical Monocytes
+CACTGCTGGAAAGT-1,Naive B cells
+CACTTAACCGAATC-1,Naive B cells
+CACTTAACCGTACA-1,Non-classical monocytes
+CACTTTGACTCTAT-1,Natural killer  cells
+CACTTTGAGCTGTA-1,Naive CD8+ T cells
+CAGAAGCTCTCAAG-1,Memory CD4+ T cells
+CAGACATGAACGGG-1,Memory CD4+ T cells
+CAGACATGTCGACA-1,Naive B cells
+CAGACCCTAAGGTA-1,Classical Monocytes
+CAGACCCTAATGCC-1,Naive B cells
+CAGACCCTAGGAGC-1,Naive B cells
+CAGACTGAGTATGC-1,Memory CD4+ T cells
+CAGATCGAATGTCG-1,Non-classical monocytes
+CAGATCGACCTGAA-1,Naive CD8+ T cells
+CAGATCGATATGGC-1,Naive B cells
+CAGATGACATTCTC-1,Classical Monocytes
+CAGCAATGCCTTCG-1,Memory CD4+ T cells
+CAGCAATGGAGGGT-1,Classical Monocytes
+CAGCAATGGTGCTA-1,Memory CD4+ T cells
+CAGCAATGTCTACT-1,Naive CD8+ T cells
+CAGCAATGTGACCA-1,Naive B cells
+CAGCAATGTGAGGG-1,Naive CD8+ T cells
+CAGCACCTAAGCCT-1,Naive B cells
+CAGCACCTAGGCGA-1,Memory CD4+ T cells
+CAGCACCTGTAGGG-1,CD8+ NKT-like cells
+CAGCATGACAACCA-1,CD8+ NKT-like cells
+CAGCATGAGACGTT-1,Natural killer  cells
+CAGCCTACCCAACA-1,Naive B cells
+CAGCCTTGCTACCC-1,Naive CD8+ T cells
+CAGCCTTGGGGACA-1,Naive B cells
+CAGCGGACACCCTC-1,Memory CD4+ T cells
+CAGCGGACCTTTAC-1,Classical Monocytes
+CAGCGTCTAAAGCA-1,Naive B cells
+CAGCGTCTTATCGG-1,Naive B cells
+CAGCTAGATGTGAC-1,Naive CD8+ T cells
+CAGCTCTGAGGCGA-1,Naive B cells
+CAGCTCTGCAAGCT-1,Natural killer  cells
+CAGCTCTGTCGTAG-1,CD8+ NKT-like cells
+CAGCTCTGTGTGGT-1,Classical Monocytes
+CAGGAACTAACTGC-1,Natural killer  cells
+CAGGAACTCTCAGA-1,Naive CD8+ T cells
+CAGGCCGAACACCA-1,Memory CD4+ T cells
+CAGGCCGAACACGT-1,Naive B cells
+CAGGCCGAACGACT-1,Naive B cells
+CAGGCCGAATCTCT-1,Classical Monocytes
+CAGGCCGACTAGCA-1,Non-classical monocytes
+CAGGGCACCATACG-1,Non-classical monocytes
+CAGGGCACCCAACA-1,Memory CD4+ T cells
+CAGGGCACTCCCGT-1,Naive B cells
+CAGGTAACAGACTC-1,CD8+ NKT-like cells
+CAGGTATGAGTCGT-1,Memory CD4+ T cells
+CAGGTATGTGCTTT-1,Naive B cells
+CAGGTTGAGGATCT-1,Non-classical monocytes
+CAGTGATGGACGGA-1,Non-classical monocytes
+CAGTGATGGCTAAC-1,Natural killer  cells
+CAGTGATGGGACAG-1,Naive B cells
+CAGTGATGTAAGGA-1,Non-classical monocytes
+CAGTGATGTACGCA-1,Non-classical monocytes
+CAGTGTGAACACGT-1,Naive CD8+ T cells
+CAGTGTGATGTCAG-1,Memory CD4+ T cells
+CAGTTACTAAGGTA-1,Non-classical monocytes
+CAGTTACTGATAGA-1,Naive B cells
+CAGTTGGAAAGAGT-1,CD8+ NKT-like cells
+CAGTTGGACATACG-1,Memory CD4+ T cells
+CAGTTTACACACGT-1,Classical Monocytes
+CAGTTTACCCCAAA-1,Memory CD4+ T cells
+CATAAAACGGAGCA-1,Naive CD8+ T cells
+CATAAATGAACTGC-1,Memory CD4+ T cells
+CATAACCTTCTCCG-1,Naive B cells
+CATACTACCTCGAA-1,Naive CD8+ T cells
+CATACTACCTGAAC-1,Memory CD4+ T cells
+CATACTACGTACCA-1,Naive CD8+ T cells
+CATACTTGGGTTAC-1,Classical Monocytes
+CATAGTCTAATCGC-1,Memory CD4+ T cells
+CATAGTCTCACTTT-1,Naive B cells
+CATATAGACTAAGC-1,Myeloid Dendritic cells
+CATATAGATCAGGT-1,Non-classical monocytes
+CATCAACTAGAAGT-1,Naive B cells
+CATCAACTCCCTCA-1,Memory CD4+ T cells
+CATCAGGACTTCCG-1,Classical Monocytes
+CATCAGGATAGCCA-1,Classical Monocytes
+CATCAGGATCCTAT-1,Classical Monocytes
+CATCAGGATGCACA-1,CD8+ NKT-like cells
+CATCAGGATTTCGT-1,Naive CD8+ T cells
+CATCATACCGCATA-1,CD8+ NKT-like cells
+CATCATACGGAGCA-1,Non-classical monocytes
+CATCATACTCAAGC-1,Memory CD4+ T cells
+CATCGCTGGGATCT-1,Naive B cells
+CATCGCTGTGGCAT-1,Non-classical monocytes
+CATCGGCTATGCTG-1,Naive B cells
+CATCGGCTTTGGCA-1,Naive B cells
+CATCTCCTATGTGC-1,Non-classical monocytes
+CATCTCCTCGAACT-1,Classical Monocytes
+CATGAGACACGGGA-1,Non-classical monocytes
+CATGAGACGTTGAC-1,Classical Monocytes
+CATGAGACTCGCCT-1,Memory CD4+ T cells
+CATGCCACGGGTGA-1,Memory CD4+ T cells
+CATGCCACTGCCAA-1,Naive B cells
+CATGCGCTAGTCAC-1,Classical Monocytes
+CATGCGCTCAGATC-1,Naive CD8+ T cells
+CATGCGCTTTGCAG-1,Classical Monocytes
+CATGGCCTAGGGTG-1,Naive CD8+ T cells
+CATGGCCTGTGCAT-1,Memory CD4+ T cells
+CATGTACTATCGTG-1,Natural killer  cells
+CATGTTACAGTCGT-1,Natural killer  cells
+CATGTTACCTGAGT-1,Naive B cells
+CATGTTTGGGGATG-1,CD8+ NKT-like cells
+CATTACACACGGAG-1,Non-classical monocytes
+CATTACACCAACTG-1,Classical Monocytes
+CATTACACGGAGTG-1,Memory CD4+ T cells
+CATTACACTACTCT-1,Memory CD4+ T cells
+CATTAGCTCCACAA-1,CD8+ NKT-like cells
+CATTGACTAGCGGA-1,Naive CD8+ T cells
+CATTGGGACTCGAA-1,Naive CD8+ T cells
+CATTGTACAGCGTT-1,Memory CD4+ T cells
+CATTGTACTCGATG-1,Non-classical monocytes
+CATTGTACTTATCC-1,Memory CD4+ T cells
+CATTGTACTTTGCT-1,Classical Monocytes
+CATTGTTGCTAGTG-1,Memory CD4+ T cells
+CATTTCGACTCTAT-1,Natural killer  cells
+CATTTCGAGATACC-1,Classical Monocytes
+CATTTGACCACACA-1,Natural killer  cells
+CATTTGACCCTGAA-1,Natural killer  cells
+CATTTGTGACGACT-1,Non-classical monocytes
+CATTTGTGCATTGG-1,Memory CD4+ T cells
+CATTTGTGCGGAGA-1,Memory CD4+ T cells
+CATTTGTGGGATCT-1,Non-classical monocytes
+CCAAAGTGCTACGA-1,CD8+ NKT-like cells
+CCAAAGTGTGAGAA-1,Naive CD8+ T cells
+CCAACCTGAAGTAG-1,Natural killer  cells
+CCAACCTGACGTAC-1,Naive CD8+ T cells
+CCAACCTGTTCGCC-1,Naive CD8+ T cells
+CCAAGAACCCAATG-1,Naive B cells
+CCAAGAACGTAGCT-1,Memory CD4+ T cells
+CCAAGAACGTGTCA-1,Memory CD4+ T cells
+CCAAGAACTACTGG-1,Natural killer  cells
+CCAAGAACTCCTAT-1,Non-classical monocytes
+CCAAGATGTCATTC-1,Memory CD4+ T cells
+CCAAGATGTTTCAC-1,Naive B cells
+CCAAGTGAGGAACG-1,Memory CD4+ T cells
+CCAAGTGATCAAGC-1,Naive B cells
+CCAATGGAACAGCT-1,Naive CD8+ T cells
+CCAATTTGAACGTC-1,CD8+ NKT-like cells
+CCACCATGAACGTC-1,Memory CD4+ T cells
+CCACCATGATCGGT-1,Memory CD4+ T cells
+CCACCATGGACGAG-1,Classical Monocytes
+CCACCATGGGGAGT-1,Memory CD4+ T cells
+CCACCATGTCCTGC-1,Natural killer  cells
+CCACTGACCCGCTT-1,Naive CD8+ T cells
+CCACTGTGGGAAGC-1,Naive CD8+ T cells
+CCACTGTGTGTAGC-1,Memory CD4+ T cells
+CCACTTCTCGGGAA-1,CD8+ NKT-like cells
+CCAGAAACCCTGTC-1,Non-classical monocytes
+CCAGAAACGAACTC-1,Naive B cells
+CCAGAAACGGTCTA-1,Memory CD4+ T cells
+CCAGACCTCTGAGT-1,Naive CD8+ T cells
+CCAGACCTTGTGGT-1,Naive CD8+ T cells
+CCAGCACTGCGATT-1,Classical Monocytes
+CCAGCGGAAAGGCG-1,Naive CD8+ T cells
+CCAGCGGACGACTA-1,CD8+ NKT-like cells
+CCAGCGGATGGGAG-1,Naive B cells
+CCAGCTACACAGTC-1,Memory CD4+ T cells
+CCAGCTACCAGCTA-1,Non-classical monocytes
+CCAGGTCTACACCA-1,Non-classical monocytes
+CCAGGTCTAGCATC-1,CD8+ NKT-like cells
+CCAGGTCTATGGTC-1,Naive B cells
+CCAGTCACACTGGT-1,Naive CD8+ T cells
+CCAGTCACACTGTG-1,Non-classical monocytes
+CCAGTCACGTTGTG-1,Memory CD4+ T cells
+CCAGTCTGCGGAGA-1,Classical Monocytes
+CCAGTGCTAACCAC-1,Naive B cells
+CCAGTGCTCGTAGT-1,Naive B cells
+CCATCCGAAAGCAA-1,Naive B cells
+CCATCCGAACGACT-1,Naive CD8+ T cells
+CCATCCGAAGGTTC-1,Non-classical monocytes
+CCATCCGATTCGCC-1,Naive CD8+ T cells
+CCATCGTGAACGGG-1,Naive B cells
+CCATCGTGCTAGAC-1,Classical Monocytes
+CCCAACACCTCGCT-1,Non-classical monocytes
+CCCAACACGCATCA-1,Memory CD4+ T cells
+CCCAACACTTTGTC-1,CD8+ NKT-like cells
+CCCAACTGCAATCG-1,Naive CD8+ T cells
+CCCAGACTGCCTTC-1,CD8+ NKT-like cells
+CCCAGACTGGTTTG-1,Non-classical monocytes
+CCCAGACTTTCGCC-1,Classical Monocytes
+CCCAGTTGCAGTTG-1,CD8+ NKT-like cells
+CCCAGTTGGGTACT-1,Natural killer  cells
+CCCAGTTGTCTATC-1,Non-classical monocytes
+CCCGATTGTGTTTC-1,Naive B cells
+CCCGGAGAAGGGTG-1,Naive CD8+ T cells
+CCCTACGAATTGGC-1,Naive CD8+ T cells
+CCCTAGTGCAAAGA-1,Naive B cells
+CCCTCAGACACTTT-1,Non-classical monocytes
+CCCTCAGACGAGAG-1,Memory CD4+ T cells
+CCCTCAGAGGTCAT-1,Memory CD4+ T cells
+CCCTGAACTAAAGG-1,Non-classical monocytes
+CCCTGATGCAACCA-1,Memory CD4+ T cells
+CCCTGATGCAAGCT-1,Non-classical monocytes
+CCCTTACTAACCAC-1,CD8+ NKT-like cells
+CCCTTACTGCAGTT-1,Naive CD8+ T cells
+CCGAAAACCTTGTT-1,CD8+ NKT-like cells
+CCGACACTGGTTTG-1,Naive B cells
+CCGACTACCCAGTA-1,CD8+ NKT-like cells
+CCGACTACCGTGTA-1,Naive CD8+ T cells
+CCGACTACTGAGGG-1,Naive B cells
+CCGATAGACCTAAG-1,Naive CD8+ T cells
+CCGATAGAGTTGGT-1,CD8+ NKT-like cells
+CCGCGAGACACACA-1,CD8+ NKT-like cells
+CCGCGAGAGGTTCA-1,Natural killer  cells
+CCGCTATGGGACGA-1,Non-classical monocytes
+CCGCTATGTGCAAC-1,CD8+ NKT-like cells
+CCGCTATGTGCACA-1,CD8+ NKT-like cells
+CCGGTACTGTCCTC-1,Naive B cells
+CCGTACACAAGCAA-1,Memory CD4+ T cells
+CCGTACACAGCGTT-1,Non-classical monocytes
+CCGTACACGTCATG-1,Natural killer  cells
+CCGTACACGTTGGT-1,CD8+ NKT-like cells
+CCGTACACTAACGC-1,Natural killer  cells
+CCTAAACTTTCGTT-1,Memory CD4+ T cells
+CCTAAGGACCCAAA-1,Memory CD4+ T cells
+CCTAAGGACTAGCA-1,Naive CD8+ T cells
+CCTAAGGAGGGCAA-1,Naive CD8+ T cells
+CCTAAGGATGATGC-1,Memory CD4+ T cells
+CCTAAGGATGTCAG-1,Memory CD4+ T cells
+CCTACCGACTCTTA-1,Memory CD4+ T cells
+CCTACCGAGGGATG-1,Non-classical monocytes
+CCTAGAGAGGTGAG-1,Non-classical monocytes
+CCTATAACCAAAGA-1,Memory CD4+ T cells
+CCTATAACGAGACG-1,Classical Monocytes
+CCTATAACTCAGAC-1,Memory CD4+ T cells
+CCTATAACTGCATG-1,Classical Monocytes
+CCTCGAACACTTTC-1,Classical Monocytes
+CCTCGAACCCGTAA-1,Classical Monocytes
+CCTCGAACGTATCG-1,Memory CD4+ T cells
+CCTCGAACTTACTC-1,Naive B cells
+CCTCTACTCTTCGC-1,CD8+ NKT-like cells
+CCTCTACTGGCATT-1,Memory CD4+ T cells
+CCTGACTGAAGTAG-1,Natural killer  cells
+CCTGACTGGGGAGT-1,Memory CD4+ T cells
+CCTGACTGTGTCTT-1,Non-classical monocytes
+CCTGCAACACGTTG-1,CD8+ NKT-like cells
+CCTGGACTCGTGAT-1,Memory CD4+ T cells
+CCTTAATGCCCAAA-1,Non-classical monocytes
+CCTTAATGTTCTAC-1,Classical Monocytes
+CCTTCACTACGACT-1,Memory CD4+ T cells
+CCTTCACTCAGTCA-1,Non-classical monocytes
+CCTTCACTGGAGTG-1,Naive CD8+ T cells
+CCTTTAGATTCATC-1,CD8+ NKT-like cells
+CGAACATGCCCTAC-1,CD8+ NKT-like cells
+CGAACATGTCAGAC-1,Naive B cells
+CGAAGACTGGAACG-1,Natural killer  cells
+CGAAGACTGTTACG-1,Memory CD4+ T cells
+CGAAGGGAAACCTG-1,Natural killer  cells
+CGAAGGGATCCGAA-1,Non-classical monocytes
+CGAAGTACCAACTG-1,Non-classical monocytes
+CGAATCGAGGAGCA-1,Naive CD8+ T cells
+CGAATCGAGGAGGT-1,Memory CD4+ T cells
+CGACAAACCCATAG-1,Naive B cells
+CGACAAACCGACAT-1,Non-classical monocytes
+CGACCACTAAAGTG-1,Classical Monocytes
+CGACCACTGCCAAT-1,Classical Monocytes
+CGACCGGAAGGTCT-1,Memory CD4+ T cells
+CGACCGGATGGAAA-1,Naive B cells
+CGACCTTGCTAGTG-1,Naive B cells
+CGACCTTGGCAAGG-1,Naive CD8+ T cells
+CGACGTCTATCGTG-1,Natural killer  cells
+CGACGTCTCGTGTA-1,Naive B cells
+CGACGTCTGAGGCA-1,Naive CD8+ T cells
+CGACTCACGTCGTA-1,Memory CD4+ T cells
+CGACTCACGTTGCA-1,Naive CD8+ T cells
+CGACTCTGTGTGAC-1,Naive B cells
+CGACTGCTTCCTCG-1,Naive CD8+ T cells
+CGAGAACTAAGGCG-1,Natural killer  cells
+CGAGAACTACGTTG-1,Memory CD4+ T cells
+CGAGAACTTGTTCT-1,CD8+ NKT-like cells
+CGAGATTGGACACT-1,Natural killer  cells
+CGAGATTGGCCATA-1,Naive CD8+ T cells
+CGAGCCGAACACCA-1,Naive B cells
+CGAGCCGACGACAT-1,Natural killer  cells
+CGAGCCGAGGCGAA-1,Naive B cells
+CGAGCGTGCTCCAC-1,Naive B cells
+CGAGCGTGGATACC-1,Naive B cells
+CGAGCGTGTATGCG-1,Naive CD8+ T cells
+CGAGGAGACCTCCA-1,Non-classical monocytes
+CGAGGAGATGTCGA-1,Naive CD8+ T cells
+CGAGGCACCTATGG-1,Natural killer  cells
+CGAGGCACTATGCG-1,CD8+ NKT-like cells
+CGAGGCACTCTTCA-1,Natural killer  cells
+CGAGGCTGACGCTA-1,Classical Monocytes
+CGAGGCTGGCAGTT-1,CD8+ NKT-like cells
+CGAGGGCTACGACT-1,Non-classical monocytes
+CGAGGGCTCGAATC-1,Naive CD8+ T cells
+CGAGTATGTCACCC-1,Classical Monocytes
+CGATACGAACAGTC-1,CD8+ NKT-like cells
+CGATACGACAGGAG-1,Classical Monocytes
+CGATACGATTCACT-1,Non-classical monocytes
+CGATAGACCCGTAA-1,Naive CD8+ T cells
+CGATAGACCGTACA-1,Naive B cells
+CGATAGACGTAGGG-1,Naive CD8+ T cells
+CGATAGACTGTTCT-1,Naive B cells
+CGATCAGAAGAACA-1,Natural killer  cells
+CGATCAGAGAGGGT-1,Naive B cells
+CGATCAGAGGTACT-1,Naive B cells
+CGATCAGATGTGAC-1,Myeloid Dendritic cells
+CGATCCACCGGGAA-1,Natural killer  cells
+CGATCCACTTCCAT-1,Non-classical monocytes
+CGCAAATGCTCGAA-1,Naive CD8+ T cells
+CGCAACCTCCTTGC-1,Memory CD4+ T cells
+CGCAACCTGGACGA-1,Memory CD4+ T cells
+CGCACGGAGGACGA-1,Non-classical monocytes
+CGCACGGATCTTTG-1,Naive CD8+ T cells
+CGCACTACAGAATG-1,Memory CD4+ T cells
+CGCACTACAGCCAT-1,Naive B cells
+CGCACTACATTGGC-1,Naive B cells
+CGCACTACTCGCCT-1,Non-classical monocytes
+CGCACTACTCGTGA-1,Natural killer  cells
+CGCACTTGTCACGA-1,CD8+ NKT-like cells
+CGCAGGACAGATCC-1,Natural killer  cells
+CGCAGGACCTACTT-1,Naive CD8+ T cells
+CGCAGGACTTGTCT-1,Classical Monocytes
+CGCAGGTGCACTGA-1,Naive B cells
+CGCAGGTGCCATAG-1,Classical Monocytes
+CGCAGGTGGGAACG-1,Naive B cells
+CGCATAGATCACGA-1,Naive CD8+ T cells
+CGCCATACTGCAAC-1,Naive B cells
+CGCCATTGAGAGGC-1,Memory CD4+ T cells
+CGCCATTGCTATGG-1,Naive B cells
+CGCCATTGGAGACG-1,Naive B cells
+CGCCATTGGAGCAG-1,Non-classical monocytes
+CGCCATTGTACTGG-1,Non-classical monocytes
+CGCCGAGAGCTTAG-1,Classical Monocytes
+CGCCTAACGAATGA-1,CD8+ NKT-like cells
+CGCCTAACTGCTCC-1,Naive B cells
+CGCGAGACACAGCT-1,Natural killer  cells
+CGCGAGACAGGTCT-1,Non-classical monocytes
+CGCGAGACGCTACA-1,Naive B cells
+CGCGATCTCAGTCA-1,CD8+ NKT-like cells
+CGCGATCTGTTGAC-1,Naive CD8+ T cells
+CGCGATCTTTCTTG-1,Non-classical monocytes
+CGCGGATGGCCAAT-1,Naive B cells
+CGCTAAGAATGTCG-1,Naive B cells
+CGCTAAGACAACTG-1,Memory CD4+ T cells
+CGCTAAGACCCTTG-1,Memory CD4+ T cells
+CGCTACTGAACAGA-1,CD8+ NKT-like cells
+CGCTACTGAGAACA-1,Memory CD4+ T cells
+CGCTACTGTGAGCT-1,Memory CD4+ T cells
+CGCTACTGTTCCCG-1,Natural killer  cells
+CGCTCATGCATTTC-1,Naive CD8+ T cells
+CGGAATTGCACTAG-1,Naive CD8+ T cells
+CGGAATTGGTTTGG-1,Naive B cells
+CGGAATTGTGGAGG-1,Naive B cells
+CGGACCGATGCGTA-1,Natural killer  cells
+CGGACCGATGGGAG-1,Naive CD8+ T cells
+CGGACTCTAAACAG-1,Non-classical monocytes
+CGGACTCTCCAATG-1,Naive B cells
+CGGACTCTCCTCGT-1,Natural killer  cells
+CGGAGGCTATTCCT-1,Naive CD8+ T cells
+CGGAGGCTTGGATC-1,Memory CD4+ T cells
+CGGATAACAACGAA-1,CD8+ NKT-like cells
+CGGATAACAGCTCA-1,Naive B cells
+CGGATAACTCAGTG-1,Naive CD8+ T cells
+CGGCACGAACTCAG-1,Natural killer  cells
+CGGCACGAAGGGTG-1,Memory CD4+ T cells
+CGGCACGACTACGA-1,Classical Monocytes
+CGGCATCTTAGAAG-1,Natural killer  cells
+CGGCATCTTCGTAG-1,CD8+ NKT-like cells
+CGGCCAGAAAGGTA-1,Naive B cells
+CGGCCAGAGAGGCA-1,Natural killer  cells
+CGGCGAACCAGTCA-1,CD8+ NKT-like cells
+CGGCGAACGACAAA-1,Classical Monocytes
+CGGCGAACGGTCTA-1,Memory CD4+ T cells
+CGGCGAACTACTTC-1,Classical Monocytes
+CGGGACTGCGTGTA-1,Memory CD4+ T cells
+CGGGACTGGAATAG-1,Natural killer  cells
+CGGGCATGACCCAA-1,Naive CD8+ T cells
+CGGGCATGTCTCTA-1,Natural killer  cells
+CGGGCATGTTGTGG-1,Memory CD4+ T cells
+CGGTAAACTCGCAA-1,Naive B cells
+CGGTCACTGTTTGG-1,Naive B cells
+CGGTCACTTACTTC-1,Naive B cells
+CGTAACGAATCAGC-1,Naive CD8+ T cells
+CGTAACGATCGCCT-1,Naive B cells
+CGTACCACACACAC-1,Memory CD4+ T cells
+CGTACCACACGTTG-1,Memory CD4+ T cells
+CGTACCACCTCATT-1,Memory CD4+ T cells
+CGTACCACGCTACA-1,Naive CD8+ T cells
+CGTACCACGGAGCA-1,Memory CD4+ T cells
+CGTACCTGGACGAG-1,Classical Monocytes
+CGTACCTGGCATCA-1,Classical Monocytes
+CGTAGCCTCTCTCG-1,CD8+ NKT-like cells
+CGTAGCCTGCGAAG-1,Naive B cells
+CGTAGCCTGTATGC-1,CD8+ NKT-like cells
+CGTCAAGAAAGGTA-1,Naive CD8+ T cells
+CGTCAAGAACGTGT-1,Naive B cells
+CGTCAAGACAGAGG-1,Naive B cells
+CGTCAAGACAGGAG-1,Natural killer  cells
+CGTCCATGCTCTTA-1,Memory CD4+ T cells
+CGTCGACTTTCCGC-1,Natural killer  cells
+CGTGATGACGCTAA-1,Memory CD4+ T cells
+CGTGATGAGGTTCA-1,Naive B cells
+CGTGCACTTATGGC-1,CD8+ NKT-like cells
+CGTGTAGAAAAACG-1,Naive B cells
+CGTGTAGACGATAC-1,Natural killer  cells
+CGTGTAGAGTTACG-1,Classical Monocytes
+CGTGTAGAGTTCAG-1,Naive CD8+ T cells
+CGTGTAGATTCGGA-1,Classical Monocytes
+CGTTAGGAAACCAC-1,Memory CD4+ T cells
+CGTTAGGATCATTC-1,CD8+ NKT-like cells
+CGTTATACCCTGAA-1,Natural killer  cells
+CGTTTAACTGGTCA-1,Naive B cells
+CTAAACCTCTGACA-1,Classical Monocytes
+CTAAACCTGTGCAT-1,Non-classical monocytes
+CTAACACTAACGTC-1,Naive B cells
+CTAACACTAGTGCT-1,CD8+ NKT-like cells
+CTAACGGAACCGAT-1,Classical Monocytes
+CTAACGGATTTCTG-1,Memory CD4+ T cells
+CTAACTACGGCAAG-1,Naive CD8+ T cells
+CTAAGGACACCATG-1,Memory CD4+ T cells
+CTAAGGACCGTTAG-1,Naive B cells
+CTAAGGACGCCATA-1,CD8+ NKT-like cells
+CTAAGGTGCCTAAG-1,Non-classical monocytes
+CTAAGGTGTTGCAG-1,Naive B cells
+CTAAGGTGTTTCTG-1,Naive CD8+ T cells
+CTAATAGAGCTATG-1,Naive CD8+ T cells
+CTAATGCTTGTGGT-1,CD8+ NKT-like cells
+CTACAACTCCCGTT-1,Natural killer  cells
+CTACCTCTCAACCA-1,Natural killer  cells
+CTACGCACACCTAG-1,Classical Monocytes
+CTACGCACTCTCCG-1,Naive B cells
+CTACGCACTGGTCA-1,Classical Monocytes
+CTACGGCTTTCTTG-1,CD8+ NKT-like cells
+CTACTATGAACCAC-1,CD8+ NKT-like cells
+CTACTATGATGTGC-1,Naive CD8+ T cells
+CTACTATGCTAAGC-1,Naive B cells
+CTACTATGTAAAGG-1,Non-classical monocytes
+CTACTCCTATGTCG-1,Classical Monocytes
+CTACTCCTGCCATA-1,Naive CD8+ T cells
+CTAGAGACACTTTC-1,Naive B cells
+CTAGAGACAGCATC-1,Natural killer  cells
+CTAGAGACTTTGGG-1,Classical Monocytes
+CTAGATCTCTCTAT-1,Naive B cells
+CTAGATCTTCGACA-1,Naive B cells
+CTAGGATGAGCCTA-1,Non-classical monocytes
+CTAGGATGATCGTG-1,Non-classical monocytes
+CTAGGCCTCTCAGA-1,Naive B cells
+CTAGGTGATGGTTG-1,Classical Monocytes
+CTAGTTACCAGAGG-1,Memory CD4+ T cells
+CTAGTTACCGCATA-1,Memory CD4+ T cells
+CTAGTTACGAAACA-1,Classical Monocytes
+CTAGTTTGAGTACC-1,Natural killer  cells
+CTATAAGATCGTTT-1,Non-classical monocytes
+CTATACTGAGGTTC-1,Naive CD8+ T cells
+CTATACTGCCAGTA-1,Memory CD4+ T cells
+CTATACTGCGCTAA-1,Naive CD8+ T cells
+CTATACTGCTACGA-1,Classical Monocytes
+CTATACTGTCTCAT-1,Classical Monocytes
+CTATACTGTTCGTT-1,Naive B cells
+CTATAGCTGTCACA-1,Naive CD8+ T cells
+CTATAGCTTCGCTC-1,CD8+ NKT-like cells
+CTATAGCTTGCCTC-1,CD8+ NKT-like cells
+CTATCAACGAACTC-1,Memory CD4+ T cells
+CTATCAACGCAGAG-1,Naive B cells
+CTATCAACTTTGGG-1,Memory CD4+ T cells
+CTATCCCTCCACCT-1,Naive CD8+ T cells
+CTATGTACGAGAGC-1,Memory CD4+ T cells
+CTATGTACGCTTAG-1,Naive B cells
+CTATGTACTGTTTC-1,Non-classical monocytes
+CTATGTTGAAAGCA-1,Naive B cells
+CTATGTTGTCCTCG-1,Memory CD4+ T cells
+CTATGTTGTCTCGC-1,Naive B cells
+CTATTGACAAACGA-1,Naive CD8+ T cells
+CTATTGACACTGGT-1,CD8+ NKT-like cells
+CTATTGACGGTGAG-1,CD8+ NKT-like cells
+CTATTGTGGCAAGG-1,Naive CD8+ T cells
+CTCAATTGGTTCAG-1,Naive B cells
+CTCAATTGGTTGCA-1,Naive CD8+ T cells
+CTCAGAGATAGAAG-1,Memory CD4+ T cells
+CTCAGCACTCTAGG-1,Naive B cells
+CTCAGCACTGAACC-1,Naive CD8+ T cells
+CTCAGCACTTGCAG-1,Memory CD4+ T cells
+CTCAGCTGAACCTG-1,Naive CD8+ T cells
+CTCAGCTGCAGTTG-1,Naive B cells
+CTCAGCTGTTTCTG-1,Naive CD8+ T cells
+CTCAGGCTCGTTGA-1,Classical Monocytes
+CTCAGGCTGCTAAC-1,Naive B cells
+CTCATTGACCTTAT-1,Naive B cells
+CTCATTGATGCTTT-1,CD8+ NKT-like cells
+CTCATTGATTGCTT-1,Naive CD8+ T cells
+CTCCACGAGAGATA-1,Myeloid Dendritic cells
+CTCCATCTCTTAGG-1,Memory CD4+ T cells
+CTCCATCTGACGAG-1,Memory CD4+ T cells
+CTCCGAACAAGTGA-1,Classical Monocytes
+CTCCTACTGCCTTC-1,Naive CD8+ T cells
+CTCGAAGATGTGGT-1,Memory CD4+ T cells
+CTCGAAGATTAGGC-1,CD8+ NKT-like cells
+CTCGACTGCTCTAT-1,Naive CD8+ T cells
+CTCGACTGGGTGAG-1,Memory CD4+ T cells
+CTCGACTGGTTGAC-1,Classical Monocytes
+CTCGAGCTCTGGAT-1,Natural killer  cells
+CTCGCATGACTTTC-1,Natural killer  cells
+CTCGCATGCTTAGG-1,Memory CD4+ T cells
+CTCTAAACCTCGAA-1,Memory CD4+ T cells
+CTCTAAACGGCGAA-1,Naive CD8+ T cells
+CTCTAATGTCCAAG-1,CD8+ NKT-like cells
+CTGAACGACAGTCA-1,Naive B cells
+CTGAACGATGAGGG-1,Naive B cells
+CTGAAGACCCAACA-1,Naive B cells
+CTGAAGACGTGCAT-1,Non-classical monocytes
+CTGAAGTGAAGCCT-1,Classical Monocytes
+CTGAAGTGCAGCTA-1,Non-classical monocytes
+CTGAAGTGGCTATG-1,Memory CD4+ T cells
+CTGAAGTGTCCAGA-1,Memory CD4+ T cells
+CTGAATCTGAATAG-1,Naive B cells
+CTGACAGAATCGTG-1,Natural killer  cells
+CTGACCACAGCAAA-1,Memory CD4+ T cells
+CTGAGAACCGGGAA-1,Naive B cells
+CTGAGAACGTAAAG-1,Classical Monocytes
+CTGATACTAGTAGA-1,Naive CD8+ T cells
+CTGATTTGGTGTTG-1,CD8+ NKT-like cells
+CTGCAGCTAACCGT-1,Memory CD4+ T cells
+CTGCAGCTGACACT-1,Memory CD4+ T cells
+CTGCAGCTGGATTC-1,CD8+ NKT-like cells
+CTGCAGCTTGGCAT-1,Natural killer  cells
+CTGCCAACAGGAGC-1,Natural killer  cells
+CTGCCAACCAGCTA-1,Memory CD4+ T cells
+CTGCCAACTAACCG-1,CD8+ NKT-like cells
+CTGCCAACTGCTCC-1,Natural killer  cells
+CTGCCAACTTGCAG-1,Memory CD4+ T cells
+CTGCCAACTTGCTT-1,Natural killer  cells
+CTGCGACTCCACCT-1,Naive CD8+ T cells
+CTGGAAACAAACGA-1,Natural killer  cells
+CTGGAAACATCGAC-1,Memory CD4+ T cells
+CTGGATGACTGGAT-1,Natural killer  cells
+CTGGATGACTTGTT-1,Naive B cells
+CTGGATGATGTGAC-1,Non-classical monocytes
+CTGGCACTCAAGCT-1,CD8+ NKT-like cells
+CTGGCACTGGACAG-1,Natural killer  cells
+CTGTAACTAACCAC-1,Naive B cells
+CTGTAACTAGCGTT-1,Memory CD4+ T cells
+CTGTATACGTAAAG-1,Naive CD8+ T cells
+CTGTATACGTACGT-1,CD8+ NKT-like cells
+CTGTATACGTTGGT-1,Naive B cells
+CTGTGAGACAACCA-1,Classical Monocytes
+CTGTGAGACCTTGC-1,Natural killer  cells
+CTGTGAGACGAACT-1,Naive CD8+ T cells
+CTGTGAGACTGTAG-1,CD8+ NKT-like cells
+CTTAAAGAACCTGA-1,Memory CD4+ T cells
+CTTAACACCTGTAG-1,Naive B cells
+CTTAACACGAGCTT-1,Naive B cells
+CTTAACACTATCGG-1,Non-classical monocytes
+CTTAAGCTACCTAG-1,Memory CD4+ T cells
+CTTAAGCTAGTACC-1,Memory CD4+ T cells
+CTTAAGCTCATCAG-1,Memory CD4+ T cells
+CTTAAGCTCCGCTT-1,Non-classical monocytes
+CTTAAGCTTCCTCG-1,Natural killer  cells
+CTTACAACTAACGC-1,Naive B cells
+CTTACAACTCCCGT-1,Naive CD8+ T cells
+CTTACTGACGTACA-1,Memory CD4+ T cells
+CTTAGACTAAACGA-1,Naive B cells
+CTTAGGGACTTGCC-1,Naive B cells
+CTTAGGGAGAATCC-1,Memory CD4+ T cells
+CTTATCGACTCATT-1,Naive B cells
+CTTCACCTACCTGA-1,Classical Monocytes
+CTTCATGAAGCATC-1,Non-classical monocytes
+CTTCATGAAGTACC-1,Naive CD8+ T cells
+CTTCATGACCGAAT-1,Naive CD8+ T cells
+CTTGAACTACGCAT-1,Naive B cells
+CTTGATTGAGGTTC-1,Natural killer  cells
+CTTGATTGATCTTC-1,Platelets
+CTTGATTGCATTCT-1,Naive B cells
+CTTGATTGTTTCGT-1,Naive B cells
+CTTGTATGACACCA-1,Non-classical monocytes
+CTTGTATGCGCAAT-1,Non-classical monocytes
+CTTTACGAGCGAAG-1,Memory CD4+ T cells
+CTTTAGACCGTGAT-1,Naive CD8+ T cells
+CTTTAGACGAGACG-1,Naive B cells
+CTTTAGACGATACC-1,Naive B cells
+CTTTAGACGTTGGT-1,Natural killer  cells
+CTTTAGACTCATTC-1,Natural killer  cells
+CTTTAGTGACGGGA-1,Classical Monocytes
+CTTTAGTGGGTGGA-1,Naive CD8+ T cells
+CTTTCAGAGAAACA-1,Memory CD4+ T cells
+CTTTGATGAGCACT-1,Naive B cells
+CTTTGATGTCTAGG-1,Natural killer  cells
+CTTTGATGTGTCCC-1,Naive B cells
+CTTTGATGTGTGGT-1,Memory CD4+ T cells
+GAAACAGAACTACG-1,Memory CD4+ T cells
+GAAACAGAATCACG-1,Memory CD4+ T cells
+GAAACAGACATTCT-1,Memory CD4+ T cells
+GAAACCTGATCGTG-1,Memory CD4+ T cells
+GAAACCTGATGCCA-1,Naive B cells
+GAAACCTGCTTATC-1,Memory CD4+ T cells
+GAAACCTGGACTAC-1,Classical Monocytes
+GAAACCTGTGCTAG-1,Naive B cells
+GAAAGATGATTTCC-1,Naive B cells
+GAAAGATGCTGATG-1,Classical Monocytes
+GAAAGATGCTTCGC-1,Naive CD8+ T cells
+GAAAGATGTAAGGA-1,Naive CD8+ T cells
+GAAAGATGTTTGCT-1,Natural killer  cells
+GAAAGCCTACGTTG-1,Non-classical monocytes
+GAAAGTGAAAGTGA-1,Myeloid Dendritic cells
+GAAAGTGACCACAA-1,Myeloid Dendritic cells
+GAAAGTGACTCAAG-1,Naive B cells
+GAAATACTACCAAC-1,Naive CD8+ T cells
+GAAATACTCTTAGG-1,Non-classical monocytes
+GAAATACTTCCTCG-1,Naive B cells
+GAACACACGTGCAT-1,CD8+ NKT-like cells
+GAACACACTGCCTC-1,Memory CD4+ T cells
+GAACAGCTAACTGC-1,CD8+ NKT-like cells
+GAACAGCTCTCAGA-1,Classical Monocytes
+GAACCAACCACAAC-1,Naive CD8+ T cells
+GAACCAACTTCCGC-1,Classical Monocytes
+GAACCTGAACGTGT-1,Naive B cells
+GAACCTGAGAGACG-1,Memory CD4+ T cells
+GAACCTGATGAACC-1,Naive B cells
+GAACGGGATACTTC-1,Memory CD4+ T cells
+GAACGTTGACGGAG-1,Natural killer  cells
+GAACTGTGACCTGA-1,Classical Monocytes
+GAACTGTGCCAGTA-1,CD8+ NKT-like cells
+GAAGAATGCAATCG-1,Memory CD4+ T cells
+GAAGCGGACCTATT-1,CD8+ NKT-like cells
+GAAGCTACGAATGA-1,CD8+ NKT-like cells
+GAAGCTACGGTTTG-1,Naive B cells
+GAAGGGTGAAAGTG-1,Naive B cells
+GAAGGGTGCTTAGG-1,CD8+ NKT-like cells
+GAAGGTCTGAAAGT-1,Naive B cells
+GAAGGTCTGTTGCA-1,Memory CD4+ T cells
+GAAGGTCTTAAAGG-1,Myeloid Dendritic cells
+GAAGTAGACTCCCA-1,Natural killer  cells
+GAAGTAGATCCAAG-1,Classical Monocytes
+GAAGTCACCCTCGT-1,Naive CD8+ T cells
+GAAGTCACCCTGTC-1,Non-classical monocytes
+GAAGTCTGTCGCAA-1,Non-classical monocytes
+GAAGTCTGTTCTGT-1,Naive CD8+ T cells
+GAAGTGCTAAACGA-1,Classical Monocytes
+GAAGTGCTCCGCTT-1,CD8+ NKT-like cells
+GAAGTGCTTAACCG-1,Naive B cells
+GAATGCACCCTAAG-1,Naive B cells
+GAATGCACCTTCGC-1,Classical Monocytes
+GAATGCTGCGGTAT-1,Memory CD4+ T cells
+GAATGGCTAAGATG-1,Naive CD8+ T cells
+GAATTAACGATAAG-1,Memory CD4+ T cells
+GAATTAACGGTCAT-1,Memory CD4+ T cells
+GAATTAACGTCGTA-1,Classical Monocytes
+GAATTAACTGAAGA-1,Non-classical monocytes
+GACAACACAGGCGA-1,Memory CD4+ T cells
+GACAACACATCGTG-1,Memory CD4+ T cells
+GACAACACTCGCCT-1,Naive B cells
+GACAACTGAGGTTC-1,Naive B cells
+GACAGGGAAGAGTA-1,Non-classical monocytes
+GACAGGGAATGCCA-1,Naive B cells
+GACAGTACGAGCTT-1,Classical Monocytes
+GACAGTACTTCGGA-1,Classical Monocytes
+GACAGTTGAGTAGA-1,Non-classical monocytes
+GACATTCTCCACCT-1,Myeloid Dendritic cells
+GACCAAACGACTAC-1,CD8+ NKT-like cells
+GACCAAACGTATCG-1,CD8+ NKT-like cells
+GACCATGACTCTCG-1,Naive CD8+ T cells
+GACCCTACTAAAGG-1,Non-classical monocytes
+GACCTAGACCTCAC-1,Naive CD8+ T cells
+GACCTAGACGAGAG-1,Naive B cells
+GACCTCACAAGGTA-1,Naive CD8+ T cells
+GACCTCACGTACGT-1,CD8+ NKT-like cells
+GACCTCTGCATCAG-1,Naive B cells
+GACGAACTCCCACT-1,Memory CD4+ T cells
+GACGATTGCCAATG-1,Non-classical monocytes
+GACGCCGACCTTCG-1,Naive B cells
+GACGCTCTCTCTCG-1,Platelets
+GACGGCACACGGGA-1,Classical Monocytes
+GACGGCACGAGATA-1,CD8+ NKT-like cells
+GACGTAACCTATGG-1,Memory CD4+ T cells
+GACGTAACCTGTGA-1,Naive B cells
+GACGTAACTATGGC-1,Naive B cells
+GACGTATGTTGACG-1,Memory CD4+ T cells
+GACGTATGTTTGCT-1,Memory CD4+ T cells
+GACGTCCTACGGAG-1,Naive B cells
+GACGTCCTCTCAAG-1,CD8+ NKT-like cells
+GACGTCCTGATAAG-1,Non-classical monocytes
+GACTACGATGGTCA-1,Non-classical monocytes
+GACTCCTGCTCGCT-1,Memory CD4+ T cells
+GACTCCTGGGTTAC-1,Memory CD4+ T cells
+GACTCCTGTTATCC-1,Naive B cells
+GACTCCTGTTGGTG-1,CD8+ NKT-like cells
+GACTGAACAACCGT-1,Non-classical monocytes
+GACTGAACCAATCG-1,Naive CD8+ T cells
+GACTGATGTGATGC-1,Memory CD4+ T cells
+GACTTTACATGCCA-1,Memory CD4+ T cells
+GACTTTACGACAGG-1,Non-classical monocytes
+GAGAAATGTTCTCA-1,Non-classical monocytes
+GAGATAGAAAAAGC-1,CD8+ NKT-like cells
+GAGATCACGACAAA-1,Classical Monocytes
+GAGATGCTCTGGAT-1,Natural killer  cells
+GAGATGCTGAATGA-1,Naive B cells
+GAGCAGGATTCCCG-1,Natural killer  cells
+GAGCATACTTTGCT-1,Classical Monocytes
+GAGCGCACGCGTAT-1,Naive CD8+ T cells
+GAGCGCACGGTGAG-1,Naive CD8+ T cells
+GAGCGCTGAAGATG-1,Classical Monocytes
+GAGCGCTGTCTTAC-1,Naive CD8+ T cells
+GAGCGGCTGGGAGT-1,Non-classical monocytes
+GAGGACGACTCAGA-1,Naive CD8+ T cells
+GAGGATCTGAAAGT-1,Non-classical monocytes
+GAGGCAGACTTGCC-1,Natural killer  cells
+GAGGGAACACCAGT-1,Naive B cells
+GAGGGAACGAGGGT-1,Naive B cells
+GAGGGATGGGAAAT-1,Memory CD4+ T cells
+GAGGGCCTTCACCC-1,Naive B cells
+GAGGGTGAAGAGTA-1,Memory CD4+ T cells
+GAGGTACTACGGTT-1,Memory CD4+ T cells
+GAGGTACTACTCAG-1,Naive CD8+ T cells
+GAGGTACTGACACT-1,Classical Monocytes
+GAGGTACTGGGAGT-1,Memory CD4+ T cells
+GAGGTACTTAGCGT-1,CD8+ NKT-like cells
+GAGGTGGAGTACGT-1,Memory CD4+ T cells
+GAGGTGGATCCTCG-1,Classical Monocytes
+GAGGTTACTCGTTT-1,CD8+ NKT-like cells
+GAGGTTTGTAAGCC-1,Naive CD8+ T cells
+GAGTCAACCATTCT-1,Naive CD8+ T cells
+GAGTCAACGGGAGT-1,Memory CD4+ T cells
+GAGTCTGATCGTGA-1,Naive B cells
+GAGTCTGATTTGGG-1,Non-classical monocytes
+GAGTGACTCAGCTA-1,Naive B cells
+GAGTGACTCGGTAT-1,Natural killer  cells
+GAGTGACTCTTGCC-1,Non-classical monocytes
+GAGTGACTGACTAC-1,Non-classical monocytes
+GAGTGACTGTCTAG-1,Memory CD4+ T cells
+GAGTGGGAGTCTTT-1,Non-classical monocytes
+GAGTGGGATGCCCT-1,Memory CD4+ T cells
+GAGTGGGATGCTGA-1,Non-classical monocytes
+GAGTGTTGCTGTAG-1,Naive B cells
+GAGTGTTGTGGTCA-1,Memory CD4+ T cells
+GAGTTGTGCATGGT-1,Naive CD8+ T cells
+GAGTTGTGCTGAGT-1,Natural killer  cells
+GAGTTGTGGCGAGA-1,Naive CD8+ T cells
+GAGTTGTGGTAGCT-1,Platelets
+GAGTTGTGTATGCG-1,Classical Monocytes
+GATAAGGAGAAACA-1,Naive CD8+ T cells
+GATAAGGATTCACT-1,Naive CD8+ T cells
+GATACTCTATCGGT-1,Memory CD4+ T cells
+GATACTCTTACTTC-1,Memory CD4+ T cells
+GATACTCTTGACTG-1,CD8+ NKT-like cells
+GATAGAGAAGGGTG-1,Natural killer  cells
+GATAGAGACTGTGA-1,Naive B cells
+GATAGAGATCACGA-1,Myeloid Dendritic cells
+GATAGCACCCATAG-1,Naive B cells
+GATAGCACGAAGGC-1,CD8+ NKT-like cells
+GATAGCACTTGTCT-1,Memory CD4+ T cells
+GATATAACAAGGTA-1,Naive B cells
+GATATAACACGCAT-1,Memory CD4+ T cells
+GATATATGCTGGAT-1,Memory CD4+ T cells
+GATATATGTCCGTC-1,Natural killer  cells
+GATATATGTGGAGG-1,Naive CD8+ T cells
+GATATCCTAGAAGT-1,Memory CD4+ T cells
+GATATCCTCCCGTT-1,Naive CD8+ T cells
+GATATTGACAGGAG-1,Natural killer  cells
+GATATTGACGAGTT-1,Classical Monocytes
+GATATTGAGCCAAT-1,Memory CD4+ T cells
+GATCCCTGACCTTT-1,Classical Monocytes
+GATCCCTGTGTAGC-1,Natural killer  cells
+GATCCGCTGGTCAT-1,CD8+ NKT-like cells
+GATCGAACCGAGAG-1,Naive B cells
+GATCGATGACTAGC-1,Non-classical monocytes
+GATCGATGGTAAAG-1,Non-classical monocytes
+GATCGATGTAAGGA-1,CD8+ NKT-like cells
+GATCGTGACACTAG-1,Memory CD4+ T cells
+GATCGTGATTCACT-1,Naive B cells
+GATCTACTGGTGAG-1,Natural killer  cells
+GATCTACTTTGCAG-1,Non-classical monocytes
+GATCTTACACCCAA-1,Classical Monocytes
+GATCTTACCCTACC-1,Naive B cells
+GATCTTACGAATAG-1,Naive CD8+ T cells
+GATCTTACGAGATA-1,Naive CD8+ T cells
+GATGCAACTCCAGA-1,Memory CD4+ T cells
+GATGCCCTACGTAC-1,Naive B cells
+GATGCCCTCTCATT-1,Memory CD4+ T cells
+GATGCCCTGGCAAG-1,CD8+ NKT-like cells
+GATGCCCTTTTGCT-1,Naive CD8+ T cells
+GATTACCTTGTTCT-1,Memory CD4+ T cells
+GATTCGGAACGACT-1,Naive CD8+ T cells
+GATTCGGACAGGAG-1,CD8+ NKT-like cells
+GATTCGGAGAAGGC-1,Classical Monocytes
+GATTCTTGATTCGG-1,CD8+ NKT-like cells
+GATTCTTGCCGATA-1,Memory CD4+ T cells
+GATTCTTGCGAGTT-1,Non-classical monocytes
+GATTGGACCCGTTC-1,Non-classical monocytes
+GATTGGACGGTGTT-1,Non-classical monocytes
+GATTGGACTTTCGT-1,Non-classical monocytes
+GATTGGTGTGTCAG-1,Naive B cells
+GATTTAGACACTCC-1,Classical Monocytes
+GATTTAGACTAAGC-1,Non-classical monocytes
+GATTTAGATTCGTT-1,Naive CD8+ T cells
+GATTTGCTAACGAA-1,Memory CD4+ T cells
+GATTTGCTAACGGG-1,Naive CD8+ T cells
+GCAACCCTCCTCGT-1,Naive CD8+ T cells
+GCAACTGATTGCGA-1,Memory CD4+ T cells
+GCAAGACTACTGGT-1,Naive B cells
+GCAAGACTAGGTCT-1,Naive B cells
+GCAAGACTCCCTTG-1,Memory CD4+ T cells
+GCAATCGACTGCAA-1,Natural killer  cells
+GCAATCGAGACGTT-1,CD8+ NKT-like cells
+GCAATCGATCCTTA-1,CD8+ NKT-like cells
+GCAATTCTCGTGTA-1,Naive B cells
+GCAATTCTTCTCCG-1,Naive B cells
+GCACAAACAATGCC-1,Naive CD8+ T cells
+GCACAAACGGTACT-1,Naive B cells
+GCACAATGGTGCAT-1,Myeloid Dendritic cells
+GCACACCTGTGCTA-1,Classical Monocytes
+GCACCACTCATGAC-1,Naive CD8+ T cells
+GCACCACTGTTTGG-1,Naive CD8+ T cells
+GCACCACTTCCTTA-1,Classical Monocytes
+GCACCACTTTCGGA-1,CD8+ NKT-like cells
+GCACCTACGCGATT-1,Naive B cells
+GCACCTTGGCTGTA-1,Memory CD4+ T cells
+GCACCTTGGGGAGT-1,CD8+ NKT-like cells
+GCACGGACCAGCTA-1,Naive B cells
+GCACGGTGACCTCC-1,Naive B cells
+GCACGGTGCTATGG-1,CD8+ NKT-like cells
+GCACTAGAACGGGA-1,Naive B cells
+GCACTAGAAGATGA-1,Non-classical monocytes
+GCACTAGACCTTTA-1,Classical Monocytes
+GCACTAGACGTAAC-1,Non-classical monocytes
+GCACTAGAGTCGTA-1,Natural killer  cells
+GCACTAGATGCAAC-1,Memory CD4+ T cells
+GCACTGCTGAGGCA-1,Naive B cells
+GCAGATACAGCGTT-1,Natural killer  cells
+GCAGATACGACGGA-1,Memory CD4+ T cells
+GCAGATACGCAGAG-1,Memory CD4+ T cells
+GCAGCCGACAGTCA-1,Memory CD4+ T cells
+GCAGCGTGCACTCC-1,Memory CD4+ T cells
+GCAGCTCTCAATCG-1,Memory CD4+ T cells
+GCAGCTCTGTTTCT-1,Naive B cells
+GCAGGGCTAAGAAC-1,Memory CD4+ T cells
+GCAGGGCTAAGGGC-1,Memory CD4+ T cells
+GCAGGGCTATCGAC-1,Classical Monocytes
+GCAGGGCTTGGGAG-1,Natural killer  cells
+GCAGTCCTAACTGC-1,Naive B cells
+GCAGTCCTCTCTTA-1,Memory CD4+ T cells
+GCATCAGATGCGTA-1,Natural killer  cells
+GCATGTGACAAGCT-1,Memory CD4+ T cells
+GCATTGGAGAAGGC-1,Naive B cells
+GCCAAAACGAGGCA-1,Natural killer  cells
+GCCAAATGATCGAC-1,Naive B cells
+GCCAACCTACGGTT-1,Memory CD4+ T cells
+GCCAACCTCGCCTT-1,Memory CD4+ T cells
+GCCACGGAGGCGAA-1,Naive CD8+ T cells
+GCCACGGATACTGG-1,Memory CD4+ T cells
+GCCACTACCTACTT-1,Non-classical monocytes
+GCCACTACGTCTTT-1,Naive B cells
+GCCCAACTACCGAT-1,Memory CD4+ T cells
+GCCCAACTATGGTC-1,Natural killer  cells
+GCCCATACAGCGTT-1,Natural killer  cells
+GCCGACGAACTCTT-1,CD8+ NKT-like cells
+GCCGAGTGCGTTGA-1,Naive B cells
+GCCGGAACGAACTC-1,Natural killer  cells
+GCCGGAACGTTCTT-1,Classical Monocytes
+GCCGGAACTGCACA-1,Natural killer  cells
+GCCGGAACTTACTC-1,Naive B cells
+GCCGTACTACCTGA-1,Memory CD4+ T cells
+GCCGTACTGGCAAG-1,CD8+ NKT-like cells
+GCCTACACAGTTCG-1,Classical Monocytes
+GCCTACACCACTGA-1,Classical Monocytes
+GCCTACACCTTGAG-1,Memory CD4+ T cells
+GCCTAGCTACGGAG-1,Non-classical monocytes
+GCCTAGCTCTATTC-1,Memory CD4+ T cells
+GCCTAGCTTCTCAT-1,Memory CD4+ T cells
+GCCTAGCTTCTCTA-1,Classical Monocytes
+GCCTCAACCATGGT-1,Memory CD4+ T cells
+GCCTCAACTCTTTG-1,Classical Monocytes
+GCCTCATGTCTTAC-1,Natural killer  cells
+GCCTGACTCTCAAG-1,Naive CD8+ T cells
+GCGAAGGAACTCTT-1,Memory CD4+ T cells
+GCGAAGGAGAGCTT-1,Classical Monocytes
+GCGAAGGATGCCAA-1,Memory CD4+ T cells
+GCGAGAGAGGGACA-1,Naive B cells
+GCGAGCACTGTCGA-1,Non-classical monocytes
+GCGAGCACTTGACG-1,Memory CD4+ T cells
+GCGAGCACTTGCTT-1,CD8+ NKT-like cells
+GCGATATGGTACGT-1,Memory CD4+ T cells
+GCGATATGGTGTTG-1,Memory CD4+ T cells
+GCGCACGAAGTCGT-1,Memory CD4+ T cells
+GCGCACGACTTTAC-1,Naive CD8+ T cells
+GCGCATCTAGGTCT-1,Naive CD8+ T cells
+GCGCATCTGGTTAC-1,Platelets
+GCGCATCTTCGATG-1,Memory CD4+ T cells
+GCGCATCTTGCTCC-1,Classical Monocytes
+GCGCATCTTTCTAC-1,Memory CD4+ T cells
+GCGCGAACGTTCTT-1,Non-classical monocytes
+GCGCGATGAACGGG-1,Memory CD4+ T cells
+GCGCGATGGTGCAT-1,Classical Monocytes
+GCGGAGCTCCTGAA-1,Memory CD4+ T cells
+GCGGCAACCCGATA-1,Memory CD4+ T cells
+GCGGCAACGGAGGT-1,Non-classical monocytes
+GCGGCAACTGTCGA-1,Naive CD8+ T cells
+GCGTAAACACGGTT-1,Myeloid Dendritic cells
+GCGTAATGCACCAA-1,Classical Monocytes
+GCGTATGAACACCA-1,Naive B cells
+GCGTATGATGAGAA-1,CD8+ NKT-like cells
+GCTACAGAAAGGTA-1,Memory CD4+ T cells
+GCTACAGAATCTTC-1,Non-classical monocytes
+GCTACAGATCTTAC-1,Naive B cells
+GCTACCTGAGAAGT-1,CD8+ NKT-like cells
+GCTACCTGATCACG-1,Naive B cells
+GCTACGCTAGAATG-1,Memory CD4+ T cells
+GCTACGCTAGCTAC-1,Naive B cells
+GCTACGCTCCCTAC-1,Naive B cells
+GCTAGAACAGAGGC-1,Non-classical monocytes
+GCTAGAACGGATCT-1,Naive B cells
+GCTAGAACTCCCGT-1,Naive CD8+ T cells
+GCTAGATGAGCTCA-1,Naive CD8+ T cells
+GCTAGATGGCGATT-1,Natural killer  cells
+GCTATACTAAGGCG-1,Memory CD4+ T cells
+GCTATACTAGCGTT-1,Natural killer  cells
+GCTATACTCTCTTA-1,Memory CD4+ T cells
+GCTATACTGGACGA-1,Naive B cells
+GCTCAAGAACCATG-1,Classical Monocytes
+GCTCAAGAAGTCAC-1,CD8+ NKT-like cells
+GCTCAGCTGTCTAG-1,Naive CD8+ T cells
+GCTCCATGAGAAGT-1,Natural killer  cells
+GCTCCATGCCGAAT-1,Memory CD4+ T cells
+GCTCGACTCTAGTG-1,Naive CD8+ T cells
+GCTGATGAGGTATC-1,Naive CD8+ T cells
+GCTTAACTACAGTC-1,Naive CD8+ T cells
+GCTTAACTACTGGT-1,Natural killer  cells
+GCTTAACTGCTGAT-1,Memory CD4+ T cells
+GCTTAACTTAGACC-1,Naive CD8+ T cells
+GCTTAACTTCAGTG-1,Memory CD4+ T cells
+GGAACACTCACTTT-1,Naive CD8+ T cells
+GGAACACTTCAGAC-1,Platelets
+GGAACTACTACTTC-1,Naive B cells
+GGAACTTGAAGGTA-1,CD8+ NKT-like cells
+GGAACTTGAGAATG-1,Naive B cells
+GGAACTTGCTCCAC-1,CD8+ NKT-like cells
+GGAACTTGGGTAGG-1,Non-classical monocytes
+GGAAGGACATCGGT-1,Naive CD8+ T cells
+GGAAGGACCACTAG-1,Naive B cells
+GGAAGGACGAGGGT-1,Naive B cells
+GGAAGGACGCGAAG-1,Natural killer  cells
+GGAAGGTGGCGAGA-1,Classical Monocytes
+GGAATCTGAAGGGC-1,Naive B cells
+GGAATCTGAGGAGC-1,Naive B cells
+GGAATCTGCTTAGG-1,Non-classical monocytes
+GGAATCTGCTTGTT-1,CD8+ NKT-like cells
+GGAATCTGGGAGGT-1,Memory CD4+ T cells
+GGAATGCTTTCTAC-1,Memory CD4+ T cells
+GGACAGGAAAGGGC-1,Natural killer  cells
+GGACAGGAGTGCTA-1,Non-classical monocytes
+GGACAGGATCTCGC-1,Naive B cells
+GGACCCGAAGCTAC-1,CD8+ NKT-like cells
+GGACCGTGCTTACT-1,Naive CD8+ T cells
+GGACCGTGGGAACG-1,Myeloid Dendritic cells
+GGACCGTGTAACGC-1,Naive B cells
+GGACCTCTGTAAGA-1,CD8+ NKT-like cells
+GGACCTCTTTTCTG-1,Natural killer  cells
+GGACGAGAGTGTCA-1,Naive CD8+ T cells
+GGACGCTGACGCAT-1,Natural killer  cells
+GGACGCTGCTAGCA-1,Memory CD4+ T cells
+GGACGCTGTCCTCG-1,Classical Monocytes
+GGAGAGACGTGAGG-1,Non-classical monocytes
+GGAGCAGATTCAGG-1,Non-classical monocytes
+GGAGCCACCTTCTA-1,Non-classical monocytes
+GGAGCGCTACGCAT-1,CD8+ NKT-like cells
+GGAGCGCTCCGAAT-1,Naive B cells
+GGAGGATGCCACCT-1,Naive CD8+ T cells
+GGAGGATGGTTGAC-1,CD8+ NKT-like cells
+GGAGGATGTCAGTG-1,Naive CD8+ T cells
+GGAGGCCTCGTTGA-1,Classical Monocytes
+GGAGGCCTTTCTTG-1,Memory CD4+ T cells
+GGAGGTGATACGCA-1,Naive B cells
+GGAGGTGATCGCTC-1,Naive B cells
+GGATACTGCAGCTA-1,Naive B cells
+GGATACTGTCTAGG-1,Naive B cells
+GGATAGCTCGTCTC-1,Naive B cells
+GGATAGCTCTGAAC-1,Natural killer  cells
+GGATGTACCAAAGA-1,Non-classical monocytes
+GGATGTACGCGAAG-1,Memory CD4+ T cells
+GGATGTACGTCTTT-1,Naive CD8+ T cells
+GGATGTACGTGTCA-1,Natural killer  cells
+GGATTTCTAGGTTC-1,Naive B cells
+GGATTTCTTTGTCT-1,CD8+ NKT-like cells
+GGCAAGGAAAAAGC-1,Classical Monocytes
+GGCAAGGAAGAAGT-1,Naive B cells
+GGCAAGGACTTGGA-1,CD8+ NKT-like cells
+GGCAAGGAGGACTT-1,Memory CD4+ T cells
+GGCAATACGCTAAC-1,Non-classical monocytes
+GGCAATACGGCATT-1,Natural killer  cells
+GGCAATACGTTTCT-1,Non-classical monocytes
+GGCACGTGGCTTAG-1,Classical Monocytes
+GGCACGTGTGAGAA-1,Classical Monocytes
+GGCACTCTTTTGTC-1,Naive B cells
+GGCATATGCTTATC-1,Classical Monocytes
+GGCATATGGGGAGT-1,Platelets
+GGCATATGTGTGAC-1,Naive B cells
+GGCCACGACAGAGG-1,Naive CD8+ T cells
+GGCCAGACTGGTTG-1,Naive B cells
+GGCCCAGAAAGTAG-1,CD8+ NKT-like cells
+GGCCGAACAACGAA-1,Memory CD4+ T cells
+GGCCGAACGCAGAG-1,Naive CD8+ T cells
+GGCCGAACGTAGGG-1,Memory CD4+ T cells
+GGCCGAACTCTAGG-1,Classical Monocytes
+GGCCGATGCAGGAG-1,Naive B cells
+GGCCGATGCCGAAT-1,Naive B cells
+GGCCGATGTACTCT-1,Natural killer  cells
+GGCGACACTGCCCT-1,Natural killer  cells
+GGCGACTGCGTAAC-1,Naive B cells
+GGCGCATGCCTAAG-1,Classical Monocytes
+GGCGCATGCTCCAC-1,Naive B cells
+GGCGCATGTGGAAA-1,Memory CD4+ T cells
+GGCGGACTAGAGGC-1,Naive B cells
+GGCGGACTAGGAGC-1,Natural killer  cells
+GGCGGACTCTGACA-1,Memory CD4+ T cells
+GGCGGACTCTTGGA-1,Natural killer  cells
+GGCGGACTTACTGG-1,Memory CD4+ T cells
+GGCGGACTTGAACC-1,Naive B cells
+GGCTAAACACCTGA-1,Classical Monocytes
+GGCTAAACTCTTAC-1,Memory CD4+ T cells
+GGCTAATGAGCACT-1,Natural killer  cells
+GGCTAATGGTCTAG-1,Memory CD4+ T cells
+GGCTCACTACTCAG-1,CD8+ NKT-like cells
+GGGAACGAAGCTCA-1,Classical Monocytes
+GGGAACGACACAAC-1,Non-classical monocytes
+GGGAACGAGTGTCA-1,Naive CD8+ T cells
+GGGAAGTGTTGAGC-1,Naive CD8+ T cells
+GGGACCACACGTTG-1,Natural killer  cells
+GGGACCACAGAACA-1,Memory CD4+ T cells
+GGGACCACGAATAG-1,Naive B cells
+GGGACCACGTCATG-1,Memory CD4+ T cells
+GGGACCACTCAAGC-1,Memory CD4+ T cells
+GGGACCACTCGTGA-1,Memory CD4+ T cells
+GGGACCACTGCATG-1,Naive CD8+ T cells
+GGGACCTGACCCTC-1,CD8+ NKT-like cells
+GGGACCTGCTTGCC-1,Memory CD4+ T cells
+GGGACCTGTGGAGG-1,Non-classical monocytes
+GGGATGGACGACAT-1,Non-classical monocytes
+GGGATGGATACTTC-1,Naive B cells
+GGGATGGATGGTTG-1,CD8+ NKT-like cells
+GGGATTACGTCTAG-1,Memory CD4+ T cells
+GGGCAAGATGCATG-1,Naive CD8+ T cells
+GGGCACACGGTGAG-1,Classical Monocytes
+GGGCACACGTTGCA-1,Naive B cells
+GGGCAGCTTGGGAG-1,Natural killer  cells
+GGGCAGCTTTTCTG-1,Memory CD4+ T cells
+GGGCCAACCTTGGA-1,Myeloid Dendritic cells
+GGGCCAACGCGTTA-1,Non-classical monocytes
+GGGCCAACTACGCA-1,Naive CD8+ T cells
+GGGCCAACTCCAAG-1,Non-classical monocytes
+GGGCCATGATGGTC-1,Natural killer  cells
+GGGCCATGTTGACG-1,Naive B cells
+GGGTAACTCAGCTA-1,Naive B cells
+GGGTAACTCTAGTG-1,Non-classical monocytes
+GGGTAACTCTGGAT-1,Naive B cells
+GGGTTAACGTGCAT-1,Classical Monocytes
+GGTAAAGAGCTAAC-1,Natural killer  cells
+GGTACAACTGCAAC-1,Naive B cells
+GGTACATGAAAGCA-1,Non-classical monocytes
+GGTACATGAGCTCA-1,Natural killer  cells
+GGTACATGCGGTAT-1,Memory CD4+ T cells
+GGTACATGGTTACG-1,Naive B cells
+GGTACATGTGGGAG-1,Naive B cells
+GGTACTGAACTCTT-1,CD8+ NKT-like cells
+GGTAGTACACCACA-1,Natural killer  cells
+GGTAGTACACTAGC-1,Naive CD8+ T cells
+GGTAGTACCCTGTC-1,Memory CD4+ T cells
+GGTAGTACGCCATA-1,Naive CD8+ T cells
+GGTAGTACTGTCTT-1,Naive B cells
+GGTATCGAGACAAA-1,Naive CD8+ T cells
+GGTATCGATGAACC-1,Non-classical monocytes
+GGTCAAACCAAAGA-1,Memory CD4+ T cells
+GGTCTAGAGAAACA-1,Naive CD8+ T cells
+GGTCTAGATAGCGT-1,CD8+ NKT-like cells
+GGTGATACCGACTA-1,Non-classical monocytes
+GGTGATACGACTAC-1,Naive CD8+ T cells
+GGTGATACTGTTTC-1,Memory CD4+ T cells
+GGTGGAGAAACGGG-1,Natural killer  cells
+GGTGGAGAAGTAGA-1,Naive B cells
+GGTGGAGACAGATC-1,Natural killer  cells
+GGTGGAGATCGATG-1,Naive B cells
+GGTGGAGATCTCTA-1,Naive CD8+ T cells
+GGTGGAGATTACTC-1,Natural killer  cells
+GGTTTACTACGCAT-1,Natural killer  cells
+GTAACGTGACCTCC-1,CD8+ NKT-like cells
+GTAACGTGATCGGT-1,Non-classical monocytes
+GTAACGTGCAGCTA-1,Non-classical monocytes
+GTAACGTGGTTGAC-1,Non-classical monocytes
+GTAAGCACAACGGG-1,Memory CD4+ T cells
+GTAAGCACTCATTC-1,Non-classical monocytes
+GTAAGCTGGTACCA-1,Naive CD8+ T cells
+GTAATAACCTTCTA-1,Naive CD8+ T cells
+GTAATAACGTTGTG-1,Naive CD8+ T cells
+GTACCCTGACAGTC-1,Classical Monocytes
+GTACCCTGGAGCTT-1,Memory CD4+ T cells
+GTACCCTGTCCTTA-1,Natural killer  cells
+GTACCCTGTGAACC-1,Naive B cells
+GTACGTGAACGTTG-1,Natural killer  cells
+GTACTTTGTCGACA-1,Natural killer  cells
+GTAGACTGAGATGA-1,CD8+ NKT-like cells
+GTAGACTGTATTCC-1,Memory CD4+ T cells
+GTAGCAACAGTCGT-1,Naive CD8+ T cells
+GTAGCAACCATTTC-1,Non-classical monocytes
+GTAGCAACGGTAGG-1,Naive CD8+ T cells
+GTAGCATGCACTCC-1,Non-classical monocytes
+GTAGCATGTAAGCC-1,Naive CD8+ T cells
+GTAGCCCTGACGTT-1,Memory CD4+ T cells
+GTAGCTGAAGCTAC-1,Classical Monocytes
+GTAGCTGAATTCGG-1,Memory CD4+ T cells
+GTAGGTACACGGGA-1,CD8+ NKT-like cells
+GTAGTGACCTCATT-1,Naive CD8+ T cells
+GTAGTGTGAGCGGA-1,Classical Monocytes
+GTAGTGTGAGGCGA-1,Naive CD8+ T cells
+GTAGTGTGTGGTTG-1,Memory CD4+ T cells
+GTATCACTGGTAGG-1,CD8+ NKT-like cells
+GTATCTACAGAAGT-1,Natural killer  cells
+GTATCTACGACGAG-1,Natural killer  cells
+GTATCTACGTTACG-1,Naive B cells
+GTATTAGAAACAGA-1,Naive B cells
+GTATTAGAGGTCTA-1,Naive CD8+ T cells
+GTATTCACACAGCT-1,Memory CD4+ T cells
+GTATTCACGGGTGA-1,Natural killer  cells
+GTCAACGACACTGA-1,Naive B cells
+GTCAACGAGTGTAC-1,CD8+ NKT-like cells
+GTCAACGATCAGGT-1,Naive CD8+ T cells
+GTCAATCTACACCA-1,Natural killer  cells
+GTCAATCTGTAGCT-1,Natural killer  cells
+GTCAATCTTGTGGT-1,Memory CD4+ T cells
+GTCACCTGCCTCCA-1,Memory CD4+ T cells
+GTCACCTGTCCCGT-1,Naive B cells
+GTCATACTAATCGC-1,Non-classical monocytes
+GTCATACTGCGATT-1,Natural killer  cells
+GTCATACTTCGCCT-1,Platelets
+GTCATACTTTACCT-1,Natural killer  cells
+GTCATACTTTGACG-1,Naive B cells
+GTCCAAGAAAAACG-1,Memory CD4+ T cells
+GTCCACTGACCTCC-1,Naive CD8+ T cells
+GTCCACTGGGTACT-1,Classical Monocytes
+GTCCAGCTACGGGA-1,Memory CD4+ T cells
+GTCCCATGTGGTGT-1,CD8+ NKT-like cells
+GTCGAATGAAGGCG-1,CD8+ NKT-like cells
+GTCGACCTGAATGA-1,Classical Monocytes
+GTCGACCTGTTCAG-1,Naive CD8+ T cells
+GTCGCACTTGAGAA-1,Non-classical monocytes
+GTCTAACTGGTCTA-1,Classical Monocytes
+GTCTAGGAGCTTCC-1,CD8+ NKT-like cells
+GTGAACACACTCTT-1,Memory CD4+ T cells
+GTGAACACAGATCC-1,Naive CD8+ T cells
+GTGAACACTCAGGT-1,Naive B cells
+GTGACCCTTAAGCC-1,Natural killer  cells
+GTGATGACAAGTGA-1,Naive B cells
+GTGATGACCTGAGT-1,Non-classical monocytes
+GTGATGACGGTTTG-1,Natural killer  cells
+GTGATTCTCATTTC-1,Naive B cells
+GTGATTCTCTCTCG-1,Naive CD8+ T cells
+GTGATTCTGGTTCA-1,Classical Monocytes
+GTGATTCTGTCGAT-1,Memory CD4+ T cells
+GTGATTCTTAGCGT-1,Non-classical monocytes
+GTGCCACTCAGGAG-1,Memory CD4+ T cells
+GTGGATTGCACTAG-1,Classical Monocytes
+GTGGATTGCGGAGA-1,Naive B cells
+GTGGATTGTAACGC-1,Memory CD4+ T cells
+GTGTACGATCAGTG-1,Memory CD4+ T cells
+GTGTAGTGGGTACT-1,Naive B cells
+GTGTATCTAGCCTA-1,Non-classical monocytes
+GTGTATCTAGTAGA-1,Natural killer  cells
+GTGTATCTGTTACG-1,Non-classical monocytes
+GTGTCAGAAGCGTT-1,Natural killer  cells
+GTGTCAGAATGCTG-1,Naive CD8+ T cells
+GTTAAAACCGAGAG-1,Classical Monocytes
+GTTAAAACTTCGCC-1,Naive CD8+ T cells
+GTTAAATGCTCGAA-1,Naive B cells
+GTTAAATGTCGACA-1,Non-classical monocytes
+GTTAACCTAGCTAC-1,Naive B cells
+GTTAACCTTGCTTT-1,Myeloid Dendritic cells
+GTTAGGTGCACTCC-1,Naive CD8+ T cells
+GTTAGGTGCCAGTA-1,CD8+ NKT-like cells
+GTTAGGTGCCCAAA-1,Classical Monocytes
+GTTAGGTGGAACTC-1,Non-classical monocytes
+GTTAGTCTAAGAAC-1,Natural killer  cells
+GTTATAGAGGACAG-1,Naive B cells
+GTTATGCTTTCATC-1,Memory CD4+ T cells
+GTTCAACTGGGACA-1,Classical Monocytes
+GTTCAACTTATGCG-1,Memory CD4+ T cells
+GTTGACGAGCCCTT-1,Natural killer  cells
+GTTGACGATATCGG-1,Classical Monocytes
+GTTGAGTGGTCTTT-1,CD8+ NKT-like cells
+GTTGAGTGTGCTTT-1,Naive B cells
+GTTGATCTGGGACA-1,Naive CD8+ T cells
+GTTGATCTTTTCAC-1,Natural killer  cells
+GTTGGATGTTTACC-1,Classical Monocytes
+GTTGTACTATTCCT-1,CD8+ NKT-like cells
+GTTGTACTTTTGGG-1,Memory CD4+ T cells
+GTTTAAGACCATGA-1,CD8+ NKT-like cells
+GTTTAAGACTGTCC-1,Natural killer  cells
+TAAACAACCAACCA-1,Naive B cells
+TAAACAACGAATCC-1,Non-classical monocytes
+TAAAGACTCAGGAG-1,Naive B cells
+TAAATCGATGAGGG-1,Memory CD4+ T cells
+TAACAATGTGCCCT-1,Non-classical monocytes
+TAACACCTTCGCTC-1,CD8+ NKT-like cells
+TAACACCTTCGTAG-1,CD8+ NKT-like cells
+TAACACCTTGTTTC-1,Platelets
+TAACATGACACTAG-1,Non-classical monocytes
+TAACCGGACTTACT-1,Memory CD4+ T cells
+TAACGTCTCAACCA-1,Naive CD8+ T cells
+TAACGTCTCATTGG-1,Memory CD4+ T cells
+TAACTAGAATTTCC-1,Naive B cells
+TAACTAGACTTAGG-1,Naive B cells
+TAACTAGATCTGGA-1,Memory CD4+ T cells
+TAACTCACGAGGAC-1,CD8+ NKT-like cells
+TAACTCACGTACAC-1,Non-classical monocytes
+TAACTCACGTATCG-1,CD8+ NKT-like cells
+TAACTCACTCTACT-1,Classical Monocytes
+TAAGAACTGTGTCA-1,Naive CD8+ T cells
+TAAGAGGACTAAGC-1,Non-classical monocytes
+TAAGAGGACTTGTT-1,Natural killer  cells
+TAAGATACCCACAA-1,Naive CD8+ T cells
+TAAGATACGGTTCA-1,Naive CD8+ T cells
+TAAGATTGCGTAGT-1,Memory CD4+ T cells
+TAAGATTGTTGCTT-1,Naive B cells
+TAAGCGTGAGGTTC-1,CD8+ NKT-like cells
+TAAGCGTGGACAAA-1,CD8+ NKT-like cells
+TAAGCGTGGGAAAT-1,Memory CD4+ T cells
+TAAGCGTGTGCTCC-1,Classical Monocytes
+TAAGGCTGCCATGA-1,Naive B cells
+TAAGGCTGCTGCTC-1,Memory CD4+ T cells
+TAAGGCTGTCTCGC-1,CD8+ NKT-like cells
+TAAGGGCTGCTGTA-1,Naive B cells
+TAAGGGCTTTACTC-1,Memory CD4+ T cells
+TAAGTAACCGAGAG-1,Non-classical monocytes
+TAAGTAACCTCCAC-1,Non-classical monocytes
+TAAGTAACCTGTAG-1,Naive B cells
+TAAGTAACTTGTCT-1,Naive B cells
+TAATGATGAGCGGA-1,Memory CD4+ T cells
+TAATGCCTCATGAC-1,Naive B cells
+TAATGCCTCGTCTC-1,Classical Monocytes
+TAATGTGAAGATGA-1,Naive CD8+ T cells
+TAATGTGACTGCAA-1,CD8+ NKT-like cells
+TAATGTGATTACTC-1,Naive B cells
+TACAAATGGGTACT-1,Naive B cells
+TACAATGAAAACAG-1,CD8+ NKT-like cells
+TACAATGACTTAGG-1,Naive B cells
+TACAATGATGCTAG-1,Natural killer  cells
+TACACACTCACACA-1,Memory CD4+ T cells
+TACACACTCTTACT-1,Memory CD4+ T cells
+TACATAGAACGCAT-1,Natural killer  cells
+TACATCACACGGGA-1,Memory CD4+ T cells
+TACATCACCTGTTT-1,Classical Monocytes
+TACATCACGCTAAC-1,Non-classical monocytes
+TACATCACTGAACC-1,Classical Monocytes
+TACCATTGAGGTTC-1,Memory CD4+ T cells
+TACCATTGCGGGAA-1,Naive CD8+ T cells
+TACCATTGGGGATG-1,Naive CD8+ T cells
+TACCATTGTGAGGG-1,Naive CD8+ T cells
+TACCGGCTGTTGGT-1,Naive B cells
+TACGAGTGATCTCT-1,Memory CD4+ T cells
+TACGAGTGATGCTG-1,CD8+ NKT-like cells
+TACGAGTGCGGAGA-1,Naive B cells
+TACGAGTGGTTGGT-1,Naive B cells
+TACGATCTAGTGTC-1,Memory CD4+ T cells
+TACGATCTCACTGA-1,CD8+ NKT-like cells
+TACGATCTTACGAC-1,Natural killer  cells
+TACGCAGACGTCTC-1,Non-classical monocytes
+TACGCAGAGAATCC-1,Natural killer  cells
+TACGCCACATTCCT-1,Naive B cells
+TACGCCACTCCCAC-1,Classical Monocytes
+TACGCCACTCCGAA-1,Non-classical monocytes
+TACGCGCTCTTCTA-1,Natural killer  cells
+TACGGAACGCGTTA-1,Non-classical monocytes
+TACGGCCTGGGACA-1,Classical Monocytes
+TACGGCCTGTCCTC-1,Naive CD8+ T cells
+TACGTACTACGGAG-1,Naive B cells
+TACGTACTCAGTTG-1,Naive B cells
+TACGTACTCCCGTT-1,Non-classical monocytes
+TACGTTACAGAAGT-1,Naive B cells
+TACGTTACCAAGCT-1,Naive CD8+ T cells
+TACTAAGAAAGGTA-1,Non-classical monocytes
+TACTAAGAATCACG-1,Memory CD4+ T cells
+TACTAAGATGATGC-1,CD8+ NKT-like cells
+TACTAAGATTGCGA-1,Naive B cells
+TACTACACGAGAGC-1,Naive B cells
+TACTACACTTACCT-1,Non-classical monocytes
+TACTACTGAACCTG-1,Naive CD8+ T cells
+TACTACTGATGTCG-1,Classical Monocytes
+TACTACTGATTCTC-1,Memory CD4+ T cells
+TACTACTGTATGGC-1,Memory CD4+ T cells
+TACTCAACGGTCTA-1,CD8+ NKT-like cells
+TACTCAACTGCTAG-1,Non-classical monocytes
+TACTCCCTCAGTTG-1,Naive B cells
+TACTCTGAATCGAC-1,Classical Monocytes
+TACTCTGACGAGTT-1,Naive B cells
+TACTCTGATTGACG-1,Non-classical monocytes
+TACTGGGATCGATG-1,Naive B cells
+TACTGTTGAAAGCA-1,Memory CD4+ T cells
+TACTGTTGAGGCGA-1,Classical Monocytes
+TACTGTTGCTGAAC-1,Non-classical monocytes
+TACTTGACTCCTCG-1,Natural killer  cells
+TACTTGACTGGTGT-1,Non-classical monocytes
+TACTTTCTTTTGGG-1,Naive CD8+ T cells
+TAGAAACTAATCGC-1,Memory CD4+ T cells
+TAGAAACTGCTTCC-1,CD8+ NKT-like cells
+TAGAAACTGGGATG-1,Natural killer  cells
+TAGAATTGCGACAT-1,Naive CD8+ T cells
+TAGAATTGTATCGG-1,Memory CD4+ T cells
+TAGACGTGCTTGAG-1,Naive CD8+ T cells
+TAGACGTGTCGCTC-1,Naive B cells
+TAGAGCACCTTACT-1,Non-classical monocytes
+TAGATTGACTTGTT-1,Non-classical monocytes
+TAGATTGAGGCATT-1,Naive CD8+ T cells
+TAGCATCTCAGCTA-1,Classical Monocytes
+TAGCATCTCCCTCA-1,Naive B cells
+TAGCATCTGCTGTA-1,Classical Monocytes
+TAGCATCTGGGACA-1,Memory CD4+ T cells
+TAGCATCTTGTCGA-1,Memory CD4+ T cells
+TAGCCCACAAAAGC-1,Naive B cells
+TAGCCCACAGCCAT-1,Natural killer  cells
+TAGCCCACAGCTAC-1,Classical Monocytes
+TAGCCCACCCACAA-1,Naive CD8+ T cells
+TAGCCCTGCGGAGA-1,Natural killer  cells
+TAGCCGCTTACGAC-1,Naive B cells
+TAGCCGCTTACTTC-1,Natural killer  cells
+TAGCCGCTTTCCAT-1,CD8+ NKT-like cells
+TAGCTACTGAATAG-1,Non-classical monocytes
+TAGCTACTGTAGCT-1,Naive B cells
+TAGCTACTTTTGCT-1,Naive CD8+ T cells
+TAGGACTGTGCTGA-1,Naive B cells
+TAGGAGCTAAGGCG-1,Non-classical monocytes
+TAGGAGCTGAGGGT-1,Memory CD4+ T cells
+TAGGAGCTTGCATG-1,Non-classical monocytes
+TAGGCAACCGTCTC-1,Non-classical monocytes
+TAGGCATGCTCTCG-1,Myeloid Dendritic cells
+TAGGCATGGCGAGA-1,Natural killer  cells
+TAGGCTGATGCCTC-1,Naive CD8+ T cells
+TAGGGACTGAACTC-1,Classical Monocytes
+TAGGTCGACACTGA-1,Memory CD4+ T cells
+TAGGTCGAGGATCT-1,Non-classical monocytes
+TAGGTGACACACTG-1,Naive B cells
+TAGGTGACACGTTG-1,Non-classical monocytes
+TAGGTGTGTTCTGT-1,Memory CD4+ T cells
+TAGGTTCTGAAGGC-1,Naive B cells
+TAGGTTCTTCTTAC-1,Classical Monocytes
+TAGGTTCTTGCTGA-1,CD8+ NKT-like cells
+TAGTAAACCTCGCT-1,Memory CD4+ T cells
+TAGTAAACGTCACA-1,Naive B cells
+TAGTAATGAGATCC-1,Naive CD8+ T cells
+TAGTACCTAAGAAC-1,Naive CD8+ T cells
+TAGTATGATCTTAC-1,Non-classical monocytes
+TAGTATGATTCTCA-1,Naive B cells
+TAGTCTTGGCTGTA-1,Naive CD8+ T cells
+TAGTCTTGGGACTT-1,Naive CD8+ T cells
+TAGTCTTGTGGAAA-1,Natural killer  cells
+TAGTGGTGAAGTGA-1,Classical Monocytes
+TAGTTAGAACCACA-1,Classical Monocytes
+TAGTTAGATGAACC-1,Memory CD4+ T cells
+TATAAGACAACAGA-1,Naive CD8+ T cells
+TATAAGACAGCTCA-1,Classical Monocytes
+TATAAGTGACACCA-1,Classical Monocytes
+TATAAGTGTATCGG-1,Naive CD8+ T cells
+TATAAGTGTGGTGT-1,Classical Monocytes
+TATACAGAACCCTC-1,Natural killer  cells
+TATACAGAAGAACA-1,Memory CD4+ T cells
+TATACAGATCCAGA-1,Memory CD4+ T cells
+TATACCACCTGATG-1,Non-classical monocytes
+TATACGCTACCAAC-1,Naive B cells
+TATAGATGGACGGA-1,Naive B cells
+TATAGATGTTCCGC-1,Classical Monocytes
+TATCACTGACTGTG-1,Naive CD8+ T cells
+TATCCAACCAGCTA-1,Naive CD8+ T cells
+TATCCAACTCTCTA-1,Natural killer  cells
+TATCGACTACTAGC-1,Natural killer  cells
+TATCGACTCGATAC-1,Classical Monocytes
+TATCGTACAGATGA-1,Natural killer  cells
+TATCGTACATTCCT-1,CD8+ NKT-like cells
+TATCTCGAGAGATA-1,Naive CD8+ T cells
+TATCTGACAGGTTC-1,Natural killer  cells
+TATCTGACTGTTTC-1,Natural killer  cells
+TATCTTCTAAACAG-1,Memory CD4+ T cells
+TATGAATGGAGGAC-1,Classical Monocytes
+TATGAATGTTTGCT-1,Classical Monocytes
+TATGCGGATAACCG-1,Naive B cells
+TATGGGTGCATCAG-1,Classical Monocytes
+TATGGGTGCTAGCA-1,Non-classical monocytes
+TATGGTCTCTACCC-1,Naive B cells
+TATGTCACGGAACG-1,Non-classical monocytes
+TATGTCACTAACCG-1,CD8+ NKT-like cells
+TATGTCACTTCTCA-1,Non-classical monocytes
+TATGTGCTCCGATA-1,CD8+ NKT-like cells
+TATGTGCTGGATTC-1,Memory CD4+ T cells
+TATTGCTGAAGAAC-1,Naive CD8+ T cells
+TATTGCTGCCGTTC-1,Non-classical monocytes
+TATTGCTGTCTGGA-1,Memory CD4+ T cells
+TATTGCTGTGCACA-1,Naive CD8+ T cells
+TATTTCCTATTGGC-1,Naive CD8+ T cells
+TATTTCCTGGAGGT-1,Classical Monocytes
+TATTTCCTGGTGTT-1,Memory CD4+ T cells
+TCAACACTGTTTGG-1,Classical Monocytes
+TCAAGGACAGCGTT-1,Naive B cells
+TCAAGGACATTCTC-1,Natural killer  cells
+TCAAGGACGGTGTT-1,CD8+ NKT-like cells
+TCAATCACACTCTT-1,Natural killer  cells
+TCAATCACAGTCGT-1,Classical Monocytes
+TCACAACTATGTGC-1,Memory CD4+ T cells
+TCACAACTTTGCTT-1,Naive CD8+ T cells
+TCACATACACTTTC-1,Naive B cells
+TCACATACAGGGTG-1,Naive CD8+ T cells
+TCACCCGAGACGGA-1,CD8+ NKT-like cells
+TCACCGTGCTCGCT-1,Classical Monocytes
+TCACCTCTACGACT-1,Natural killer  cells
+TCACCTCTTCCAAG-1,Classical Monocytes
+TCACGAGAGGAGGT-1,Non-classical monocytes
+TCACTATGGGGCAA-1,Natural killer  cells
+TCACTATGGTTGTG-1,Non-classical monocytes
+TCAGACGACGCTAA-1,Naive B cells
+TCAGACGACGTTAG-1,Classical Monocytes
+TCAGAGACTCCAGA-1,Naive CD8+ T cells
+TCAGCAGACTCCAC-1,Memory CD4+ T cells
+TCAGCGCTCTAGTG-1,Natural killer  cells
+TCAGCGCTGGATCT-1,Non-classical monocytes
+TCAGCGCTGGTATC-1,Natural killer  cells
+TCAGGATGAAGTAG-1,Memory CD4+ T cells
+TCAGGATGCCTTTA-1,Classical Monocytes
+TCAGTGGAAGATCC-1,Natural killer  cells
+TCAGTTACCTACGA-1,CD8+ NKT-like cells
+TCAGTTACTAGAAG-1,Memory CD4+ T cells
+TCATCAACCCGATA-1,Memory CD4+ T cells
+TCATCAACTGTTCT-1,CD8+ NKT-like cells
+TCATCATGCAGTTG-1,Naive B cells
+TCATCCCTTACTGG-1,Naive B cells
+TCATTCGATACAGC-1,Classical Monocytes
+TCCACGTGGAAACA-1,Naive B cells
+TCCACTCTACACTG-1,Naive B cells
+TCCACTCTGAGCTT-1,CD8+ NKT-like cells
+TCCACTCTTACTTC-1,Non-classical monocytes
+TCCATAACAAAGTG-1,Memory CD4+ T cells
+TCCATAACCGTAGT-1,Non-classical monocytes
+TCCATAACGATGAA-1,Naive B cells
+TCCATAACTACGCA-1,Memory CD4+ T cells
+TCCATCCTCCCTAC-1,Natural killer  cells
+TCCCACGATCATTC-1,Naive B cells
+TCCCATCTCAAAGA-1,CD8+ NKT-like cells
+TCCCGAACACAGTC-1,Classical Monocytes
+TCCCGAACTTCGCC-1,Classical Monocytes
+TCCCGATGAGATCC-1,Memory CD4+ T cells
+TCCCGATGCCTGAA-1,Naive CD8+ T cells
+TCCCGATGCTGTGA-1,Natural killer  cells
+TCCCTACTCAACTG-1,Non-classical monocytes
+TCCGAAGACAATCG-1,Naive CD8+ T cells
+TCCGAAGACGTTAG-1,Naive B cells
+TCCGGACTGAGGTG-1,Naive B cells
+TCCGGACTGTACGT-1,Natural killer  cells
+TCCTAAACATCGAC-1,Naive CD8+ T cells
+TCCTAAACCGAGAG-1,Naive B cells
+TCCTAAACCGCATA-1,Classical Monocytes
+TCCTAATGGTTTGG-1,Natural killer  cells
+TCCTACCTGTCGTA-1,Naive B cells
+TCCTATGAAAAGCA-1,Natural killer  cells
+TCGAATCTCTGGTA-1,Natural killer  cells
+TCGACCTGCCGATA-1,Classical Monocytes
+TCGACGCTTCTATC-1,CD8+ NKT-like cells
+TCGACGCTTTGACG-1,Naive B cells
+TCGAGAACGACAGG-1,Naive B cells
+TCGAGAACGTTAGC-1,Naive B cells
+TCGAGCCTATCAGC-1,Non-classical monocytes
+TCGAGCCTGCGAGA-1,Natural killer  cells
+TCGAGCCTTGTGAC-1,Naive CD8+ T cells
+TCGATACTATTCCT-1,Natural killer  cells
+TCGATACTTGCACA-1,Naive B cells
+TCGATTTGATGCCA-1,Naive CD8+ T cells
+TCGATTTGCACTCC-1,Memory CD4+ T cells
+TCGATTTGCAGCTA-1,Classical Monocytes
+TCGATTTGCCTACC-1,CD8+ NKT-like cells
+TCGATTTGTCGTGA-1,Non-classical monocytes
+TCGCACACCATCAG-1,Naive CD8+ T cells
+TCGCAGCTAGATCC-1,Natural killer  cells
+TCGCCATGAGACTC-1,Memory CD4+ T cells
+TCGCCATGTGGTCA-1,Non-classical monocytes
+TCGGACCTAACAGA-1,Memory CD4+ T cells
+TCGGACCTATAAGG-1,Non-classical monocytes
+TCGGACCTGTACAC-1,Naive B cells
+TCGGTAGAGTAGGG-1,Memory CD4+ T cells
+TCGGTAGATCCCAC-1,Non-classical monocytes
+TCGTAGGATCGACA-1,Naive B cells
+TCGTGAGAACTGTG-1,Non-classical monocytes
+TCGTTATGGACAAA-1,Naive B cells
+TCTAACACCAGTTG-1,Classical Monocytes
+TCTAACACGAGCAG-1,Myeloid Dendritic cells
+TCTAACTGAACCAC-1,Naive B cells
+TCTAAGCTAATGCC-1,Memory CD4+ T cells
+TCTAAGCTTAGTCG-1,Natural killer  cells
+TCTAAGCTTCTAGG-1,Classical Monocytes
+TCTAAGCTTGTTCT-1,Naive CD8+ T cells
+TCTAAGCTTTCGCC-1,Non-classical monocytes
+TCTACAACGACTAC-1,CD8+ NKT-like cells
+TCTAGACTTAGAAG-1,Naive CD8+ T cells
+TCTAGTTGCACCAA-1,CD8+ NKT-like cells
+TCTATGTGAAGAGT-1,Naive CD8+ T cells
+TCTATGTGAGTCTG-1,Naive CD8+ T cells
+TCTCAAACCTAAGC-1,Non-classical monocytes
+TCTCTAGAATTTCC-1,Naive B cells
+TCTGATACACGTGT-1,Memory CD4+ T cells
+TCTGATACTCGCCT-1,Memory CD4+ T cells
+TCTTACGAACCTGA-1,CD8+ NKT-like cells
+TCTTCAGAGCTACA-1,CD8+ NKT-like cells
+TCTTGATGCGGAGA-1,Natural killer  cells
+TGAAATTGGTGAGG-1,CD8+ NKT-like cells
+TGAACCGAAAACGA-1,Naive CD8+ T cells
+TGAACCGACTACTT-1,Classical Monocytes
+TGAACCGATTCGGA-1,Classical Monocytes
+TGAAGCACTCACGA-1,Natural killer  cells
+TGAAGCTGAACGAA-1,Naive CD8+ T cells
+TGAAGCTGAGACTC-1,Naive CD8+ T cells
+TGAAGCTGCATGGT-1,Non-classical monocytes
+TGAAGCTGCGTAAC-1,Memory CD4+ T cells
+TGAATAACCACTTT-1,Memory CD4+ T cells
+TGAATAACTCCCAC-1,Natural killer  cells
+TGACACGACCTTAT-1,Non-classical monocytes
+TGACCAGACAACCA-1,Memory CD4+ T cells
+TGACCAGAGGATTC-1,Memory CD4+ T cells
+TGACCGCTAAAAGC-1,Naive B cells
+TGACCGCTCTGCAA-1,Memory CD4+ T cells
+TGACGATGCAAAGA-1,Naive CD8+ T cells
+TGACGCCTGTACCA-1,Naive B cells
+TGACGCCTTTACTC-1,Naive B cells
+TGACTGGAAGAGAT-1,Naive CD8+ T cells
+TGACTGGACCGTAA-1,Memory CD4+ T cells
+TGACTGGACGCAAT-1,Naive CD8+ T cells
+TGACTGGAGGACAG-1,Non-classical monocytes
+TGACTGGATTCTCA-1,Naive B cells
+TGACTTACACACCA-1,Naive B cells
+TGACTTACAGTCTG-1,CD8+ NKT-like cells
+TGACTTTGCGCATA-1,Memory CD4+ T cells
+TGACTTTGTTTGTC-1,Naive B cells
+TGAGACACAAGGTA-1,Naive B cells
+TGAGACACTCAAGC-1,Natural killer  cells
+TGAGACACTGTGCA-1,Naive CD8+ T cells
+TGAGCTGAATGCTG-1,Classical Monocytes
+TGAGCTGACTGGAT-1,Naive CD8+ T cells
+TGAGCTGAGCGAGA-1,Naive CD8+ T cells
+TGAGCTGATGCTAG-1,Naive CD8+ T cells
+TGAGGACTCTCATT-1,CD8+ NKT-like cells
+TGAGGACTTCATTC-1,Naive B cells
+TGAGGTACGAACCT-1,Classical Monocytes
+TGAGTCGAGTTACG-1,Non-classical monocytes
+TGAGTGACTGAGCT-1,Memory CD4+ T cells
+TGATAAACGAATCC-1,Memory CD4+ T cells
+TGATAAACTCCGTC-1,Classical Monocytes
+TGATAAACTTTCAC-1,Memory CD4+ T cells
+TGATACCTCACTAG-1,Naive CD8+ T cells
+TGATACCTGTTGGT-1,Memory CD4+ T cells
+TGATACCTTATGCG-1,Memory CD4+ T cells
+TGATACCTTGAAGA-1,Memory CD4+ T cells
+TGATATGAACCTTT-1,Memory CD4+ T cells
+TGATCACTAGCATC-1,Natural killer  cells
+TGATCACTCTCGCT-1,Memory CD4+ T cells
+TGATCACTTCTACT-1,Non-classical monocytes
+TGATCGGACTGACA-1,Classical Monocytes
+TGATCGGAGGAGCA-1,Non-classical monocytes
+TGATCGGATATGCG-1,Classical Monocytes
+TGATTAGACATTGG-1,Naive B cells
+TGATTAGATGACTG-1,Non-classical monocytes
+TGATTAGATGCTAG-1,Memory CD4+ T cells
+TGATTCACTATGCG-1,Naive CD8+ T cells
+TGATTCACTGTCAG-1,Non-classical monocytes
+TGATTCTGCCGAAT-1,Naive B cells
+TGATTCTGCTCTTA-1,Naive B cells
+TGCAAGTGAGAACA-1,Naive B cells
+TGCAAGTGGGTAGG-1,Naive CD8+ T cells
+TGCAATCTTCAGGT-1,Myeloid Dendritic cells
+TGCACAGACGACAT-1,Classical Monocytes
+TGCCAAGAGCAGTT-1,Classical Monocytes
+TGCCAAGATCTCTA-1,Naive B cells
+TGCCACTGAACGTC-1,Memory CD4+ T cells
+TGCCACTGCGATAC-1,Classical Monocytes
+TGCCAGCTTGGCAT-1,Memory CD4+ T cells
+TGCCCAACAGCAAA-1,Memory CD4+ T cells
+TGCCCAACCGCATA-1,Classical Monocytes
+TGCCGACTCTCCCA-1,Non-classical monocytes
+TGCGAAACAGTCAC-1,Non-classical monocytes
+TGCGAAACGTTGCA-1,Non-classical monocytes
+TGCGATGAACGGTT-1,Naive B cells
+TGCGATGACCTCGT-1,Memory CD4+ T cells
+TGCGATGACTAGTG-1,Non-classical monocytes
+TGCGATGACTGCTC-1,Non-classical monocytes
+TGCGATGACTTGCC-1,Non-classical monocytes
+TGCGATGAGTGCTA-1,CD8+ NKT-like cells
+TGCGCACTCTTGAG-1,Naive CD8+ T cells
+TGCGTAGAATAAGG-1,Naive CD8+ T cells
+TGCGTAGACGGGAA-1,Non-classical monocytes
+TGCGTAGATGGTCA-1,Classical Monocytes
+TGCTAGGAAACCGT-1,Natural killer  cells
+TGCTAGGATAGTCG-1,Memory CD4+ T cells
+TGCTATACGGTTCA-1,Naive CD8+ T cells
+TGCTATACTGCTGA-1,Natural killer  cells
+TGCTGAGAGAGCAG-1,Classical Monocytes
+TGCTGAGATTATCC-1,Memory CD4+ T cells
+TGGAAAGACTCTCG-1,Non-classical monocytes
+TGGAAAGAGCGATT-1,Naive B cells
+TGGAAAGAGGTCAT-1,Classical Monocytes
+TGGAAAGATATGGC-1,Naive CD8+ T cells
+TGGAACACAAACAG-1,Classical Monocytes
+TGGAACACGCTAAC-1,Natural killer  cells
+TGGAAGCTCAGATC-1,Memory CD4+ T cells
+TGGACCCTACACTG-1,Naive CD8+ T cells
+TGGACCCTCATGGT-1,Natural killer  cells
+TGGACCCTGGTACT-1,CD8+ NKT-like cells
+TGGACTGAGTATGC-1,Naive B cells
+TGGAGACTATCAGC-1,CD8+ NKT-like cells
+TGGAGACTGAAACA-1,Naive CD8+ T cells
+TGGAGACTTCAAGC-1,Memory CD4+ T cells
+TGGAGACTTGACCA-1,Natural killer  cells
+TGGAGGGACGGAGA-1,CD8+ NKT-like cells
+TGGAGGGAGCTATG-1,Naive CD8+ T cells
+TGGATCGATAAAGG-1,Memory CD4+ T cells
+TGGATGTGACCTAG-1,Non-classical monocytes
+TGGATGTGATGTCG-1,Natural killer  cells
+TGGATGTGTGAAGA-1,Non-classical monocytes
+TGGATTCTCATACG-1,Natural killer  cells
+TGGCAATGCTTGTT-1,Non-classical monocytes
+TGGCAATGGAGGGT-1,Natural killer  cells
+TGGCACCTTCACGA-1,Naive CD8+ T cells
+TGGCACCTTCAGTG-1,CD8+ NKT-like cells
+TGGGTATGAAGAGT-1,Naive B cells
+TGGGTATGCACAAC-1,Naive B cells
+TGGGTATGGTACGT-1,Non-classical monocytes
+TGGGTATGTTTGGG-1,Naive CD8+ T cells
+TGGTAGACATGCCA-1,Naive B cells
+TGGTAGACCCTCAC-1,Classical Monocytes
+TGGTAGACCTGATG-1,Naive B cells
+TGGTAGTGCACTGA-1,Naive CD8+ T cells
+TGGTATCTAAACAG-1,Naive B cells
+TGGTATCTCTTCCG-1,Memory CD4+ T cells
+TGGTCAGACCCAAA-1,Memory CD4+ T cells
+TGGTCAGACCGTTC-1,Classical Monocytes
+TGGTTACTGACGTT-1,CD8+ NKT-like cells
+TGGTTACTGTTCTT-1,Memory CD4+ T cells
+TGTAACCTAGAGGC-1,Memory CD4+ T cells
+TGTAACCTTGCCTC-1,CD8+ NKT-like cells
+TGTAATGACACAAC-1,Classical Monocytes
+TGTAATGAGGTAAA-1,Natural killer  cells
+TGTACTTGCTCTAT-1,Classical Monocytes
+TGTAGGTGCGAGAG-1,Non-classical monocytes
+TGTAGGTGCTATGG-1,Naive B cells
+TGTAGGTGCTCTAT-1,Myeloid Dendritic cells
+TGTAGGTGTGCTGA-1,Memory CD4+ T cells
+TGTAGTCTTCCAGA-1,Memory CD4+ T cells
+TGTAGTCTTGCACA-1,Natural killer  cells
+TGTATCTGTTAGGC-1,Naive B cells
+TGTATGCTCATGGT-1,Non-classical monocytes
+TGTATGCTGTAGGG-1,Naive B cells
+TGTATGCTTTCATC-1,Naive CD8+ T cells
+TGTCAGGAATACCG-1,Memory CD4+ T cells
+TGTCAGGAGATGAA-1,Classical Monocytes
+TGTCTAACCCCTTG-1,Memory CD4+ T cells
+TGTGACGATTCTCA-1,Natural killer  cells
+TGTGAGACTGTCAG-1,Classical Monocytes
+TGTGAGACTTGAGC-1,Naive B cells
+TGTGAGTGACCACA-1,Memory CD4+ T cells
+TGTGAGTGAGTGCT-1,Classical Monocytes
+TGTGAGTGGAGATA-1,Natural killer  cells
+TGTGATCTCTCTAT-1,Non-classical monocytes
+TGTGATCTGACACT-1,Naive CD8+ T cells
+TGTGGATGGCCAAT-1,Non-classical monocytes
+TGTTAAGACAAAGA-1,Naive CD8+ T cells
+TGTTAAGATAAGGA-1,CD8+ NKT-like cells
+TGTTAAGATTGGCA-1,Naive CD8+ T cells
+TGTTACACCGCATA-1,Classical Monocytes
+TGTTACACGACTAC-1,Classical Monocytes
+TGTTACTGGCTACA-1,Natural killer  cells
+TGTTACTGTAGTCG-1,Natural killer  cells
+TTAACCACCGTAAC-1,Memory CD4+ T cells
+TTAACCACTAAGGA-1,Natural killer  cells
+TTAACCACTCAGAC-1,Natural killer  cells
+TTACACACGTGTTG-1,Naive B cells
+TTACACACTCCTAT-1,Memory CD4+ T cells
+TTACCATGAATCGC-1,CD8+ NKT-like cells
+TTACCATGGTTGAC-1,Naive B cells
+TTACCATGTGTCTT-1,Natural killer  cells
+TTACCATGTTGTGG-1,Non-classical monocytes
+TTACGACTGAGAGC-1,Naive B cells
+TTACGACTTGACAC-1,Naive CD8+ T cells
+TTACGTACGTTCAG-1,Platelets
+TTACTCGAACGTTG-1,Classical Monocytes
+TTACTCGAAGAATG-1,CD8+ NKT-like cells
+TTACTCGACGCAAT-1,Myeloid Dendritic cells
+TTACTCGAGGGTGA-1,Memory CD4+ T cells
+TTACTCGATCTACT-1,Classical Monocytes
+TTAGAATGTGGTGT-1,Memory CD4+ T cells
+TTAGAATGTGTAGC-1,Naive CD8+ T cells
+TTAGACCTCCTACC-1,Memory CD4+ T cells
+TTAGACCTCCTTTA-1,Naive CD8+ T cells
+TTAGCTACAACCGT-1,Memory CD4+ T cells
+TTAGCTACTGTCCC-1,CD8+ NKT-like cells
+TTAGCTACTTTCGT-1,Naive B cells
+TTAGGGACGCGAAG-1,Natural killer  cells
+TTAGGGTGCTGGAT-1,Non-classical monocytes
+TTAGGGTGTCCTGC-1,CD8+ NKT-like cells
+TTAGGTCTACTTTC-1,Naive CD8+ T cells
+TTAGTCACCAGTTG-1,Naive B cells
+TTAGTCTGAAAGCA-1,Non-classical monocytes
+TTAGTCTGCCAACA-1,Classical Monocytes
+TTAGTCTGTGCACA-1,Naive B cells
+TTATCCGACTAGTG-1,Non-classical monocytes
+TTATCCGAGAAAGT-1,CD8+ NKT-like cells
+TTATGAGAGATAAG-1,Naive CD8+ T cells
+TTATGCACGTCACA-1,Non-classical monocytes
+TTATGGCTTATGGC-1,Myeloid Dendritic cells
+TTATTCCTATGCTG-1,CD8+ NKT-like cells
+TTATTCCTGGACAG-1,Non-classical monocytes
+TTATTCCTGGTACT-1,Non-classical monocytes
+TTATTCCTTCGTGA-1,Naive B cells
+TTCAAAGATAAAGG-1,Natural killer  cells
+TTCAACACAACAGA-1,Memory CD4+ T cells
+TTCAACACCCCAAA-1,Naive CD8+ T cells
+TTCAACACGGACGA-1,Classical Monocytes
+TTCAAGCTAAGAAC-1,CD8+ NKT-like cells
+TTCAAGCTAGATGA-1,Naive B cells
+TTCAAGCTGTTGAC-1,Natural killer  cells
+TTCAAGCTTCCAAG-1,Naive CD8+ T cells
+TTCAAGCTTGATGC-1,Memory CD4+ T cells
+TTCAAGCTTTCGCC-1,Memory CD4+ T cells
+TTCACAACCCGTTC-1,CD8+ NKT-like cells
+TTCACAACGTCTGA-1,Classical Monocytes
+TTCAGACTACCCAA-1,Naive CD8+ T cells
+TTCAGACTCTCGAA-1,Naive B cells
+TTCAGTACCGACTA-1,Memory CD4+ T cells
+TTCAGTACTCAAGC-1,Naive B cells
+TTCAGTACTCCTAT-1,Naive CD8+ T cells
+TTCAGTTGCCAAGT-1,Naive B cells
+TTCAGTTGTCCTTA-1,Myeloid Dendritic cells
+TTCAGTTGTCTAGG-1,Naive CD8+ T cells
+TTCAGTTGTCTCGC-1,Non-classical monocytes
+TTCATCGAGGTGGA-1,Naive CD8+ T cells
+TTCATGTGTGGTGT-1,Naive B cells
+TTCATTCTATGTCG-1,CD8+ NKT-like cells
+TTCATTCTTCTCTA-1,Memory CD4+ T cells
+TTCCAAACCTATGG-1,Naive CD8+ T cells
+TTCCAAACCTCCCA-1,Non-classical monocytes
+TTCCAAACTCCCAC-1,Classical Monocytes
+TTCCAAACTTGACG-1,Natural killer  cells
+TTCCATGACGAGAG-1,CD8+ NKT-like cells
+TTCCATGACTGTCC-1,Naive CD8+ T cells
+TTCCCACTTGAGGG-1,Classical Monocytes
+TTCCCACTTGTCTT-1,CD8+ NKT-like cells
+TTCCTAGAAAGTGA-1,Memory CD4+ T cells
+TTCCTAGACTAGTG-1,Classical Monocytes
+TTCGAGGACTCTAT-1,Naive B cells
+TTCGAGGAGGGCAA-1,Naive B cells
+TTCGAGGATAGAAG-1,Classical Monocytes
+TTCGATTGAGCATC-1,Memory CD4+ T cells
+TTCGGAGAATGCCA-1,Naive CD8+ T cells
+TTCGGAGATGTGCA-1,Memory CD4+ T cells
+TTCGTATGAAAAGC-1,Natural killer  cells
+TTCGTATGGATAGA-1,Natural killer  cells
+TTCGTATGGTCTGA-1,Memory CD4+ T cells
+TTCGTATGTCCTTA-1,CD8+ NKT-like cells
+TTCTACGAACGTAC-1,Memory CD4+ T cells
+TTCTACGAGTTGGT-1,Naive B cells
+TTCTAGTGACACGT-1,Naive B cells
+TTCTAGTGCATGAC-1,Naive CD8+ T cells
+TTCTAGTGGAGAGC-1,Classical Monocytes
+TTCTAGTGGTCACA-1,CD8+ NKT-like cells
+TTCTCAGAAGAGAT-1,Naive B cells
+TTCTCAGAAGCATC-1,Non-classical monocytes
+TTCTCAGATGGAGG-1,Naive B cells
+TTCTGATGGAGACG-1,Classical Monocytes
+TTCTTACTCTGGAT-1,Classical Monocytes
+TTGAACCTCCTTGC-1,Non-classical monocytes
+TTGAATGAACTACG-1,Classical Monocytes
+TTGAATGACTTACT-1,Memory CD4+ T cells
+TTGAATGATCTCAT-1,Non-classical monocytes
+TTGACACTCTGTAG-1,Memory CD4+ T cells
+TTGACACTGATAAG-1,Non-classical monocytes
+TTGAGGACAGAACA-1,CD8+ NKT-like cells
+TTGAGGACTACGCA-1,Myeloid Dendritic cells
+TTGAGGTGGACGGA-1,Naive CD8+ T cells
+TTGCATTGAGCTAC-1,Natural killer  cells
+TTGCATTGCTAAGC-1,CD8+ NKT-like cells
+TTGCATTGTGACTG-1,Memory CD4+ T cells
+TTGCTAACACCAAC-1,Natural killer  cells
+TTGCTAACACGCTA-1,Classical Monocytes
+TTGCTAACCACTCC-1,Memory CD4+ T cells
+TTGCTATGGTACGT-1,CD8+ NKT-like cells
+TTGCTATGGTAGGG-1,Classical Monocytes
+TTGGAGACCAATCG-1,Naive B cells
+TTGGAGACGCTATG-1,Naive CD8+ T cells
+TTGGAGACTATGGC-1,Non-classical monocytes
+TTGGGAACTGAACC-1,Memory CD4+ T cells
+TTGGTACTACTGGT-1,CD8+ NKT-like cells
+TTGGTACTCTTAGG-1,Naive CD8+ T cells
+TTGGTACTGAATCC-1,Non-classical monocytes
+TTGGTACTGGATTC-1,Non-classical monocytes
+TTGTACACGTTGTG-1,Non-classical monocytes
+TTGTACACTTGCAG-1,Naive B cells
+TTGTAGCTAGCTCA-1,Naive B cells
+TTGTAGCTCTCTTA-1,Non-classical monocytes
+TTGTCATGGACGGA-1,Classical Monocytes
+TTTAGAGATCCTCG-1,Non-classical monocytes
+TTTAGCTGATACCG-1,Memory CD4+ T cells
+TTTAGCTGGATACC-1,CD8+ NKT-like cells
+TTTAGCTGTACTCT-1,Myeloid Dendritic cells
+TTTAGGCTCCTTTA-1,Naive CD8+ T cells
+TTTATCCTGTTGTG-1,CD8+ NKT-like cells
+TTTCACGAGGTTCA-1,Memory CD4+ T cells
+TTTCAGTGGAAGGC-1,Natural killer  cells
+TTTCAGTGTCACGA-1,Non-classical monocytes
+TTTCAGTGTCTATC-1,Naive CD8+ T cells
+TTTCAGTGTGCAGT-1,Non-classical monocytes
+TTTCCAGAGGTGAG-1,Naive B cells
+TTTCGAACACCTGA-1,Myeloid Dendritic cells
+TTTCGAACTCTCAT-1,CD8+ NKT-like cells
+TTTCTACTGAGGCA-1,Non-classical monocytes
+TTTCTACTTCCTCG-1,Non-classical monocytes
+TTTGCATGAGAGGC-1,Non-classical monocytes
+TTTGCATGCCTCAC-1,Memory CD4+ T cells
