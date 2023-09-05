@@ -21,7 +21,6 @@ epochs = 401
 
 
 training_losses = []
-
 def train(epoch, bulkmodel, optimizer, train_loader):
     bulkmodel.train()
     bulkmodel.to(device)
@@ -46,20 +45,13 @@ def train(epoch, bulkmodel, optimizer, train_loader):
 
         data = data.to(device)
 
-        mu1, logvar1, mu2, logvar2, mu3, logvar3, mu4, logvar4, mu5, logvar5, mu6, logvar6, mu7, logvar7, mu8, logvar8, mu9, logvar9 = scmodel.encode(data)
-
+        sc_mus, sc_logvars = scmodel.encode(data)
         bulkmodel = bulkmodel.train()
         optimizer.zero_grad()
 
-        mus, logvars = bulkmodel(data)
-        bulkmu1, bulkmu2, bulkmu3, bulkmu4, bulkmu5, bulkmu6, bulkmu7, bulkmu8, bulkmu9 = mus
-        bulklogvar1, bulklogvar2, bulklogvar3, bulklogvar4, bulklogvar5, bulklogvar6, bulklogvar7, bulklogvar8, bulklogvar9 = logvars
+        bulk_mus, bulk_logvars = bulkmodel(data)
 
-        BulkLoss = losses.bulk_loss(mu1, logvar1, mu2, logvar2, mu3, logvar3, mu4, logvar4, mu5, logvar5,\
-                                    mu6, logvar6, mu7, logvar7, mu8, logvar8, mu9, logvar9,\
-                                    bulkmu1, bulklogvar1, bulkmu2, bulklogvar2, bulkmu3, bulklogvar3,\
-                                    bulkmu4, bulklogvar4, bulkmu5, bulklogvar5, bulkmu6, bulklogvar6,\
-                                    bulkmu7, bulklogvar7, bulkmu8, bulklogvar8, bulkmu9, bulklogvar9)
+        BulkLoss = losses.bulk_loss(sc_mus, sc_logvars, bulk_mus, bulk_logvars)
         
         loss = BulkLoss
 
@@ -67,6 +59,7 @@ def train(epoch, bulkmodel, optimizer, train_loader):
         train_loss += loss.item()
         
         optimizer.step()
+
 
 
     print(f'====> Epoch: {epoch} Average loss: {train_loss / len(train_loader.dataset):.4f}')
@@ -83,21 +76,26 @@ def train(epoch, bulkmodel, optimizer, train_loader):
 if __name__ == "__main__":
 
     train_loader = data.loader
-
     bulk_model = models.bulkVAE(input_dim, hidden_dim, z_dim)
     optimizer = torch.optim.Adam(bulk_model.parameters(), lr=1e-3)
     scmodel = models.scVAE(input_dim, hidden_dim, z_dim)
-    scmodel.load_state_dict(torch.load('Pmodel_1000.pt'))
-    
-    for layer_name in ['fc1', 'fc1_mean', 'fc1_logvar', 'fc2', 'fc2_mean', 'fc2_logvar',
-                   'fc3', 'fc3_mean', 'fc3_logvar', 'fc4', 'fc4_mean', 'fc4_logvar',
-                   'fc5', 'fc5_mean', 'fc5_logvar', 'fc6', 'fc6_mean', 'fc6_logvar',
-                   'fc7', 'fc7_mean', 'fc7_logvar', 'fc8', 'fc8_mean', 'fc8_logvar',
-                   'fc9', 'fc9_mean', 'fc9_logvar']:
-        getattr(bulk_model, layer_name).load_state_dict(getattr(scmodel, layer_name).state_dict())
+
+    # Load the state dictionary and modify the keys
+    state_dict = torch.load('model_1000.pt')
+    new_state_dict = {k.replace('module.', ''): v for k, v in state_dict.items()}
+
+    scmodel.load_state_dict(new_state_dict)
+    # Transfer encoder weights from layers 1 to 9.
+    sc_encoder_layers = ['fcs', 'fcs_mean', 'fcs_logvar']
+    bulk_encoder_layers = ['fcs', 'fc_means', 'fc_logvars']
+
+    for idx in range(bulk_model.num_gmms):
+        for sc_layer, bulk_layer in zip(sc_encoder_layers, bulk_encoder_layers):
+            getattr(bulk_model, bulk_layer)[idx].load_state_dict(
+                getattr(scmodel, sc_layer)[idx].state_dict())
 
     scmodel = scmodel.to(device)
-    
+
     bulk_model.gmm_weights = scmodel.gmm_weights
     bulk_model = bulk_model.to(device)
 

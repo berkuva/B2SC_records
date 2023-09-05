@@ -104,38 +104,50 @@ if __name__ == "__main__":
     scmodel = models.scVAE(input_dim, hidden_dim, z_dim).to(device)
     bulk_model = models.bulkVAE(input_dim, hidden_dim, z_dim).to(device)
     b2sc_model = models.B2SC(input_dim, hidden_dim, z_dim).to(device)
-
+    
     # Load state dictionaries
-    scmodel_state_dict = torch.load('Pmodel_1000.pt', map_location=device)
+    scmodel_state_dict = torch.load('model_1000.pt', map_location=device)
     bulk_model_state_dict = torch.load('bulk_model_400.pt', map_location=device)
 
-    # Apply state dictionaries to the models
-    scmodel.load_state_dict(scmodel_state_dict)
+    # Modify the keys in the state dictionary to remove the "module." prefix
+    scmodel_state_dict = {k.replace('module.', ''): v for k, v in scmodel_state_dict.items()}
+    bulk_model_state_dict = {k.replace('module.', ''): v for k, v in bulk_model_state_dict.items()}
+
+    def modify_keys(state_dict):
+        new_state_dict = {}
+        for k, v in state_dict.items():
+            # Modify keys for fcs, bns, fc_means, and fc_logvars
+            for idx in range(1, 10):  # Assuming 9 GMMs
+                k = k.replace(f"fc{idx}.", f"fcs.{idx-1}.")
+                k = k.replace(f"bn{idx}.", f"bns.{idx-1}.")
+                k = k.replace(f"fc{idx}_mean.", f"fc_means.{idx-1}.")
+                k = k.replace(f"fc{idx}_logvar.", f"fc_logvars.{idx-1}.")
+            new_state_dict[k] = v
+        return new_state_dict
+
+    bulk_model_state_dict = modify_keys(bulk_model_state_dict)
+
+
+        
+    # Load the state dictionaries into the models
     bulk_model.load_state_dict(bulk_model_state_dict)
+    scmodel.load_state_dict(scmodel_state_dict)
 
-    # Transfer encoder weights from layers 1 to 9.
-    for layer_name in ['fc1', 'bn1', 'fc1_mean', 'fc1_logvar',\
-                       'fc2', 'bn2', 'fc2_mean', 'fc2_logvar', \
-                        'fc3', 'bn3', 'fc3_mean', 'fc3_logvar', \
-                        'fc4', 'bn4', 'fc4_mean', 'fc4_logvar', \
-                        'fc5', 'bn5', 'fc5_mean', 'fc5_logvar', \
-                        'fc6', 'bn6', 'fc6_mean', 'fc6_logvar', \
-                        'fc7', 'bn7', 'fc7_mean', 'fc7_logvar', \
-                        'fc8', 'bn8', 'fc8_mean', 'fc8_logvar', \
-                        'fc9', 'bn9', 'fc9_mean', 'fc9_logvar']:
-        getattr(b2sc_model, layer_name).load_state_dict(
-            getattr(bulk_model, layer_name).state_dict())
+    # Transfer encoder weights from bulkVAE to B2SC
+    encoder_layers = ['fcs', 'bns', 'fc_means', 'fc_logvars']
+    for idx in range(bulk_model.num_gmms):
+        for layer in encoder_layers:
+            getattr(b2sc_model, layer)[idx].load_state_dict(
+                getattr(bulk_model, layer)[idx].state_dict())
 
-    # Transfer decoder weights
-    for layer_name in ['fc_d1', 'bn_d1', 'dropout_d1', 'fc_d2', 'bn_d2', 'dropout_d2', 'fc_d3', 'bn_d3', 'dropout_d3', 'fc_count']:
+    # Transfer decoder weights from scVAE to B2SC
+    decoder_layers = ['fc_d1', 'bn_d1', 'dropout_d1', 'fc_d2', 'bn_d2', 'dropout_d2', 'fc_d3', 'bn_d3', 'dropout_d3', 'fc_count']
+    for layer_name in decoder_layers:
         getattr(b2sc_model, layer_name).load_state_dict(
             getattr(scmodel, layer_name).state_dict())
-    # pdb.set_trace()
-    # scmodel = scmodel.to(device)
-    bulk_model = bulk_model.to(device)
-    
-    b2sc_model = b2sc_model.to(device)
-    b2sc_model.gmm_weights = bulk_model.gmm_weights
+
+    # Transfer GMM weights
+    b2sc_model.gmm_weights.data = bulk_model.gmm_weights.data
     print("Loaded models")
     aggregate_recon_counts = []
     aggregate_labels = []

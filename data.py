@@ -9,15 +9,15 @@ import collections
 # torch.manual_seed(1)
 
 
-data_dir = "/filtered_gene_bc_matrices/hg19/"
-# data_dir = "/u/hc2kc/hg19/"
+# data_dir = "/filtered_gene_bc_matrices/hg19/"
+data_dir = "/u/hc2kc/hg19/"
 # data_dir = "/home/hc2kc/Rivanna/scVAE/hg19/"
 
 adata = sc.read_10x_mtx(data_dir, var_names='gene_symbols', cache=True)
 
 # Read your barcodes_with_labels file
-barcode_path = '/filtered_gene_bc_matrices/hg19/barcodes_with_labels.txt'
-# barcode_path = '/u/hc2kc/hg19/barcodes_with_labels.txt'
+# barcode_path = '/filtered_gene_bc_matrices/hg19/barcodes_with_labels.txt'
+barcode_path = '/u/hc2kc/hg19/barcodes_with_labels.txt'
 # barcode_path = "/home/hc2kc/Rivanna/scVAE/hg19/barcodes_with_labels.txt"
 barcodes_with_labels = pd.read_csv(barcode_path, sep=',', header=None)
 
@@ -68,6 +68,7 @@ adata.obs['labels'] = adata.obs['labels'].replace(mapping_dict)
 adata.obs['labels'] = adata.obs['labels'].astype('category')
 labels = adata.obs['labels'].cat.codes.values
 labels = torch.LongTensor(labels)
+
 
 
 

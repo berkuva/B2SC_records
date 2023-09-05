@@ -36,6 +36,7 @@ def init_weights(m):
 
 model.apply(init_weights) 
 model = model.to(device)
+model = nn.DataParallel(model).to(device)
 
 # Clamp weights
 for m in model.modules():
@@ -52,40 +53,34 @@ def train(epoch, model, optimizer, train_loader):
     
     for batch_idx, (data,labels) in enumerate(train_loader):
         data = data.to(device)
-        model = model.to(device)
+        # model = nn.DataParallel(model).to(device)
         labels = labels.to(device)
         optimizer.zero_grad()
-        gmm_weights = model.gmm_weights
+        gmm_weights = model.module.gmm_weights
+
 
         if epoch+1 < 201:
             gmm_loss = 10*losses.gmm_loss(gmm_weights)
             loss = gmm_loss
        
         elif epoch+1 < 600:
-            recon_batch, mu1, logvar1, mu2, logvar2, mu3, logvar3, mu4, logvar4, mu5, logvar5, mu6, logvar6, mu7, logvar7, mu8, logvar8, mu9, logvar9 = model(data)
+            recon_batch, mus, logvars = model(data)
             total_count, probs, logits = recon_batch
             prob_loss = F.binary_cross_entropy(probs, data, reduction='sum')
             loss = prob_loss
+        
         elif epoch+1 < 800:
-            recon_batch, mu1, logvar1, mu2, logvar2, mu3, logvar3, mu4, logvar4, mu5, logvar5, mu6, logvar6, mu7, logvar7, mu8, logvar8, mu9, logvar9 = model(data)
+            recon_batch, mus, logvars = model(data)
             total_count, probs, logits = recon_batch
             prob_loss = F.binary_cross_entropy(probs, data, reduction='sum')
-            kld = losses.KLDiv(mu1, logvar1, mu2, logvar2, mu3, logvar3, \
-                                        mu4, logvar4, mu5, logvar5, mu6, logvar6, \
-                                        mu7, logvar7, mu8, logvar8, mu9, logvar9, \
-                                        gmm_weights)
-            
+            kld = losses.KLDiv(mus, logvars, model.module.gmm_weights)
             loss = prob_loss+kld.clamp(-10000, 10000)
         else:
-            recon_batch, mu1, logvar1, mu2, logvar2, mu3, logvar3, mu4, logvar4, mu5, logvar5, mu6, logvar6, mu7, logvar7, mu8, logvar8, mu9, logvar9 = model(data)
+            recon_batch, mus, logvars = model(data)
             total_count, probs, logits = recon_batch
             prob_loss = F.binary_cross_entropy(probs, data, reduction='sum')
-            kld = losses.KLDiv(mu1, logvar1, mu2, logvar2, mu3, logvar3, \
-                                        mu4, logvar4, mu5, logvar5, mu6, logvar6, \
-                                        mu7, logvar7, mu8, logvar8, mu9, logvar9, \
-                                        gmm_weights)
+            kld = losses.KLDiv(mus, logvars, model.module.gmm_weights)
 
-            
             # dist_loss = models.PoissonDist(total_count.clamp(0, torch.max(data).item()))
             dist_loss = models.ZIP(total_count.clamp(0, torch.max(data).item()),logits)
             # dist_loss = models.ZINB(total_count.clamp(0, torch.max(data).item()), probs, logits)
@@ -95,56 +90,35 @@ def train(epoch, model, optimizer, train_loader):
 
         loss.backward()
 
+
         if epoch == 200:
-            model.gmm_weights.requires_grad = False
+            model.module.gmm_weights.requires_grad = False
+            optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=1e-3)
+
             
         train_loss += loss.item()
         optimizer.step()
 
 
-    print(f'====> Epoch: {epoch} Average loss: {train_loss / len(train_loader.dataset):.4f}')
-    # print(model.gmm_weights)
-    # if epoch+1 < 50:
-    #     print(f"gmm_loss:{gmm_loss.item()}")
-    # elif epoch+1 < 300:
-    #     print(f"prob_loss: {prob_loss.item()}")
-    # elif epoch+1 < 400:
-    #     print(f"recon:{recon.item()}")
-    # else:
-    #     print(f"KLD:{kld.item()}")
+    if (epoch+1)%10 == 0:
+        print(f'====> Epoch: {epoch} Average loss: {train_loss / len(train_loader.dataset):.4f}')
     
     if (epoch+1)%500 == 0:
             # save model checkpoint
             torch.save(model.cpu().state_dict(), f"model_{epoch+1}.pt")
-            # save model.gmm_weights
-            # np.save(f"gmm_weights_{epoch+1}.npy", gmm_weights.clone().detach().cpu().numpy())
-            # save mus and logvars
-            # np.save(f"mus_{epoch+1}.npy", [mu1.clone().detach().cpu().numpy(),
-            #                             mu2.clone().detach().cpu().numpy(),
-            #                             mu3.clone().detach().cpu().numpy(),
-            #                             mu4.clone().detach().cpu().numpy(),
-            #                             mu5.clone().detach().cpu().numpy(),
-            #                             mu6.clone().detach().cpu().numpy(),
-            #                             mu7.clone().detach().cpu().numpy(),
-            #                             mu8.clone().detach().cpu().numpy(),
-            #                             mu9.clone().detach().cpu().numpy()])
-            # np.save(f"logvars_{epoch+1}.npy", [logvar1.clone().detach().cpu().numpy(),
-            #                                 logvar2.clone().detach().cpu().numpy(),
-            #                                 logvar3.clone().detach().cpu().numpy(),
-            #                                 logvar4.clone().detach().cpu().numpy(),
-            #                                 logvar5.clone().detach().cpu().numpy(),
-            #                                 logvar6.clone().detach().cpu().numpy(),
-            #                                 logvar7.clone().detach().cpu().numpy(),
-            #                                 logvar8.clone().detach().cpu().numpy(),
-            #                                 logvar9.clone().detach().cpu().numpy()])
 
     if (epoch+1)%100 == 0:
         model.eval()
         model.to(device)
         with torch.no_grad():
+            recon_batch, mus, logvars = model(data)
             
-            mu1, logvar1, mu2, logvar2, mu3, logvar3, mu4, logvar4, mu5, logvar5, mu6, logvar6, mu7, logvar7, mu8, logvar8, mu9, logvar9 = model.encode(torch.Tensor(adata.X).to(device))
-            z = model.reparameterize(mu1, logvar1, mu2, logvar2, mu3, logvar3, mu4, logvar4, mu5, logvar5, mu6, logvar6, mu7, logvar7, mu8, logvar8, mu9, logvar9).cpu().numpy()
+            # mus, logvars = model.encode(torch.Tensor(adata.X).to(device))
+            mus, logvars = model.module.encode(torch.Tensor(adata.X).to(device))
+
+            # z = model.reparameterize(mus, logvars).cpu().numpy()
+            z = model.module.reparameterize(mus, logvars).cpu().numpy()
+
 
             label_map = {
                 '0': 'Naive B cells',
@@ -190,4 +164,10 @@ def train(epoch, model, optimizer, train_loader):
 for epoch in range(1, epochs + 1):
     train(epoch, model, optimizer, train_loader)
     if (epoch+1)%100 == 0:
-        print(model.gmm_weights)
+        print(model.module.gmm_weights)
+
+    # if epoch >200:
+    #     if model.module.gmm_weights.requires_grad:
+    #         model.module.gmm_weights.grad.zero_()
+    
+    # optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=1e-3)
