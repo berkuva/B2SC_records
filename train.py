@@ -20,7 +20,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Define hyperparameters and other settings
 input_dim = 32738
 hidden_dim = 700
-z_dim = 9
+z_dim = data.z_dim
 epochs = 1001
 
 
@@ -56,44 +56,36 @@ def train(epoch, model, optimizer, train_loader):
         # model = nn.DataParallel(model).to(device)
         labels = labels.to(device)
         optimizer.zero_grad()
-        gmm_weights = model.module.gmm_weights
 
+        recon_batch, mus, logvars, gmm_weights = model(data)
+        total_count, probs, logits = recon_batch
 
-        if epoch+1 < 201:
+        
+        if epoch+1 < 200:
             gmm_loss = 10*losses.gmm_loss(gmm_weights)
             loss = gmm_loss
-       
-        elif epoch+1 < 600:
-            recon_batch, mus, logvars = model(data)
-            total_count, probs, logits = recon_batch
+
+        elif epoch+1 < 300:
+            dist_loss = losses.ZINB(total_count.clamp(0, torch.max(data).item()), probs, logits)
+            recon = dist_loss.log_prob(data.view(-1, input_dim)).sum()
+            recon = recon.clamp(-10000, 10000)
+            loss = recon
+        
+        elif epoch+1 < 400:
+            kld = losses.KLDiv(mus, logvars, gmm_weights)
+            loss = kld.clamp(-10000, 10000)
+        else:
             prob_loss = F.binary_cross_entropy(probs, data, reduction='sum')
             loss = prob_loss
-        
-        elif epoch+1 < 800:
-            recon_batch, mus, logvars = model(data)
-            total_count, probs, logits = recon_batch
-            prob_loss = F.binary_cross_entropy(probs, data, reduction='sum')
-            kld = losses.KLDiv(mus, logvars, model.module.gmm_weights)
-            loss = prob_loss+kld.clamp(-10000, 10000)
-        else:
-            recon_batch, mus, logvars = model(data)
-            total_count, probs, logits = recon_batch
-            prob_loss = F.binary_cross_entropy(probs, data, reduction='sum')
-            kld = losses.KLDiv(mus, logvars, model.module.gmm_weights)
-
-            # dist_loss = models.PoissonDist(total_count.clamp(0, torch.max(data).item()))
-            dist_loss = models.ZIP(total_count.clamp(0, torch.max(data).item()),logits)
-            # dist_loss = models.ZINB(total_count.clamp(0, torch.max(data).item()), probs, logits)
-            recon = dist_loss.log_prob(data.view(-1, input_dim)).sum()
-            
-            loss = prob_loss+kld.clamp(-10000, 10000)+recon.clamp(-10000, 10000)
 
         loss.backward()
 
 
+        if epoch >= 200:
+            for param in model.module.fc_gmm_weights.parameters():
+                param.requires_grad = False
         if epoch == 200:
-            model.module.gmm_weights.requires_grad = False
-            optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=1e-3)
+            optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=1e-4)
 
             
         train_loss += loss.item()
@@ -101,8 +93,13 @@ def train(epoch, model, optimizer, train_loader):
 
 
     if (epoch+1)%10 == 0:
-        print(f'====> Epoch: {epoch} Average loss: {train_loss / len(train_loader.dataset):.4f}')
+        print(f'====> Epoch: {epoch+1} Average loss: {train_loss / len(train_loader.dataset):.4f}')
     
+    if (epoch+1)%20 == 0:
+        adata_input = torch.FloatTensor(adata.X).to(device)
+        sc_mus, sc_logvars, sc_gmm_weights = model.module.encode(adata_input)
+        print(sc_gmm_weights)
+
     if (epoch+1)%500 == 0:
             # save model checkpoint
             torch.save(model.cpu().state_dict(), f"model_{epoch+1}.pt")
@@ -111,13 +108,13 @@ def train(epoch, model, optimizer, train_loader):
         model.eval()
         model.to(device)
         with torch.no_grad():
-            recon_batch, mus, logvars = model(data)
+            recon_batch, mus, logvars, gmm_weights = model(data)
             
             # mus, logvars = model.encode(torch.Tensor(adata.X).to(device))
-            mus, logvars = model.module.encode(torch.Tensor(adata.X).to(device))
+            mus, logvars, gmm_weights = model.module.encode(torch.Tensor(adata.X).to(device))
 
             # z = model.reparameterize(mus, logvars).cpu().numpy()
-            z = model.module.reparameterize(mus, logvars).cpu().numpy()
+            z = model.module.reparameterize(mus, logvars, gmm_weights).cpu().numpy()
 
 
             label_map = {
@@ -156,18 +153,8 @@ def train(epoch, model, optimizer, train_loader):
             plt.title('t-SNE for joint representation')
             plt.savefig(f'tsne_joint_{epoch+1}.png')
             plt.close()
+    
 
 
-# Load model_200.pt
-# model.load_state_dict(torch.load("model_1000.pt"))
-# pdb.set_trace()
 for epoch in range(1, epochs + 1):
     train(epoch, model, optimizer, train_loader)
-    if (epoch+1)%100 == 0:
-        print(model.module.gmm_weights)
-
-    # if epoch >200:
-    #     if model.module.gmm_weights.requires_grad:
-    #         model.module.gmm_weights.grad.zero_()
-    
-    # optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=1e-3)

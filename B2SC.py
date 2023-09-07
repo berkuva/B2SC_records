@@ -1,5 +1,4 @@
 import models
-import losses
 import data
 from data import *
 import numpy as np
@@ -14,46 +13,11 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Define hyperparameters and other settings
 input_dim = 32738
 hidden_dim = 700
-z_dim = 9
-epochs = 2000
-
-
-def leiden_clustering(adata):
-    sc.pp.pca(adata, n_comps=50)  # Compute the top 50 principal components
-    sc.pp.neighbors(adata, use_rep='X_pca', n_neighbors=10)  # Use PCA representation to compute neighbors with 10 neighbors
-    sc.tl.leiden(adata)
-    return adata.obs['leiden']
-
-
-
-def convert_to_adata(recon_counts, labels):
-    # Convert recon_counts to numpy array
-    recon_counts_np = recon_counts.cpu().detach().numpy()
-
-    # Create AnnData object
-    adata = sc.AnnData(X=recon_counts_np)
-
-    # Add labels to adata object
-    adata.obs['labels'] = np.array(labels).astype(str)  # Convert labels to string for proper mapping
-    return adata
-
-
-# def sample_neuron(gmm_weights):
-#     gmm_weights_np = np.array(gmm_weights)
-#     num_neurons = len(gmm_weights_np)
-    
-#     # Normalize the probabilities
-#     gmm_weights_np = gmm_weights_np / gmm_weights_np.sum()
-    
-#     selected_neuron = np.random.choice(num_neurons, p=gmm_weights_np)
-#     return selected_neuron
+z_dim = data.z_dim
 
 
 def sample_neuron(gmm_weights):
     num_neurons = len(gmm_weights)
-
-    # Convert gmm_weights to numpy array
-    # gmm_weights_np = gmm_weights.detach().numpy()
 
     gmm_weights_np = gmm_weights.cpu().detach().numpy()
 
@@ -68,11 +32,12 @@ def generate(b2sc_model, loader):
     recon_counts = []
     labels = []
     
-    for batch_idx, (data,_) in enumerate(loader):
-        data = data.to(device)
-
-        indices = torch.randperm(data.size(0))
-        shuffled_data = data[indices]
+    for batch_idx, (data_o,_) in enumerate(loader):
+        data_o = data_o.to(device)
+        
+        # Shuffle the rows of the data tensor
+        indices = torch.randperm(data_o.size(0))
+        shuffled_data = data_o[indices]
 
         # Split the shuffled data into two halves
         mid_idx = shuffled_data.size(0) // 2
@@ -81,11 +46,21 @@ def generate(b2sc_model, loader):
         # Sum the rows for each half
         data1 = torch.sum(first_half, dim=0).reshape(-1, input_dim)
         data2 = torch.sum(second_half, dim=0).reshape(-1, input_dim)
+        # concatenate the two halves
         data = torch.cat((data1, data2), dim=0)
 
-        b2sc_model = b2sc_model.to(device)
+        data = data.to(device)
 
-        selected_neuron = sample_neuron(b2sc_model.gmm_weights)
+        b2sc_model = b2sc_model.to(device)
+        # import pdb;pdb.set_trace()
+        mus, logvars, gmm_weights = b2sc_model.encode(data)
+        
+        gmm_weights = gmm_weights.mean(0)
+        gmm_weights = torch.nn.functional.softmax(gmm_weights, dim=0)
+        # print(gmm_weights)
+        
+        selected_neuron = sample_neuron(gmm_weights)
+        # print(selected_neuron)
         labels.append(selected_neuron)
 
         recon_count = b2sc_model(data, selected_neuron)
@@ -107,7 +82,7 @@ if __name__ == "__main__":
     
     # Load state dictionaries
     scmodel_state_dict = torch.load('model_1000.pt', map_location=device)
-    bulk_model_state_dict = torch.load('bulk_model_400.pt', map_location=device)
+    bulk_model_state_dict = torch.load('bulk_model_1000.pt', map_location=device)
 
     # Modify the keys in the state dictionary to remove the "module." prefix
     scmodel_state_dict = {k.replace('module.', ''): v for k, v in scmodel_state_dict.items()}
@@ -127,39 +102,83 @@ if __name__ == "__main__":
 
     bulk_model_state_dict = modify_keys(bulk_model_state_dict)
 
-
-        
     # Load the state dictionaries into the models
     bulk_model.load_state_dict(bulk_model_state_dict)
     scmodel.load_state_dict(scmodel_state_dict)
 
-    # Transfer encoder weights from bulkVAE to B2SC
-    encoder_layers = ['fcs', 'bns', 'fc_means', 'fc_logvars']
-    for idx in range(bulk_model.num_gmms):
-        for layer in encoder_layers:
-            getattr(b2sc_model, layer)[idx].load_state_dict(
-                getattr(bulk_model, layer)[idx].state_dict())
+    # Transfer scmodel's decode to b2sc_model's decode
+    b2sc_model.fc_d1.weight.data = scmodel.fc_d1.weight.data.clone()
+    b2sc_model.fc_d1.bias.data = scmodel.fc_d1.bias.data.clone()
 
-    # Transfer decoder weights from scVAE to B2SC
-    decoder_layers = ['fc_d1', 'bn_d1', 'dropout_d1', 'fc_d2', 'bn_d2', 'dropout_d2', 'fc_d3', 'bn_d3', 'dropout_d3', 'fc_count']
-    for layer_name in decoder_layers:
-        getattr(b2sc_model, layer_name).load_state_dict(
-            getattr(scmodel, layer_name).state_dict())
+    b2sc_model.bn_d1.weight.data = scmodel.bn_d1.weight.data.clone()
+    b2sc_model.bn_d1.bias.data = scmodel.bn_d1.bias.data.clone()
 
-    # Transfer GMM weights
-    b2sc_model.gmm_weights.data = bulk_model.gmm_weights.data
+    b2sc_model.fc_d2.weight.data = scmodel.fc_d2.weight.data.clone()
+    b2sc_model.fc_d2.bias.data = scmodel.fc_d2.bias.data.clone()
+
+    b2sc_model.bn_d2.weight.data = scmodel.bn_d2.weight.data.clone()
+    b2sc_model.bn_d2.bias.data = scmodel.bn_d2.bias.data.clone()
+
+    b2sc_model.fc_d3.weight.data = scmodel.fc_d3.weight.data.clone()
+    b2sc_model.fc_d3.bias.data = scmodel.fc_d3.bias.data.clone()
+
+    b2sc_model.bn_d3.weight.data = scmodel.bn_d3.weight.data.clone()
+    b2sc_model.bn_d3.bias.data = scmodel.bn_d3.bias.data.clone()
+
+    b2sc_model.fc_count.weight.data = scmodel.fc_count.weight.data.clone()
+    b2sc_model.fc_count.bias.data = scmodel.fc_count.bias.data.clone()
+
+    # Transfer fc_gmm_weights from bulk_model to b2sc_model
+    b2sc_model.fc_gmm_weights.weight.data = bulk_model.fc_gmm_weights.weight.data.clone()
+    b2sc_model.fc_gmm_weights.bias.data = bulk_model.fc_gmm_weights.bias.data.clone()
+
+    # Transfer bulk_model's encode to b2sc_model's encode
+    for i in range(b2sc_model.num_gmms):
+        b2sc_model.fcs[i].weight.data = bulk_model.fcs[i].weight.data.clone()
+        b2sc_model.fcs[i].bias.data = bulk_model.fcs[i].bias.data.clone()
+
+        b2sc_model.bns[i].weight.data = bulk_model.bns[i].weight.data.clone()
+        b2sc_model.bns[i].bias.data = bulk_model.bns[i].bias.data.clone()
+
+        b2sc_model.fc_means[i].weight.data = bulk_model.fc_means[i].weight.data.clone()
+        b2sc_model.fc_means[i].bias.data = bulk_model.fc_means[i].bias.data.clone()
+
+        b2sc_model.fc_logvars[i].weight.data = bulk_model.fc_logvars[i].weight.data.clone()
+        b2sc_model.fc_logvars[i].bias.data = bulk_model.fc_logvars[i].bias.data.clone()
+
+    b2sc_model.fc_gmm_weights.weight.data = bulk_model.fc_gmm_weights.weight.data.clone()
+    b2sc_model.fc_gmm_weights.bias.data = bulk_model.fc_gmm_weights.bias.data.clone()
+
+    # # Transfer encoder weights from bulkVAE to B2SC
+    # encoder_layers = ['fcs', 'bns', 'fc_means', 'fc_logvars']
+    # for idx in range(bulk_model.num_gmms):
+    #     for layer in encoder_layers:
+    #         getattr(b2sc_model, layer)[idx].load_state_dict(
+    #             getattr(bulk_model, layer)[idx].state_dict())
+
+    # # Transfer decoder weights from scVAE to B2SC
+    # decoder_layers = ['fc_d1', 'bn_d1', 'dropout_d1', 'fc_d2', 'bn_d2', 'dropout_d2', 'fc_d3', 'bn_d3', 'dropout_d3', 'fc_count']
+    # for layer_name in decoder_layers:
+    #     getattr(b2sc_model, layer_name).load_state_dict(
+    #         getattr(scmodel, layer_name).state_dict())
+
+    # Take first batch from train_loader.
+    data1, _ = next(iter(data.loader))
+    data1 = data1.to(device)
+    gmm_weights = b2sc_model.encode(data1)[-1]
+    print(gmm_weights)
+
+
     print("Loaded models")
     aggregate_recon_counts = []
     aggregate_labels = []
 
-
-    for i in range(1000):
+    for i in range(data.mini_batch):
         if (i+1)%100 == 0:
-            print(f"Generating batch {i+1} / 1000")
+            print(f"Generating batch {i+1} / {data.mini_batch}")
         recon_counts, labels = generate(b2sc_model, data.loader)
         recon_count = recon_counts[0]
         label = labels[0]
-        
         
         # for recon_count in recon_counts:
         aggregate_recon_counts.append(recon_count)
@@ -174,13 +193,6 @@ if __name__ == "__main__":
 
     # Convert to numpy array
     recon_counts_np = recon_counts_tensor.detach().numpy()
-
-    # leiden_clusters = leiden_clustering(convert_to_adata(recon_counts_tensor, aggregate_labels))
-    # # Save leiden clusters
-    # np.save('leiden_clusters2.npy', leiden_clusters)
-
-    # ars = adjusted_rand_score(aggregate_labels, leiden_clusters)
-    # print(f"Adjusted Rand Score:", {ars})
 
     # Save to file
     np.save('recon_counts.npy', recon_counts_np)

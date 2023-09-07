@@ -62,6 +62,8 @@ mapping_dict = {
     'Platelets': '8'
 }
 
+z_dim = 9
+
 # Apply mapping to the 'labels' column of adata.obs
 adata.obs['labels'] = adata.obs['labels'].replace(mapping_dict)
 
@@ -69,10 +71,6 @@ adata.obs['labels'] = adata.obs['labels'].astype('category')
 labels = adata.obs['labels'].cat.codes.values
 labels = torch.LongTensor(labels)
 
-
-
-
-# 419
 
 # Create a dictionary of labels and their corresponding indices
 label_indices = collections.defaultdict(list)
@@ -89,4 +87,4 @@ mini_batch = 1000
 loader = DataLoader(dataset, batch_size=mini_batch, shuffle=False)
 
 
-__all__ = ['adata', 'loader']
+__all__ = ['adata', 'loader', 'mini_batch', 'z_dim']
