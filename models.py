@@ -182,7 +182,7 @@ class B2SC(nn.Module):
         logvars = []
 
         for i in range(self.num_gmms):
-            h = nn.ReLU()(self.bns[i](self.fcs[i](x)))
+            h = nn.ReLU()(self.fcs[i](x))
             h = self.dropout(h)
             mus.append(self.fc_means[i](h))
             logvars.append(self.fc_logvars[i](h))

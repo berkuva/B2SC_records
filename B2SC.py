@@ -24,10 +24,10 @@ z_dim = paired_dataset.z_dim
 #     selected_neuron = np.random.choice(num_neurons, p=gmm_weights_np)
 #     return selected_neuron
 
-def sample_neuron(gmm_weights):
-    probabilities = torch.nn.functional.softmax(gmm_weights, dim=0)
-    probabilities = probabilities / (probabilities.sum() + 1e-10)
-    return torch.multinomial(probabilities, 1).item()
+# def sample_neuron(gmm_weights):
+#     probabilities = torch.nn.functional.softmax(gmm_weights, dim=0)
+#     probabilities = probabilities / (probabilities.sum() + 1e-10)
+#     return torch.multinomial(probabilities, 1).item()
 
 
 def generate(b2sc_model, loader):
@@ -37,35 +37,20 @@ def generate(b2sc_model, loader):
     
     for batch_idx, (data_o,_) in enumerate(loader):
         data_o = data_o.to(device)
-        # pdb.set_trace()
-        
-        # Shuffle the rows of the data tensor
-        # num_samples = 10000
-        # indices = torch.randperm(X_tensor.size(0))[:num_samples]
-        indices = torch.randperm(data_o.size(0))
-        shuffled_data = data_o[indices]
 
-        # Split the shuffled data into two halves
-        mid_idx = shuffled_data.size(0) // 2
-        first_half, second_half = shuffled_data[:mid_idx], shuffled_data[mid_idx:]
-
-        # Sum the rows for each half
-        data1 = torch.sum(first_half, dim=0).reshape(-1, input_dim)
-        data2 = torch.sum(second_half, dim=0).reshape(-1, input_dim)
-        # concatenate the two halves
-        data = torch.cat((data1, data2), dim=0)
+        data = torch.sum(data_o, dim=0).reshape(1,-1)
 
         data = data.to(device)
-
+        
         b2sc_model = b2sc_model.to(device)
         # import pdb;pdb.set_trace()
         mus, logvars, gmm_weights = b2sc_model.encode(data)
         
         gmm_weights = gmm_weights.mean(0)
-        gmm_weights = torch.nn.functional.softmax(gmm_weights, dim=0)
+        # gmm_weights = torch.nn.functional.softmax(gmm_weights, dim=0)
         # print(gmm_weights)
         
-        selected_neuron = sample_neuron(gmm_weights)
+        selected_neuron = torch.multinomial(gmm_weights, 1).item()
         # print(selected_neuron)
         # print(selected_neuron)
         labels.append(selected_neuron)
@@ -172,8 +157,10 @@ if __name__ == "__main__":
     # Take first batch from train_loader.
     data1, _ = next(iter(paired_dataset.dataloader))
     data1 = data1.to(device)
-    gmm_weights = b2sc_model.encode(data1)[-1]
+    # pdb.set_trace()
+    gmm_weights = b2sc_model.encode(data1.sum(0).reshape(1,-1))[-1]
     print(gmm_weights)
+    # pdb.set_trace()
 
     print("Loaded models")
     aggregate_recon_counts = []#np.load('recon_counts.npy', allow_pickle=True).tolist()
@@ -181,7 +168,7 @@ if __name__ == "__main__":
 
     for j in range(paired_dataset.mini_batch):
 
-        if (j+1)%10 == 0:
+        if (j+1)%50 == 0:
             print(f"Generating batch {j+1} / {paired_dataset.mini_batch}")
         recon_counts, labels = generate(b2sc_model, paired_dataset.dataloader)
 
@@ -191,8 +178,8 @@ if __name__ == "__main__":
             aggregate_recon_counts.append(recon_count)
             aggregate_labels.append(label)
             
-        print("Length of counts: ", len(aggregate_recon_counts))
-        print("Length of labels: ", len(aggregate_labels))
+        # print("Length of counts: ", len(aggregate_recon_counts))
+        # print("Length of labels: ", len(aggregate_labels))
 
         # if (j+1)%5 == 0:
 

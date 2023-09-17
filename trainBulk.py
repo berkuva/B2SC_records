@@ -16,7 +16,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 input_dim = paired_dataset.input_dim
 hidden_dim = paired_dataset.hidden_dim
 z_dim = paired_dataset.z_dim
-epochs = 1000
+epochs = 2000
 
 # def process_tensor(tensor, start_idx, end_idx):
 #     return torch.cat([tensor[:, start_idx:start_idx+500, :].mean(1, keepdim=True), 
@@ -104,11 +104,33 @@ if __name__ == "__main__":
     for param in scmodel.parameters():
         param.requires_grad = False
 
+    bulk_model_state_dict = torch.load('bulk_model_1000.pt', map_location=device)
+    bulk_model_state_dict = {k.replace('module.', ''): v for k, v in bulk_model_state_dict.items()}
+
+    def modify_keys(state_dict):
+        new_state_dict = {}
+        for k, v in state_dict.items():
+            # Modify keys for fcs, bns, fc_means, and fc_logvars
+            for idx in range(1, 10):  # Assuming 9 GMMs
+                k = k.replace(f"fc{idx}.", f"fcs.{idx-1}.")
+                k = k.replace(f"bn{idx}.", f"bns.{idx-1}.")
+                k = k.replace(f"fc{idx}_mean.", f"fc_means.{idx-1}.")
+                k = k.replace(f"fc{idx}_logvar.", f"fc_logvars.{idx-1}.")
+            new_state_dict[k] = v
+        return new_state_dict
+
+    bulk_model_state_dict = modify_keys(bulk_model_state_dict)
+
+    # Load the state dictionaries into the models
+    bulk_model.load_state_dict(bulk_model_state_dict)
+
     bulk_model = bulk_model.to(device)
+    # pdb.set_trace()
+
 
     print("Loaded model.")
 
-    for epoch in range(0, epochs + 1):
+    for epoch in range(1000, epochs + 1):
 
         
         train(epoch,\

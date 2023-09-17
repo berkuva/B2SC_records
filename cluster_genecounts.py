@@ -26,13 +26,25 @@ mapping_dict = {
 label_map = {v: k for k, v in mapping_dict.items()}
 
 color_map = {
-    'Naive B cells': 'red', 'Non-classical monocytes': 'orange', 'Classical Monocytes': 'yellow', 'Natural killer  cells': 'green',
-    'CD8+ NKT-like cells': 'blue', 'Memory CD4+ T cells': 'black', 'T-Naive CD8+ T cells': 'purple', 'Myeloid Dendritic cells': 'pink',
-    'Platelets': 'cyan'
+    'Naive B cells': 'red', 'Non-classical monocytes': 'black', 'Classical Monocytes': 'orange', 'Natural killer  cells': 'cyan',
+    'CD8+ NKT-like cells': 'pink', 'Memory CD4+ T cells': 'purple', 'Naive CD8+ T cells': 'blue', 'Myeloid Dendritic cells': 'green',
+    'Platelets': 'yellow'
 }
 
+# import pdb;pdb.set_trace()
 for i in range(len(list(color_map.keys()))):
     print(str(list(color_map.keys())[i])+":"+str(np.unique(labels, return_counts=True)[1][i]/np.unique(labels, return_counts=True)[1].sum()))
+
+# Naive B cells:0.2037037037037037
+# Non-classical monocytes:0.1237037037037037
+# Classical Monocytes:0.11259259259259259
+# Natural killer  cells:0.10740740740740741
+# CD8+ NKT-like cells:0.1474074074074074
+# Memory CD4+ T cells:0.19592592592592592
+# Naive CD8+ T cells:0.09074074074074075
+# Myeloid Dendritic cells:0.012592592592592593
+# Platelets:0.005925925925925926
+
 
 
 # Assign labels to the adata object
