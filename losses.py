@@ -3,7 +3,7 @@ import torch.nn.functional as F
 import pdb
 import torch.nn as nn
 from torch.distributions import Distribution, Poisson, NegativeBinomial
-
+import numpy as np
 
 class PoissonDist(Distribution):
     def __init__(self, rate, validate_args=None):
@@ -64,11 +64,11 @@ def gmm_loss(gmm_weights, true_gmm_fractions=None, device='cuda'):
     # Move true_gmm_fractions to the specified device
     true_gmm_fractions = true_gmm_fractions.to(device)
     
-    # Apply softmax to gmm_weights
-    # gmm_weights = torch.nn.Softmax(dim=0)(gmm_weights)
-    
+    batch_size = gmm_weights.size(0)
+    true_gmm_fractions_expanded = true_gmm_fractions.unsqueeze(0).repeat(batch_size, 1)
+
     # Calculate the MSE loss
-    loss = nn.MSELoss()(gmm_weights, true_gmm_fractions)
+    loss = nn.MSELoss()(gmm_weights, true_gmm_fractions_expanded)
     
     return loss
 

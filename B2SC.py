@@ -1,30 +1,33 @@
 import models
-import data
-from data import *
+import paired_dataset
+from paired_dataset import *
 import numpy as np
 import torch
-import scanpy as sc
-
+# import scanpy as sc
+import time
+import pdb
 
 # Define device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # device="cpu"
 
 # Define hyperparameters and other settings
-input_dim = 32738
-hidden_dim = 700
-z_dim = data.z_dim
+input_dim = paired_dataset.input_dim
+hidden_dim = paired_dataset.hidden_dim
+z_dim = paired_dataset.z_dim
 
+
+# def sample_neuron(gmm_weights):
+#     num_neurons = len(gmm_weights)
+#     gmm_weights_np = gmm_weights.cpu().detach().numpy()
+#     # Generate a random neuron index based on the weights
+#     selected_neuron = np.random.choice(num_neurons, p=gmm_weights_np)
+#     return selected_neuron
 
 def sample_neuron(gmm_weights):
-    num_neurons = len(gmm_weights)
-
-    gmm_weights_np = gmm_weights.cpu().detach().numpy()
-
-    # Generate a random neuron index based on the weights
-    selected_neuron = np.random.choice(num_neurons, p=gmm_weights_np)
-
-    return selected_neuron
+    probabilities = torch.nn.functional.softmax(gmm_weights, dim=0)
+    probabilities = probabilities / (probabilities.sum() + 1e-10)
+    return torch.multinomial(probabilities, 1).item()
 
 
 def generate(b2sc_model, loader):
@@ -34,8 +37,11 @@ def generate(b2sc_model, loader):
     
     for batch_idx, (data_o,_) in enumerate(loader):
         data_o = data_o.to(device)
+        # pdb.set_trace()
         
         # Shuffle the rows of the data tensor
+        # num_samples = 10000
+        # indices = torch.randperm(X_tensor.size(0))[:num_samples]
         indices = torch.randperm(data_o.size(0))
         shuffled_data = data_o[indices]
 
@@ -61,6 +67,7 @@ def generate(b2sc_model, loader):
         
         selected_neuron = sample_neuron(gmm_weights)
         # print(selected_neuron)
+        # print(selected_neuron)
         labels.append(selected_neuron)
 
         recon_count = b2sc_model(data, selected_neuron)
@@ -81,7 +88,7 @@ if __name__ == "__main__":
     b2sc_model = models.B2SC(input_dim, hidden_dim, z_dim).to(device)
     
     # Load state dictionaries
-    scmodel_state_dict = torch.load('model_1000.pt', map_location=device)
+    scmodel_state_dict = torch.load('sc_model_1200.pt', map_location=device)
     bulk_model_state_dict = torch.load('bulk_model_1000.pt', map_location=device)
 
     # Modify the keys in the state dictionary to remove the "module." prefix
@@ -137,8 +144,8 @@ if __name__ == "__main__":
         b2sc_model.fcs[i].weight.data = bulk_model.fcs[i].weight.data.clone()
         b2sc_model.fcs[i].bias.data = bulk_model.fcs[i].bias.data.clone()
 
-        b2sc_model.bns[i].weight.data = bulk_model.bns[i].weight.data.clone()
-        b2sc_model.bns[i].bias.data = bulk_model.bns[i].bias.data.clone()
+        # b2sc_model.bns[i].weight.data = bulk_model.bns[i].weight.data.clone()
+        # b2sc_model.bns[i].bias.data = bulk_model.bns[i].bias.data.clone()
 
         b2sc_model.fc_means[i].weight.data = bulk_model.fc_means[i].weight.data.clone()
         b2sc_model.fc_means[i].bias.data = bulk_model.fc_means[i].bias.data.clone()
@@ -163,29 +170,34 @@ if __name__ == "__main__":
     #         getattr(scmodel, layer_name).state_dict())
 
     # Take first batch from train_loader.
-    data1, _ = next(iter(data.loader))
+    data1, _ = next(iter(paired_dataset.dataloader))
     data1 = data1.to(device)
     gmm_weights = b2sc_model.encode(data1)[-1]
     print(gmm_weights)
 
-
     print("Loaded models")
-    aggregate_recon_counts = []
-    aggregate_labels = []
+    aggregate_recon_counts = []#np.load('recon_counts.npy', allow_pickle=True).tolist()
+    aggregate_labels = []#np.load('labels.npy', allow_pickle=True).tolist()
 
-    for i in range(data.mini_batch):
-        if (i+1)%100 == 0:
-            print(f"Generating batch {i+1} / {data.mini_batch}")
-        recon_counts, labels = generate(b2sc_model, data.loader)
-        recon_count = recon_counts[0]
-        label = labels[0]
-        
-        # for recon_count in recon_counts:
-        aggregate_recon_counts.append(recon_count)
-        # for label in labels:
-        aggregate_labels.append(label)
+    for j in range(paired_dataset.mini_batch):
+
+        if (j+1)%10 == 0:
+            print(f"Generating batch {j+1} / {paired_dataset.mini_batch}")
+        recon_counts, labels = generate(b2sc_model, paired_dataset.dataloader)
+
+        for i in range(len(recon_counts)):
+            recon_count = recon_counts[i]
+            label = labels[i]
+            aggregate_recon_counts.append(recon_count)
+            aggregate_labels.append(label)
+            
+        print("Length of counts: ", len(aggregate_recon_counts))
+        print("Length of labels: ", len(aggregate_labels))
+
+        # if (j+1)%5 == 0:
+
     print("Generated counts")
-    
+
     recon_counts_tensor = torch.stack(aggregate_recon_counts).squeeze()
 
     # Move to CPU
@@ -198,4 +210,5 @@ if __name__ == "__main__":
     np.save('recon_counts.npy', recon_counts_np)
     # Save labels list as numpy array
     np.save('labels.npy', np.array(aggregate_labels))
+
 

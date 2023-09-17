@@ -2,7 +2,6 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 
-
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # device="cpu" 
 print(device)
@@ -104,7 +103,7 @@ class bulkVAE(nn.Module):
 
         # GMMs
         self.fcs = nn.ModuleList([nn.Linear(input_dim, hidden_dim) for _ in range(num_gmms)])
-        self.bns = nn.ModuleList([nn.BatchNorm1d(hidden_dim) for _ in range(num_gmms)])
+        # self.bns = nn.ModuleList([nn.InstanceNorm1d(hidden_dim) for _ in range(num_gmms)])
         self.fc_means = nn.ModuleList([nn.Linear(hidden_dim, z_dim) for _ in range(num_gmms)])
         self.fc_logvars = nn.ModuleList([nn.Linear(hidden_dim, z_dim) for _ in range(num_gmms)])
 
@@ -112,11 +111,11 @@ class bulkVAE(nn.Module):
         self.fc_gmm_weights = nn.Linear(input_dim, num_gmms)
 
         self.fc_d1 = nn.Linear(z_dim, hidden_dim)
-        self.bn_d1 = nn.BatchNorm1d(hidden_dim)
+        # self.bn_d1 = nn.InstanceNorm1d(hidden_dim)
         self.dropout_d1 = nn.Dropout(dropout_rate)
 
         self.fc_d2 = nn.Linear(hidden_dim, hidden_dim)
-        self.bn_d2 = nn.BatchNorm1d(hidden_dim)
+        # self.bn_d2 = nn.InstanceNorm1d(hidden_dim)
         self.dropout_d2 = nn.Dropout(dropout_rate)
 
         self.fc_d3 = nn.Linear(hidden_dim, input_dim)
@@ -129,7 +128,7 @@ class bulkVAE(nn.Module):
         logvars = []
 
         for i in range(self.num_gmms):
-            h = nn.ReLU()(self.bns[i](self.fcs[i](x)))
+            h = nn.ReLU()(self.fcs[i](x))
             h = self.dropout(h)
             mus.append(self.fc_means[i](h))
             logvars.append(self.fc_logvars[i](h))
@@ -218,4 +217,3 @@ class B2SC(nn.Module):
         recon_x = self.decode(z)
         
         return recon_x.sum(dim=0)
-

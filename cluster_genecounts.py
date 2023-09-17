@@ -1,52 +1,68 @@
-import numpy as np
 import scanpy as sc
+import numpy as np
 import matplotlib.pyplot as plt
-import pandas as pd
+import matplotlib.lines as mlines
 
-# Load data.
+# Load data and labels
 data = np.load('recon_counts.npy')
 adata = sc.AnnData(X=data)
 labels = np.load('labels.npy')
 
-label_map = {
-    '0': 'Naive B cells',
-    '1': 'Non-classical monocytes',
-    '2': 'Classical Monocytes',
-    '3': 'Natural killer cells',
-    '4': 'Naive CD8+ T cells',
-    '5': 'Memory CD4+ T cells',
-    '6': 'CD8+ NKT-like cells',
-    '7': 'Myeloid Dendritic cells',
-    '8': 'Platelets',
+# Given label and color maps
+
+mapping_dict = {
+    'Naive B cells': '0',
+    'Non-classical monocytes': '1',
+    'Classical Monocytes': '2',
+    'Natural killer  cells': '3',
+    'CD8+ NKT-like cells': '4',
+    'Memory CD4+ T cells': '5',
+    'Naive CD8+ T cells': '6',
+    'Myeloid Dendritic cells': '7',
+    'Platelets': '8'
 }
 
-# Convert integer labels to strings, map them using label_map, and assign back to adata
-adata.obs['labels'] = pd.Series(labels.astype(str)).map(label_map).values
-
-# Normalize and scale data
-sc.pp.normalize_total(adata, target_sum=1e4)
-sc.pp.scale(adata, max_value=100)
-
-# Run PCA
-sc.tl.pca(adata, svd_solver='arpack')
-
-# Compute the neighborhood graph
-sc.pp.neighbors(adata, n_neighbors=10, n_pcs=40)
-
-# Compute t-SNE embeddings
-sc.tl.tsne(adata)
+# set label_map as the inverse of mapping_dict
+label_map = {v: k for k, v in mapping_dict.items()}
 
 color_map = {
-    'Naive B cells': 'red',
-    'Classical Monocytes': 'orange',
-    'Platelets': 'yellow',
-    'Myeloid Dendritic cells': 'green',
-    'Naive CD8+ T cells': 'blue',
-    'Non-classical monocytes': 'black',
-    'Memory CD4+ T cells': 'purple',
-    'CD8+ NKT-like cells': 'pink',
-    'Natural killer cells': 'cyan'
+    'Naive B cells': 'red', 'Non-classical monocytes': 'orange', 'Classical Monocytes': 'yellow', 'Natural killer  cells': 'green',
+    'CD8+ NKT-like cells': 'blue', 'Memory CD4+ T cells': 'black', 'T-Naive CD8+ T cells': 'purple', 'Myeloid Dendritic cells': 'pink',
+    'Platelets': 'cyan'
 }
 
-# Plot t-SNE using the 'labels' column for coloring and the color_map as the palette
-sc.pl.tsne(adata, color='labels', save='tsne.png', palette=color_map)
+for i in range(len(list(color_map.keys()))):
+    print(str(list(color_map.keys())[i])+":"+str(np.unique(labels, return_counts=True)[1][i]/np.unique(labels, return_counts=True)[1].sum()))
+
+
+# Assign labels to the adata object
+# import pdb;pdb.set_trace()
+adata.obs['labels'] = labels.astype(str)
+adata.obs['labels'] = adata.obs['labels'].map(label_map).astype('category')
+unique_labels = adata.obs['labels'].cat.categories
+
+# Assign colors to labels
+adata.uns['labels_colors'] = [color_map[label] for label in unique_labels]
+
+# Normalize and scale data
+sc.pp.normalize_total(adata, target_sum=1e5)
+sc.pp.scale(adata, max_value=5000)
+
+# Compute PCA and UMAP using Scanpy
+sc.pp.pca(adata, n_comps=100)
+sc.pp.neighbors(adata, n_neighbors=10, n_pcs=100) 
+sc.tl.umap(adata)
+
+# Plot UMAP using Scanpy
+sc.settings.figsize = (12, 12)
+sc.pl.umap(adata, color='labels', legend_loc=None, frameon=True, show=False)
+
+# Add legend to the right of the plot
+legend_elements = [mlines.Line2D([0], [0], marker='o', color='w', label=label, markersize=10, markerfacecolor=color_map[label]) for label in unique_labels]
+plt.legend(handles=legend_elements, bbox_to_anchor=(1.05, 0.5), loc='center left', fontsize=12)
+
+# Save the plot
+plt.savefig("adjusted_umap_scanpy.png", bbox_inches='tight')
+
+# Ensure the plot displays
+plt.show()
