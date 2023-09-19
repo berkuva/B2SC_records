@@ -192,10 +192,15 @@ class B2SC(nn.Module):
 
         return mus, logvars, gmm_weights
 
-    def reparameterize(self, mu, logvar):
-        std = torch.exp(0.5 * logvar)
+    def reparameterize(self, mus, logvars, gmm_weights, selected_neuron):
+        zs = []
+        mu = mus[selected_neuron]
+        std = torch.exp(0.1 * logvars[selected_neuron])
         eps = torch.randn_like(std)
-        return eps * std + mu
+        zs.append(mu + eps * std)
+        z_stack = torch.stack(zs, dim=-1)
+        z = (z_stack * gmm_weights).sum(dim=-1)
+        return z
 
     def decode(self, z):
         h1 = nn.ReLU()(self.bn_d1(self.fc_d1(z)))
@@ -213,7 +218,7 @@ class B2SC(nn.Module):
 
     def forward(self, x, selected_neuron):
         mus, logvars, gmm_weights = self.encode(x)
-        z = self.reparameterize(mus[selected_neuron], logvars[selected_neuron])
+        z = self.reparameterize(mus, logvars, gmm_weights, selected_neuron)
         recon_x = self.decode(z)
         
         return recon_x.sum(dim=0)
