@@ -184,18 +184,11 @@ if __name__ == "__main__":
         # if (j+1)%5 == 0:
 
     print("Generated counts")
-
-    recon_counts_tensor = torch.stack(aggregate_recon_counts).squeeze()
-
-    # Move to CPU
-    recon_counts_tensor = recon_counts_tensor.cpu()
-
-    # Convert to numpy array
-    recon_counts_np = recon_counts_tensor.detach().numpy()
-
-    # Save to file
-    np.save('recon_counts.npy', recon_counts_np)
-    # Save labels list as numpy array
-    np.save('labels.npy', np.array(aggregate_labels))
+    recon_counts, labels = generate(b2sc_model, paired_dataset.dataloader)
+    recon_count = torch.stack(recon_counts)
+    # Convert to tensor and save
+    recon_count_tensor = recon_count.squeeze().cpu().detach().numpy()
+    np.save(f'recon_count.npy', recon_count_tensor)
+    np.save(f'label.npy', np.array([labels]))
 
 

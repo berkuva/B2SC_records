@@ -152,7 +152,6 @@ class B2SC(nn.Module):
 
         # Encoder
         self.fcs = nn.ModuleList([nn.Linear(input_dim, hidden_dim) for _ in range(num_gmms)])
-        self.bns = nn.ModuleList([nn.BatchNorm1d(hidden_dim) for _ in range(num_gmms)])
         self.fc_means = nn.ModuleList([nn.Linear(hidden_dim, z_dim) for _ in range(num_gmms)])
         self.fc_logvars = nn.ModuleList([nn.Linear(hidden_dim, z_dim) for _ in range(num_gmms)])
 
@@ -161,15 +160,12 @@ class B2SC(nn.Module):
         
         # Decoder
         self.fc_d1 = nn.Linear(z_dim, hidden_dim)
-        self.bn_d1 = nn.BatchNorm1d(hidden_dim)
         self.dropout_d1 = nn.Dropout(dropout_rate)
         
         self.fc_d2 = nn.Linear(hidden_dim, hidden_dim)
-        self.bn_d2 = nn.BatchNorm1d(hidden_dim)
         self.dropout_d2 = nn.Dropout(dropout_rate)
         
         self.fc_d3 = nn.Linear(hidden_dim, hidden_dim)
-        self.bn_d3 = nn.BatchNorm1d(hidden_dim)
         self.dropout_d3 = nn.Dropout(dropout_rate)
 
         self.fc_count = nn.Linear(hidden_dim, input_dim)
