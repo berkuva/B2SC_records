@@ -163,32 +163,21 @@ if __name__ == "__main__":
     # pdb.set_trace()
 
     print("Loaded models")
-    aggregate_recon_counts = []#np.load('recon_counts.npy', allow_pickle=True).tolist()
-    aggregate_labels = []#np.load('labels.npy', allow_pickle=True).tolist()
+    
+    num_runs = mini_batch  # or however many times you'd like to run the generation
 
-    for j in range(paired_dataset.mini_batch):
+    all_recon_counts = []
+    all_labels = []
 
-        if (j+1)%50 == 0:
-            print(f"Generating batch {j+1} / {paired_dataset.mini_batch}")
+    for i in range(num_runs):
         recon_counts, labels = generate(b2sc_model, paired_dataset.dataloader)
+        all_recon_counts.append(torch.stack(recon_counts))
+        all_labels.append(labels)
 
-        for i in range(len(recon_counts)):
-            recon_count = recon_counts[i]
-            label = labels[i]
-            aggregate_recon_counts.append(recon_count)
-            aggregate_labels.append(label)
-            
-        # print("Length of counts: ", len(aggregate_recon_counts))
-        # print("Length of labels: ", len(aggregate_labels))
+    # Concatenate all results along a new dimension
+    recon_count_tensor = torch.cat(all_recon_counts, dim=0).squeeze().cpu().detach().numpy()
+    labels_tensor = np.array(all_labels).squeeze()
 
-        # if (j+1)%5 == 0:
-
-    print("Generated counts")
-    recon_counts, labels = generate(b2sc_model, paired_dataset.dataloader)
-    recon_count = torch.stack(recon_counts)
-    # Convert to tensor and save
-    recon_count_tensor = recon_count.squeeze().cpu().detach().numpy()
-    np.save(f'recon_count.npy', recon_count_tensor)
-    np.save(f'label.npy', np.array([labels]))
-
-
+    # Save to file
+    np.save('recon_counts.npy', recon_count_tensor)
+    np.save('labels.npy', labels_tensor)
