@@ -1,7 +1,7 @@
 import models
 import losses
-import data
-from data import *
+import paired_dataset
+from paired_dataset import *
 import numpy as np
 import torch
 import torch.nn as nn
@@ -13,96 +13,133 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # device='cpu'
 
 # Define hyperparameters and other settings
-input_dim = 32738
-hidden_dim = 700
-z_dim = 9
-epochs = 401
+input_dim = paired_dataset.input_dim
+hidden_dim = paired_dataset.hidden_dim
+z_dim = paired_dataset.z_dim
+epochs = 2000
 
+# def process_tensor(tensor, start_idx, end_idx):
+#     return torch.cat([tensor[:, start_idx:start_idx+500, :].mean(1, keepdim=True), 
+#                     tensor[:, start_idx+500:end_idx, :].mean(1, keepdim=True)], dim=1)
 
 
 training_losses = []
-def train(epoch, bulkmodel, optimizer, train_loader):
+def train(epoch, scmodel, bulkmodel, optimizer, train_loader, scheduler):
+    print("Epoch: ", epoch+1)
     bulkmodel.train()
     bulkmodel.to(device)
     
     train_loss = 0
-    
     for batch_idx, (data,_) in enumerate(train_loader):
+        # adata_input = X_tensor.to(device)
+        num_samples = mini_batch
+        indices = torch.randperm(data.size(0))#[:num_samples]  # Generate random indices
+        sampled_tensor = data[indices]
 
-        # Shuffle the rows of the data tensor
-        indices = torch.randperm(data.size(0))
-        shuffled_data = data[indices]
+        adata_input = sampled_tensor.to(device)
+        
+        sc_mus, sc_logvars, sc_gmm_weights = scmodel.encode(adata_input)
 
-        # Split the shuffled data into two halves
-        mid_idx = shuffled_data.size(0) // 2
-        first_half, second_half = shuffled_data[:mid_idx], shuffled_data[mid_idx:]
+        # sc_gmm_weights = sc_gmm_weights.sum(dim=0).reshape(1,-1)
+        sc_mus_tensor = torch.stack(sc_mus)
+        sc_logvars_tensor = torch.stack(sc_logvars)
+        
+        concatenated_sc_mus = sc_mus_tensor.sum(1, keepdim=True)
+        concatenated_sc_logvars = sc_logvars_tensor.sum(1, keepdim=True)
 
-        # Sum the rows for each half
-        data1 = torch.sum(first_half, dim=0).reshape(-1, input_dim)
-        data2 = torch.sum(second_half, dim=0).reshape(-1, input_dim)
-        # concatenate the two halves
-        data = torch.cat((data1, data2), dim=0)
+        data = torch.sum(data, dim=0).reshape(1,-1)
 
         data = data.to(device)
-
-        sc_mus, sc_logvars = scmodel.encode(data)
-        bulkmodel = bulkmodel.train()
-        optimizer.zero_grad()
-
-        bulk_mus, bulk_logvars = bulkmodel(data)
-
-        BulkLoss = losses.bulk_loss(sc_mus, sc_logvars, bulk_mus, bulk_logvars)
         
-        loss = BulkLoss
 
-        loss.backward()
-        train_loss += loss.item()
+        # pdb.set_trace()
+        bulk_mus, bulk_logvars, bulk_gmm_weights = bulkmodel(data)
+        bulk_mus = torch.stack(bulk_mus)
+        if torch.isnan(bulk_mus).any():
+            pdb.set_trace()
+        bulk_logvars = torch.stack(bulk_logvars)
+        # pdb.set_trace()
+
+
+        mus_loss = nn.MSELoss()(sc_mus_tensor, bulk_mus.expand(paired_dataset.z_dim, mini_batch, paired_dataset.z_dim))
+        logvars_loss = nn.MSELoss()(sc_logvars_tensor, bulk_logvars.expand(paired_dataset.z_dim, mini_batch, paired_dataset.z_dim))
+        gmm_weights_loss = nn.MSELoss()(bulk_gmm_weights.expand(mini_batch, paired_dataset.z_dim), sc_gmm_weights)
         
+        combined_loss = mus_loss + logvars_loss + gmm_weights_loss
+        combined_loss.backward()
+
         optimizer.step()
-
-
-
-    print(f'====> Epoch: {epoch} Average loss: {train_loss / len(train_loader.dataset):.4f}')
-    training_losses.append(BulkLoss.cpu().item())
-
-
-    if (epoch+1)%200 == 0:
-        bulkmodel = bulkmodel.eval()
-        torch.save(bulkmodel.cpu().state_dict(), f"Pbulk_model_{epoch+1}.pt")
-    
+        optimizer.zero_grad() 
+        scheduler.step()
         
+        train_loss += combined_loss.item()
+    print(f'====> Epoch: {epoch} Average loss: {train_loss / len(train_loader.dataset):.4f}')
+    print(f'Mus loss: {mus_loss.item():.4f}, Logvars loss: {logvars_loss.item():.4f}, GMM weights loss: {gmm_weights_loss.item():.4f}')
+    if (epoch+1)%50 == 0:
+        print(bulk_gmm_weights.mean(0))
+    if (epoch+1)%100 == 0:
+        print(sc_gmm_weights.mean(0))
 
+    if (epoch+1)%100 == 0:
+        bulkmodel = bulkmodel.eval()
+        torch.save(bulkmodel.cpu().state_dict(), f"bulk_model_{epoch+1}.pt")
+    
 
 if __name__ == "__main__":
-
-    train_loader = data.loader
+    train_loader = paired_dataset.dataloader
     bulk_model = models.bulkVAE(input_dim, hidden_dim, z_dim)
-    optimizer = torch.optim.Adam(bulk_model.parameters(), lr=1e-3)
+    optimizer = torch.optim.Adam(bulk_model.parameters(), lr=5e-3, weight_decay=10)
+
+    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.99)
+
     scmodel = models.scVAE(input_dim, hidden_dim, z_dim)
 
     # Load the state dictionary and modify the keys
-    state_dict = torch.load('model_1000.pt')
+    state_dict = torch.load('sc_model_1200.pt')
     new_state_dict = {k.replace('module.', ''): v for k, v in state_dict.items()}
 
     scmodel.load_state_dict(new_state_dict)
-    # Transfer encoder weights from layers 1 to 9.
-    sc_encoder_layers = ['fcs', 'fcs_mean', 'fcs_logvar']
-    bulk_encoder_layers = ['fcs', 'fc_means', 'fc_logvars']
-
-    for idx in range(bulk_model.num_gmms):
-        for sc_layer, bulk_layer in zip(sc_encoder_layers, bulk_encoder_layers):
-            getattr(bulk_model, bulk_layer)[idx].load_state_dict(
-                getattr(scmodel, sc_layer)[idx].state_dict())
-
     scmodel = scmodel.to(device)
 
-    bulk_model.gmm_weights = scmodel.gmm_weights
+    for param in scmodel.parameters():
+        param.requires_grad = False
+
+    bulk_model_state_dict = torch.load('bulk_model_1000.pt', map_location=device)
+    bulk_model_state_dict = {k.replace('module.', ''): v for k, v in bulk_model_state_dict.items()}
+
+    def modify_keys(state_dict):
+        new_state_dict = {}
+        for k, v in state_dict.items():
+            # Modify keys for fcs, bns, fc_means, and fc_logvars
+            for idx in range(1, 10):  # Assuming 9 GMMs
+                k = k.replace(f"fc{idx}.", f"fcs.{idx-1}.")
+                k = k.replace(f"bn{idx}.", f"bns.{idx-1}.")
+                k = k.replace(f"fc{idx}_mean.", f"fc_means.{idx-1}.")
+                k = k.replace(f"fc{idx}_logvar.", f"fc_logvars.{idx-1}.")
+            new_state_dict[k] = v
+        return new_state_dict
+
+    bulk_model_state_dict = modify_keys(bulk_model_state_dict)
+
+    # Load the state dictionaries into the models
+    bulk_model.load_state_dict(bulk_model_state_dict)
+
     bulk_model = bulk_model.to(device)
+    # pdb.set_trace()
+
 
     print("Loaded model.")
 
-    for epoch in range(1, epochs + 1):
-        train(epoch, bulk_model, optimizer, train_loader)
+    for epoch in range(1000, epochs + 1):
+
+        
+        train(epoch,\
+              scmodel,
+               bulk_model,
+               optimizer,
+               train_loader,
+               scheduler)
+
     # After all your training epochs are complete
     plt.figure(figsize=(10,5))
     plt.plot(training_losses)

@@ -3,10 +3,6 @@ import pandas as pd
 import torch
 from torch.utils.data import TensorDataset, DataLoader
 import numpy as np
-import collections
-
-# np.random.seed(1)
-# torch.manual_seed(1)
 
 
 data_dir = "B2SC/filtered_gene_bc_matrices/hg19/"
@@ -19,6 +15,11 @@ adata = sc.read_10x_mtx(data_dir, var_names='gene_symbols', cache=True)
 barcode_path = 'B2SC/filtered_gene_bc_matrices/hg19/barcodes_with_labels.txt'
 #barcode_path = '/u/hc2kc/hg19/barcodes_with_labels.txt'
 # barcode_path = "/home/hc2kc/Rivanna/scVAE/hg19/barcodes_with_labels.txt"
+#data_dir = "/u/hc2kc/hg19/"
+
+#adata = sc.read_10x_mtx(data_dir, var_names='gene_symbols', cache=True)
+
+#barcode_path = '/u/hc2kc/hg19/barcodes_with_labels.txt'
 barcodes_with_labels = pd.read_csv(barcode_path, sep=',', header=None)
 
 # Assuming that the barcodes are in the first column (0) and labels in the second (1)
@@ -62,31 +63,24 @@ mapping_dict = {
     'Platelets': '8'
 }
 
+
 # Apply mapping to the 'labels' column of adata.obs
 adata.obs['labels'] = adata.obs['labels'].replace(mapping_dict)
 
 adata.obs['labels'] = adata.obs['labels'].astype('category')
 labels = adata.obs['labels'].cat.codes.values
 labels = torch.LongTensor(labels)
-
-
-
-
-# 419
-
-# Create a dictionary of labels and their corresponding indices
-label_indices = collections.defaultdict(list)
-for idx, label in enumerate(labels):
-    label_indices[label.item()].append(idx)
+cell_types_tensor = labels
 
 # Create a TensorDataset from your AnnData object
-tensor_x = torch.Tensor(adata.X)
-dataset = TensorDataset(tensor_x, labels)
-# pdb.set_trace()
+X_tensor = torch.Tensor(adata.X)
+dataset = TensorDataset(X_tensor, labels)
+mini_batch = 2700
 
-mini_batch = 1000
-# Dataloader
-loader = DataLoader(dataset, batch_size=mini_batch, shuffle=False)
+dataloader = DataLoader(dataset, batch_size=mini_batch, shuffle=False)
 
+input_dim = 32738
+hidden_dim = 700
+z_dim = 9
 
-__all__ = ['adata', 'loader']
+__all__ = ["dataloader", 'X_tensor', "cell_types_tensor", "mini_batch"]

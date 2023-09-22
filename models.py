@@ -1,63 +1,11 @@
 import torch
 from torch import nn
 from torch.nn import functional as F
-from torch.distributions import Distribution, Poisson, NegativeBinomial
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # device="cpu" 
 print(device)
-import pdb
 
-
-class PoissonDist(Distribution):
-    def __init__(self, rate, validate_args=None):
-        self._poisson = Poisson(rate, validate_args)
-        self._rate = rate
-    
-    def log_prob(self, value):
-        return self._poisson.log_prob(value)
-
-
-class ZIP(Distribution):
-    def __init__(self, rate, logits, validate_args=None):
-        self._poisson = Poisson(rate, validate_args)
-        self._rate = rate
-        self._logits = logits
-        self._gate = torch.nn.Sigmoid()
-        self._epsilon = 1e-6  # Define a small epsilon
-    
-    def log_prob(self, value):
-        gate = self._gate(self._logits)
-        
-        # Add epsilon inside the log to prevent log(0)
-        return torch.where(value == 0,
-                           torch.log(gate + (1-gate) * torch.exp(self._poisson.log_prob(value)) + self._epsilon),
-                           self._poisson.log_prob(value))
-
-
-class NBDist(Distribution):
-    def __init__(self, total_count, probs, validate_args=None):
-        self._nb = NegativeBinomial(total_count, probs, validate_args)
-        self._total_count = total_count
-        self._probs = probs
-    
-    def log_prob(self, value):
-        return self._nb.log_prob(value)
-
-
-class ZINB(Distribution):
-    def __init__(self, total_count, probs, logits, validate_args=None):
-        self._nb = torch.distributions.NegativeBinomial(total_count, probs, validate_args)
-        self._total_count = total_count
-        self._probs = probs
-        self._logits = logits
-        self._gate = torch.nn.Sigmoid()
-    
-    def log_prob(self, value):
-        gate = self._gate(self._logits)
-        return torch.where(value == 0,
-                           torch.log(gate + (1-gate) * torch.exp(self._nb.log_prob(value))),
-                           self._nb.log_prob(value))
 
 class scVAE(nn.Module):
     def __init__(self, input_dim, hidden_dim, z_dim, gmm_num=9, dropout_rate=0.1):
@@ -71,14 +19,8 @@ class scVAE(nn.Module):
         self.fcs_mean = nn.ModuleList([nn.Linear(hidden_dim, z_dim) for _ in range(gmm_num)])
         self.fcs_logvar = nn.ModuleList([nn.Linear(hidden_dim, z_dim) for _ in range(gmm_num)])
 
-        self.gmm_weights = nn.Parameter(torch.ones(gmm_num) / gmm_num, requires_grad=True)
-
-        # Add some validation on gmm_weights
-        if self.gmm_weights.min() < 0:
-            self.gmm_weights.clamp_(min=0)
-
-        if abs(self.gmm_weights.sum() - 1) > 1e-3:
-            self.gmm_weights = nn.Parameter(self.gmm_weights / self.gmm_weights.sum())
+        # Linear layer to produce gmm_weights
+        self.fc_gmm_weights = nn.Linear(input_dim, gmm_num)
 
         self.fc_d1 = nn.Linear(z_dim, hidden_dim)
         self.bn_d1 = nn.BatchNorm1d(hidden_dim)
@@ -112,9 +54,14 @@ class scVAE(nn.Module):
             var = F.softplus(logvar)
             logvars.append(torch.log(var + 1e-8))
         
-        return mus, logvars
+        # Produce gmm_weights using the linear layer and softmax activation
+        # gmm_weights = F.softmax(self.fc_gmm_weights(x), dim=-1)
+        # import pdb;pdb.set_trace()
+        gmm_weights = self.fc_gmm_weights(x)
 
-    def reparameterize(self, mus, logvars):
+        return mus, logvars, gmm_weights
+
+    def reparameterize(self, mus, logvars, gmm_weights):
         zs = []
 
         for i in range(self.gmm_num):
@@ -123,8 +70,6 @@ class scVAE(nn.Module):
             zs.append(mus[i] + eps * std)
 
         z_stack = torch.stack(zs, dim=-1)
-        gmm_weights = self.gmm_weights.unsqueeze(0).expand(z_stack.shape[0], -1)
-        gmm_weights = F.gumbel_softmax(gmm_weights, tau=1, hard=False, dim=-1)
         gmm_weights = gmm_weights.unsqueeze(-1).transpose(-1, -2).expand(-1, self.z_dim, -1)
         z = (z_stack * gmm_weights).sum(dim=-1)
 
@@ -143,9 +88,10 @@ class scVAE(nn.Module):
         return nn.ReLU()(self.fc_count(h5)), torch.clamp(nn.Sigmoid()(self.fc_probs(h5)), min=1e-4, max=1-1e-4), self.fc_logits(h5)
 
     def forward(self, x):
-        mus, logvars = self.encode(x.view(-1, self.input_dim))
-        z = self.reparameterize(mus, logvars)
-        return self.decode(z), mus, logvars
+        mus, logvars, gmm_weights = self.encode(x.view(-1, self.input_dim))
+        z = self.reparameterize(mus, logvars, gmm_weights)
+        return self.decode(z), mus, logvars, gmm_weights
+    
 
 
 class bulkVAE(nn.Module):
@@ -157,25 +103,19 @@ class bulkVAE(nn.Module):
 
         # GMMs
         self.fcs = nn.ModuleList([nn.Linear(input_dim, hidden_dim) for _ in range(num_gmms)])
-        self.bns = nn.ModuleList([nn.BatchNorm1d(hidden_dim) for _ in range(num_gmms)])
+        # self.bns = nn.ModuleList([nn.InstanceNorm1d(hidden_dim) for _ in range(num_gmms)])
         self.fc_means = nn.ModuleList([nn.Linear(hidden_dim, z_dim) for _ in range(num_gmms)])
         self.fc_logvars = nn.ModuleList([nn.Linear(hidden_dim, z_dim) for _ in range(num_gmms)])
 
-        self.gmm_weights = nn.Parameter(torch.ones(num_gmms) / num_gmms, requires_grad=True)
-
-        # Add some validation on gmm_weights
-        if self.gmm_weights.min() < 0:
-            self.gmm_weights.clamp_(min=0)
-
-        if abs(self.gmm_weights.sum() - 1) > 1e-3:
-            self.gmm_weights = nn.Parameter(self.gmm_weights / self.gmm_weights.sum())
+        # Linear layer to produce gmm_weights
+        self.fc_gmm_weights = nn.Linear(input_dim, num_gmms)
 
         self.fc_d1 = nn.Linear(z_dim, hidden_dim)
-        self.bn_d1 = nn.BatchNorm1d(hidden_dim)
+        # self.bn_d1 = nn.InstanceNorm1d(hidden_dim)
         self.dropout_d1 = nn.Dropout(dropout_rate)
 
         self.fc_d2 = nn.Linear(hidden_dim, hidden_dim)
-        self.bn_d2 = nn.BatchNorm1d(hidden_dim)
+        # self.bn_d2 = nn.InstanceNorm1d(hidden_dim)
         self.dropout_d2 = nn.Dropout(dropout_rate)
 
         self.fc_d3 = nn.Linear(hidden_dim, input_dim)
@@ -188,18 +128,21 @@ class bulkVAE(nn.Module):
         logvars = []
 
         for i in range(self.num_gmms):
-            h = nn.ReLU()(self.bns[i](self.fcs[i](x)))
+            h = nn.ReLU()(self.fcs[i](x))
             h = self.dropout(h)
             mus.append(self.fc_means[i](h))
             logvars.append(self.fc_logvars[i](h))
+        
+        # Produce gmm_weights using the linear layer and softmax activation
+        gmm_weights = self.fc_gmm_weights(x)
 
-        return mus, logvars
+        return mus, logvars, gmm_weights
 
     def forward(self, x):
-        mus, logvars = self.encode(x.view(-1, self.input_dim))
-        return mus, logvars
+        mus, logvars, gmm_weights = self.encode(x.view(-1, self.input_dim))
+        return mus, logvars, gmm_weights
 
-    
+
 class B2SC(nn.Module):
     def __init__(self, input_dim, hidden_dim, z_dim, num_gmms=9, dropout_rate=0.1):
         super(B2SC, self).__init__()
@@ -209,23 +152,20 @@ class B2SC(nn.Module):
 
         # Encoder
         self.fcs = nn.ModuleList([nn.Linear(input_dim, hidden_dim) for _ in range(num_gmms)])
-        self.bns = nn.ModuleList([nn.BatchNorm1d(hidden_dim) for _ in range(num_gmms)])
         self.fc_means = nn.ModuleList([nn.Linear(hidden_dim, z_dim) for _ in range(num_gmms)])
         self.fc_logvars = nn.ModuleList([nn.Linear(hidden_dim, z_dim) for _ in range(num_gmms)])
 
-        self.gmm_weights = nn.Parameter(torch.ones(num_gmms) / num_gmms)
+        # Linear layer to produce gmm_weights
+        self.fc_gmm_weights = nn.Linear(input_dim, num_gmms)
         
         # Decoder
         self.fc_d1 = nn.Linear(z_dim, hidden_dim)
-        self.bn_d1 = nn.BatchNorm1d(hidden_dim)
         self.dropout_d1 = nn.Dropout(dropout_rate)
         
         self.fc_d2 = nn.Linear(hidden_dim, hidden_dim)
-        self.bn_d2 = nn.BatchNorm1d(hidden_dim)
         self.dropout_d2 = nn.Dropout(dropout_rate)
         
         self.fc_d3 = nn.Linear(hidden_dim, hidden_dim)
-        self.bn_d3 = nn.BatchNorm1d(hidden_dim)
         self.dropout_d3 = nn.Dropout(dropout_rate)
 
         self.fc_count = nn.Linear(hidden_dim, input_dim)
@@ -238,17 +178,25 @@ class B2SC(nn.Module):
         logvars = []
 
         for i in range(self.num_gmms):
-            h = nn.ReLU()(self.bns[i](self.fcs[i](x)))
+            h = nn.ReLU()(self.fcs[i](x))
             h = self.dropout(h)
             mus.append(self.fc_means[i](h))
             logvars.append(self.fc_logvars[i](h))
+        
+        # Produce gmm_weights using the linear layer and softmax activation
+        gmm_weights = self.fc_gmm_weights(x)
 
-        return mus, logvars
+        return mus, logvars, gmm_weights
 
-    def reparameterize(self, mu, logvar):
-        std = torch.exp(0.5 * logvar)
+    def reparameterize(self, mus, logvars, gmm_weights, selected_neuron):
+        zs = []
+        mu = mus[selected_neuron]
+        std = torch.exp(0.1 * logvars[selected_neuron])
         eps = torch.randn_like(std)
-        return eps * std + mu
+        zs.append(mu + eps * std)
+        z_stack = torch.stack(zs, dim=-1)
+        z = (z_stack * gmm_weights).sum(dim=-1)
+        return z
 
     def decode(self, z):
         h1 = nn.ReLU()(self.bn_d1(self.fc_d1(z)))
@@ -265,8 +213,8 @@ class B2SC(nn.Module):
         return recon_x
 
     def forward(self, x, selected_neuron):
-        mus, logvars = self.encode(x)
-        z = self.reparameterize(mus[selected_neuron], logvars[selected_neuron])
+        mus, logvars, gmm_weights = self.encode(x)
+        z = self.reparameterize(mus, logvars, gmm_weights, selected_neuron)
         recon_x = self.decode(z)
         
         return recon_x.sum(dim=0)

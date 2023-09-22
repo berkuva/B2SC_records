@@ -5,28 +5,28 @@ import numpy as np
 import seaborn as sns
 from sklearn.manifold import TSNE
 import models
-import data
-from data import *
+import paired_dataset
+from paired_dataset import *
 import losses
 import torch.nn as nn
 import umap
 import pdb
-
+import time
 
 # Define device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # device='cpu'
 
 # Define hyperparameters and other settings
-input_dim = 32738
-hidden_dim = 700
-z_dim = 9
-epochs = 1001
+input_dim = paired_dataset.input_dim
+hidden_dim = paired_dataset.hidden_dim
+epochs = 1200
+z_dim = paired_dataset.z_dim
 
 
 # Create VAE and optimizer
 model = models.scVAE(input_dim, hidden_dim, z_dim).to(device)
-optimizer = torch.optim.Adam(model.parameters(), lr=2e-3)
+optimizer = torch.optim.Adam(model.parameters(), lr=5e-3)
 
 # Weight initialization
 def init_weights(m):
@@ -36,138 +36,138 @@ def init_weights(m):
 
 model.apply(init_weights) 
 model = model.to(device)
-model = nn.DataParallel(model).to(device)
 
 # Clamp weights
 for m in model.modules():
     if isinstance(m, nn.Linear):
         m.weight.data.clamp_(-5, 5)
 
-train_loader = data.loader 
+train_loader = paired_dataset.dataloader 
 
+
+label_map = {
+    '0': 'Naive B cells',
+    '1': 'Non-classical monocytes',
+    '2': 'Classical Monocytes',
+    '3': 'Natural killer cells',
+    '4': 'Naive CD8+ T cells',
+    '5': 'Memory CD4+ T cells',
+    '6': 'CD8+ NKT-like cells',
+    '7': 'Myeloid Dendritic cells',
+    '8': 'Platelets',
+}
+
+
+color_map = {
+    'Naive B cells': 'red',
+    'Classical Monocytes': 'orange',
+    'Platelets': 'yellow',
+    'Myeloid Dendritic cells': 'green',
+    'Naive CD8+ T cells': 'blue',
+    'Non-classical monocytes': 'black',
+    'Memory CD4+ T cells': 'purple',
+    'CD8+ NKT-like cells': 'pink',
+    'Natural killer cells': 'cyan'  # Fixed the typo here
+}
+
+train_gmm_till = 200
 
 # Training Loop with warm-up
-def train(epoch, model, optimizer, train_loader):
+def train(epoch, model, optimizer, train_loader, gmm_weights_backup):
+    print(f'Epoch: {epoch+1}')
     model.train()
+
+        
     train_loss = 0
     
     for batch_idx, (data,labels) in enumerate(train_loader):
+        # Check how much time it takes for each iteration.
         data = data.to(device)
-        # model = nn.DataParallel(model).to(device)
         labels = labels.to(device)
         optimizer.zero_grad()
-        gmm_weights = model.module.gmm_weights
 
+        recon_batch, mus, logvars, gmm_weights = model(data)
+        total_count, probs, logits = recon_batch
 
-        if epoch+1 < 201:
+        if epoch+1 < train_gmm_till:
             gmm_loss = 10*losses.gmm_loss(gmm_weights)
             loss = gmm_loss
        
-        elif epoch+1 < 600:
-            recon_batch, mus, logvars = model(data)
+        elif epoch+1 < 500:
             total_count, probs, logits = recon_batch
             prob_loss = F.binary_cross_entropy(probs, data, reduction='sum')
             loss = prob_loss
         
-        elif epoch+1 < 800:
-            recon_batch, mus, logvars = model(data)
+        elif epoch+1 < 700:
             total_count, probs, logits = recon_batch
-            prob_loss = F.binary_cross_entropy(probs, data, reduction='sum')
-            kld = losses.KLDiv(mus, logvars, model.module.gmm_weights)
-            loss = prob_loss+kld.clamp(-10000, 10000)
-        else:
-            recon_batch, mus, logvars = model(data)
-            total_count, probs, logits = recon_batch
-            prob_loss = F.binary_cross_entropy(probs, data, reduction='sum')
-            kld = losses.KLDiv(mus, logvars, model.module.gmm_weights)
+            kld = losses.KLDiv(mus, logvars, gmm_weights)
+            loss = kld.clamp(-10000, 10000)
 
-            # dist_loss = models.PoissonDist(total_count.clamp(0, torch.max(data).item()))
-            dist_loss = models.ZIP(total_count.clamp(0, torch.max(data).item()),logits)
-            # dist_loss = models.ZINB(total_count.clamp(0, torch.max(data).item()), probs, logits)
-            recon = dist_loss.log_prob(data.view(-1, input_dim)).sum()
-            
-            loss = prob_loss+kld.clamp(-10000, 10000)+recon.clamp(-10000, 10000)
+        else:
+            total_count, probs, logits = recon_batch
+            prob_loss = F.binary_cross_entropy(probs, data, reduction='sum')
+
+            loss = prob_loss
+
+
+        train_loss += loss.item()
+        
+        if epoch+1 == train_gmm_till:
+            gmm_weights_backup = {name: param.clone() for name, param in model.fc_gmm_weights.named_parameters()}
+            for param in model.fc_gmm_weights.parameters():
+                param.requires_grad = False
+            optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=1e-4)
 
         loss.backward()
-
-
-        if epoch == 200:
-            model.module.gmm_weights.requires_grad = False
-            optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=1e-3)
-
-            
-        train_loss += loss.item()
         optimizer.step()
 
+        if epoch+1 >= train_gmm_till:
+            for name, param in model.fc_gmm_weights.named_parameters():
+                param.data = gmm_weights_backup[name]
 
     if (epoch+1)%10 == 0:
-        print(f'====> Epoch: {epoch} Average loss: {train_loss / len(train_loader.dataset):.4f}')
-    
-    if (epoch+1)%500 == 0:
-            # save model checkpoint
-            torch.save(model.cpu().state_dict(), f"model_{epoch+1}.pt")
+        print(f'Average loss: {train_loss / len(train_loader.dataset):.4f}')
+
+    if (epoch+1)%20 == 0:
+        print(gmm_weights)
 
     if (epoch+1)%100 == 0:
-        model.eval()
+        torch.save(model.cpu().state_dict(), f"sc_model_{epoch+1}.pt")
+        X_tensor = paired_dataset.X_tensor
         model.to(device)
+        model.eval()
+        
         with torch.no_grad():
-            recon_batch, mus, logvars = model(data)
-            
-            # mus, logvars = model.encode(torch.Tensor(adata.X).to(device))
-            mus, logvars = model.module.encode(torch.Tensor(adata.X).to(device))
+            # recon_batch, mus, logvars, gmm_weights = model(X_tensor)
+            mus, logvars, gmm_weights = model.encode(X_tensor.to(device))
+            z = model.reparameterize(mus, logvars, gmm_weights).cpu().numpy()
 
-            # z = model.reparameterize(mus, logvars).cpu().numpy()
-            z = model.module.reparameterize(mus, logvars).cpu().numpy()
+            # Convert cell_types_tensor to numpy for plotting
+            raw_labels = paired_dataset.cell_types_tensor.numpy()
 
+            # Convert raw_labels to their names using the label_map
+            label_names = np.array([label_map[str(label)] for label in raw_labels])
+            unique_labels = np.unique(label_names)
 
-            label_map = {
-                '0': 'Naive B cells',
-                '1': 'Non-classical monocytes',
-                '2': 'Classical Monocytes',
-                '3': 'Natural killer cells',
-                '4': 'Naive CD8+ T cells',
-                '5': 'Memory CD4+ T cells',
-                '6': 'CD8+ NKT-like cells',
-                '7': 'Myeloid Dendritic cells',
-                '8': 'Platelets',
-            }
-
-            # Create a list that converts adata.obs['labels'] to their respective names
-            celltype_labels = [label_map[l] for l in adata.obs['labels']]
-
-            color_map = {
-                'Naive B cells': 'red',
-                'Classical Monocytes': 'orange',
-                'Platelets': 'yellow',
-                'Myeloid Dendritic cells': 'green',
-                'Naive CD8+ T cells': 'blue',
-                'Non-classical monocytes': 'black',
-                'Memory CD4+ T cells': 'purple',
-                'CD8+ NKT-like cells': 'pink',
-                'Natural killer cells': 'cyan'  # Fixed the typo here
-            }
-
-            reducer = TSNE()
-
-            # Joint embedding
+            # embedding
+            reducer = umap.UMAP()
             embedding = reducer.fit_transform(z)
-            plt.figure(1, figsize=(8, 8))
-            sns.scatterplot(x=embedding[:, 0], y=embedding[:, 1], hue=celltype_labels, legend='full', palette=color_map)
-            plt.title('t-SNE for joint representation')
-            plt.savefig(f'tsne_joint_{epoch+1}.png')
-            plt.close()
+
+            # Plot the UMAP representation
+            plt.figure(figsize=(10, 10))
+            for label in unique_labels:
+                indices = np.where(label_names == label)
+                plt.scatter(embedding[indices, 0], embedding[indices, 1], color=color_map[label], label=label)
+            plt.legend()
+            plt.savefig(f"umap_{epoch+1}.png")
 
 
-# Load model_200.pt
-# model.load_state_dict(torch.load("model_1000.pt"))
-# pdb.set_trace()
-for epoch in range(1, epochs + 1):
-    train(epoch, model, optimizer, train_loader)
-    if (epoch+1)%100 == 0:
-        print(model.module.gmm_weights)
+    return gmm_weights_backup
+            
+epoch_start = 0
+print(paired_dataset.X_tensor.shape)
+gmm_weights_backup = None
+for epoch in range(epoch_start, epochs + 1):
 
-    # if epoch >200:
-    #     if model.module.gmm_weights.requires_grad:
-    #         model.module.gmm_weights.grad.zero_()
-    
-    # optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=1e-3)
+    gmm_weights_backup = train(epoch, model, optimizer, train_loader, gmm_weights_backup)
+
