@@ -107,7 +107,7 @@ if __name__ == "__main__":
     
     # Load state dictionaries
     scmodel_state_dict = torch.load('model_1000.pt', map_location=device)
-    bulk_model_state_dict = torch.load('bulk_model_400.pt', map_location=device)
+    bulk_model_state_dict = torch.load('Pbulk_model_400.pt', map_location=device)
 
     # Modify the keys in the state dictionary to remove the "module." prefix
     scmodel_state_dict = {k.replace('module.', ''): v for k, v in scmodel_state_dict.items()}
