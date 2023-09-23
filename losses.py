@@ -56,21 +56,61 @@ class ZINB(Distribution):
                            self._nb.log_prob(value))
     
 
+
+def zinb_loss(preds, targets, zero_inflation_prob, theta):
+    """
+    Computes the ZINB loss.
+
+    Args:
+    - preds: Predicted means of the NB distribution.
+    - targets: True counts.
+    - zero_inflation_prob: Predicted probability of zero inflation.
+    - theta: Dispersion parameter for the NB distribution.
+
+    Returns:
+    - ZINB loss
+    """
+    # Ensure values are in safe ranges
+    preds = torch.clamp(preds, min=1e-8)
+    theta = torch.clamp(theta, min=1e-8)
+    
+    # Zero-Inflated part
+    zero_loss = - (targets * torch.log(zero_inflation_prob + 1e-8) + (1. - targets) * torch.log(1. - zero_inflation_prob + 1e-8))
+    
+    # NB likelihood
+    nb_loss = (torch.lgamma(targets + 1/theta) - torch.lgamma(targets + 1) - torch.lgamma(1/theta)
+            + 1/theta * torch.log(1/theta + 1e-8) + 1/theta * torch.log(1 + theta * preds + 1e-8)
+            - targets * torch.log(theta * preds + 1e-8) - targets * torch.log(1 + theta * preds + 1e-8))
+    
+    nb_loss = -nb_loss
+
+    return zero_loss.mean() + nb_loss.mean()
+
+
 def gmm_loss(gmm_weights, true_gmm_fractions=None, device='cuda'):
     # Default values for the true GMM fractions if not provided
     if true_gmm_fractions is None:
-        true_gmm_fractions = torch.tensor([0.187, 0.129, 0.113, 0.113, 0.146, 0.193, 0.10, 0.013, 0.006])
+        fractions = np.array([0.048, 0.248, 0.111, \
+                              0.041, 0.100, 0.045, \
+                              0.068, 0.134, 0.028, \
+                              0.081, 0.009, 0.008, \
+                              0.006, 0.008, 0.064], dtype=np.float32)
+        true_gmm_fractions = torch.tensor(fractions)
 
     # Move true_gmm_fractions to the specified device
-    true_gmm_fractions = true_gmm_fractions.to(device)
+    true_gmm_fractions = true_gmm_fractions.to(device).float()
     
     batch_size = gmm_weights.size(0)
-    true_gmm_fractions_expanded = true_gmm_fractions.unsqueeze(0).repeat(batch_size, 1)
+    true_gmm_fractions_expanded = true_gmm_fractions.unsqueeze(0).repeat(batch_size, 1).float()
+
+    # Ensure gmm_weights is also float dtype
+    gmm_weights = gmm_weights.float()
 
     # Calculate the MSE loss
     loss = nn.MSELoss()(gmm_weights, true_gmm_fractions_expanded)
-    
+
     return loss
+
 
 
 def KLDiv(mus, logvars, gmm_weights):

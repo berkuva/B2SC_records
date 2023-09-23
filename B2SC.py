@@ -129,55 +129,63 @@ if __name__ == "__main__":
         b2sc_model.fcs[i].weight.data = bulk_model.fcs[i].weight.data.clone()
         b2sc_model.fcs[i].bias.data = bulk_model.fcs[i].bias.data.clone()
 
-        # b2sc_model.bns[i].weight.data = bulk_model.bns[i].weight.data.clone()
-        # b2sc_model.bns[i].bias.data = bulk_model.bns[i].bias.data.clone()
-
         b2sc_model.fc_means[i].weight.data = bulk_model.fc_means[i].weight.data.clone()
         b2sc_model.fc_means[i].bias.data = bulk_model.fc_means[i].bias.data.clone()
 
         b2sc_model.fc_logvars[i].weight.data = bulk_model.fc_logvars[i].weight.data.clone()
         b2sc_model.fc_logvars[i].bias.data = bulk_model.fc_logvars[i].bias.data.clone()
 
-    b2sc_model.fc_gmm_weights.weight.data = bulk_model.fc_gmm_weights.weight.data.clone()
-    b2sc_model.fc_gmm_weights.bias.data = bulk_model.fc_gmm_weights.bias.data.clone()
-
-    # # Transfer encoder weights from bulkVAE to B2SC
-    # encoder_layers = ['fcs', 'bns', 'fc_means', 'fc_logvars']
-    # for idx in range(bulk_model.num_gmms):
-    #     for layer in encoder_layers:
-    #         getattr(b2sc_model, layer)[idx].load_state_dict(
-    #             getattr(bulk_model, layer)[idx].state_dict())
-
-    # # Transfer decoder weights from scVAE to B2SC
-    # decoder_layers = ['fc_d1', 'bn_d1', 'dropout_d1', 'fc_d2', 'bn_d2', 'dropout_d2', 'fc_d3', 'bn_d3', 'dropout_d3', 'fc_count']
-    # for layer_name in decoder_layers:
-    #     getattr(b2sc_model, layer_name).load_state_dict(
-    #         getattr(scmodel, layer_name).state_dict())
-
-    # Take first batch from train_loader.
-    data1, _ = next(iter(paired_dataset.dataloader))
-    data1 = data1.to(device)
-    # pdb.set_trace()
-    gmm_weights = b2sc_model.encode(data1.sum(0).reshape(1,-1))[-1]
-    print(gmm_weights)
-    # pdb.set_trace()
 
     print("Loaded models")
-    
-    num_runs = mini_batch  # or however many times you'd like to run the generation
 
-    all_recon_counts = []
-    all_labels = []
+    try:
+        all_recon_counts = np.load('recon_counts.npy').tolist()
+        all_labels = np.load('labels.npy').tolist()
+    except:
+        all_recon_counts = []
+        all_labels = []
+
+    num_runs = 500  # or however many times to run the generation
 
     for i in range(num_runs):
+        if (i+1)%10==0:
+            print(f"Run: {i+1}")
+
+            # Save to file
+            recon_count_tensor = np.array(all_recon_counts)
+            labels_tensor = np.array(all_labels)
+            np.save('recon_counts.npy', np.array(recon_count_tensor))
+            np.save('labels.npy', np.array(labels_tensor))
+            all_recon_counts = []
+            all_labels = []
+
         recon_counts, labels = generate(b2sc_model, paired_dataset.dataloader)
-        all_recon_counts.append(torch.stack(recon_counts))
-        all_labels.append(labels)
+        for k in range(len(recon_counts)):
+            all_recon_counts.append(recon_counts[k].cpu().detach().numpy().tolist())
+            all_labels.append(labels[k])
 
-    # Concatenate all results along a new dimension
-    recon_count_tensor = torch.cat(all_recon_counts, dim=0).squeeze().cpu().detach().numpy()
-    labels_tensor = np.array(all_labels).squeeze()
 
-    # Save to file
-    np.save('recon_counts.npy', recon_count_tensor)
-    np.save('labels.npy', labels_tensor)
+    # # set all_recon_counts equal to saved recon_counts.npy.
+    # try:
+    #     all_recon_counts = np.load('recon_counts.npy').tolist()
+    #     all_labels = np.load('labels.npy').tolist()
+    # except:
+    #     all_recon_counts = []
+    #     all_labels = []
+
+    # howmany = 500
+    # for l in range(howmany):
+    #     print(f"Run: {l+1}")
+    #     recon_counts, labels = generate_desired_celltypes(6, b2sc_model, 1)
+    #     for k in range(len(recon_counts)):
+    #         all_recon_counts.append(recon_counts[k].cpu().detach().numpy().tolist())
+    #         all_labels.append(labels[k])
+    #     if (l+1)%10==0:
+    #         recon_count_tensor = np.array(all_recon_counts)
+    #         labels_tensor = np.array(all_labels)
+
+    #         # Save to file
+    #         np.save('recon_counts.npy', recon_count_tensor)
+    #         np.save('labels.npy', labels_tensor)
+            # all_recon_counts = []
+            # all_labels = []

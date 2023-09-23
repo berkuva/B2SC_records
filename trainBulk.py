@@ -23,7 +23,11 @@ epochs = 2000
 #                     tensor[:, start_idx+500:end_idx, :].mean(1, keepdim=True)], dim=1)
 
 
+training_losses_mean = []
+training_losses_var = []
+training_losses_gmm_weights = []
 training_losses = []
+
 def train(epoch, scmodel, bulkmodel, optimizer, train_loader, scheduler):
     print("Epoch: ", epoch+1)
     bulkmodel.train()
@@ -43,6 +47,7 @@ def train(epoch, scmodel, bulkmodel, optimizer, train_loader, scheduler):
         # sc_gmm_weights = sc_gmm_weights.sum(dim=0).reshape(1,-1)
         sc_mus_tensor = torch.stack(sc_mus)
         sc_logvars_tensor = torch.stack(sc_logvars)
+        # pdb.set_trace()
         
         concatenated_sc_mus = sc_mus_tensor.sum(1, keepdim=True)
         concatenated_sc_logvars = sc_logvars_tensor.sum(1, keepdim=True)
@@ -61,11 +66,12 @@ def train(epoch, scmodel, bulkmodel, optimizer, train_loader, scheduler):
         # pdb.set_trace()
 
 
-        mus_loss = nn.MSELoss()(sc_mus_tensor, bulk_mus.expand(paired_dataset.z_dim, mini_batch, paired_dataset.z_dim))
-        logvars_loss = nn.MSELoss()(sc_logvars_tensor, bulk_logvars.expand(paired_dataset.z_dim, mini_batch, paired_dataset.z_dim))
-        gmm_weights_loss = nn.MSELoss()(bulk_gmm_weights.expand(mini_batch, paired_dataset.z_dim), sc_gmm_weights)
-        
+        mus_loss = nn.MSELoss()(concatenated_sc_mus, bulk_mus.expand(paired_dataset.z_dim, concatenated_sc_mus.shape[1], paired_dataset.z_dim))
+        logvars_loss = nn.MSELoss()(concatenated_sc_logvars, bulk_logvars.expand(paired_dataset.z_dim, concatenated_sc_logvars.shape[1], paired_dataset.z_dim))
+        gmm_weights_loss = nn.MSELoss()(bulk_gmm_weights.expand(len(sc_gmm_weights), paired_dataset.z_dim), sc_gmm_weights)
+
         combined_loss = mus_loss + logvars_loss + gmm_weights_loss
+
         combined_loss.backward()
 
         optimizer.step()
@@ -73,6 +79,12 @@ def train(epoch, scmodel, bulkmodel, optimizer, train_loader, scheduler):
         scheduler.step()
         
         train_loss += combined_loss.item()
+
+    training_losses_mean.append(mus_loss.item())
+    training_losses_var.append(logvars_loss.item())
+    training_losses_gmm_weights.append(gmm_weights_loss.item())
+    training_losses.append(combined_loss.item())
+    
     print(f'====> Epoch: {epoch} Average loss: {train_loss / len(train_loader.dataset):.4f}')
     print(f'Mus loss: {mus_loss.item():.4f}, Logvars loss: {logvars_loss.item():.4f}, GMM weights loss: {gmm_weights_loss.item():.4f}')
     if (epoch+1)%50 == 0:
@@ -104,25 +116,25 @@ if __name__ == "__main__":
     for param in scmodel.parameters():
         param.requires_grad = False
 
-    bulk_model_state_dict = torch.load('bulk_model_1000.pt', map_location=device)
-    bulk_model_state_dict = {k.replace('module.', ''): v for k, v in bulk_model_state_dict.items()}
+    # bulk_model_state_dict = torch.load('bulk_model_1000.pt', map_location=device)
+    # bulk_model_state_dict = {k.replace('module.', ''): v for k, v in bulk_model_state_dict.items()}
 
-    def modify_keys(state_dict):
-        new_state_dict = {}
-        for k, v in state_dict.items():
-            # Modify keys for fcs, bns, fc_means, and fc_logvars
-            for idx in range(1, 10):  # Assuming 9 GMMs
-                k = k.replace(f"fc{idx}.", f"fcs.{idx-1}.")
-                k = k.replace(f"bn{idx}.", f"bns.{idx-1}.")
-                k = k.replace(f"fc{idx}_mean.", f"fc_means.{idx-1}.")
-                k = k.replace(f"fc{idx}_logvar.", f"fc_logvars.{idx-1}.")
-            new_state_dict[k] = v
-        return new_state_dict
+    # def modify_keys(state_dict):
+    #     new_state_dict = {}
+    #     for k, v in state_dict.items():
+    #         # Modify keys for fcs, bns, fc_means, and fc_logvars
+    #         for idx in range(1, 10):  # Assuming 9 GMMs
+    #             k = k.replace(f"fc{idx}.", f"fcs.{idx-1}.")
+    #             k = k.replace(f"bn{idx}.", f"bns.{idx-1}.")
+    #             k = k.replace(f"fc{idx}_mean.", f"fc_means.{idx-1}.")
+    #             k = k.replace(f"fc{idx}_logvar.", f"fc_logvars.{idx-1}.")
+    #         new_state_dict[k] = v
+    #     return new_state_dict
 
-    bulk_model_state_dict = modify_keys(bulk_model_state_dict)
+    # bulk_model_state_dict = modify_keys(bulk_model_state_dict)
 
-    # Load the state dictionaries into the models
-    bulk_model.load_state_dict(bulk_model_state_dict)
+    # # Load the state dictionaries into the models
+    # bulk_model.load_state_dict(bulk_model_state_dict)
 
     bulk_model = bulk_model.to(device)
     # pdb.set_trace()
@@ -130,7 +142,7 @@ if __name__ == "__main__":
 
     print("Loaded model.")
 
-    for epoch in range(1000, epochs + 1):
+    for epoch in range(0, epochs + 1):
 
         
         train(epoch,\
@@ -140,10 +152,20 @@ if __name__ == "__main__":
                train_loader,
                scheduler)
 
-    # After all your training epochs are complete
-    plt.figure(figsize=(10,5))
-    plt.plot(training_losses)
-    plt.title('Training Loss Over Epochs')
-    plt.xlabel('Epoch')
-    plt.ylabel('Loss')
-    plt.savefig('Bulk_training_loss.png')
+    # Save all training_losses_mean, training_losses_var, and training_losses_gmm_weights.
+    np.save('training_losses_mean.npy', np.array(training_losses_mean))
+    np.save('training_losses_var.npy', np.array(training_losses_var))
+    np.save('training_losses_gmm_weights.npy', np.array(training_losses_gmm_weights))
+    np.save('training_losses.npy', np.array(training_losses))
+    
+    # After all training_losses_mean, training_losses_var, and training_losses_gmm_weights.
+    # Plot the losses
+    plt.figure()
+    plt.plot(training_losses_mean, label='Mean loss')
+    plt.plot(training_losses_var, label='Variance loss')
+    plt.plot(training_losses_gmm_weights, label='GMM weights loss')
+    plt.plot(training_losses, label='Combined loss')
+    plt.legend()
+    plt.savefig('losses.png')
+    plt.show()
+

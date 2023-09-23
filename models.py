@@ -8,19 +8,19 @@ print(device)
 
 
 class scVAE(nn.Module):
-    def __init__(self, input_dim, hidden_dim, z_dim, gmm_num=9, dropout_rate=0.1):
+    def __init__(self, input_dim, hidden_dim, z_dim, num_gmms=15, dropout_rate=0.1):
         super(scVAE, self).__init__()
 
         self.dropout = nn.Dropout(dropout_rate)
         
-        # Generalize for gmm_num mixture models
-        self.fcs = nn.ModuleList([nn.Linear(input_dim, hidden_dim) for _ in range(gmm_num)])
-        self.bns = nn.ModuleList([nn.BatchNorm1d(hidden_dim) for _ in range(gmm_num)])
-        self.fcs_mean = nn.ModuleList([nn.Linear(hidden_dim, z_dim) for _ in range(gmm_num)])
-        self.fcs_logvar = nn.ModuleList([nn.Linear(hidden_dim, z_dim) for _ in range(gmm_num)])
+        # Generalize for num_gmms mixture models
+        self.fcs = nn.ModuleList([nn.Linear(input_dim, hidden_dim) for _ in range(num_gmms)])
+        self.bns = nn.ModuleList([nn.BatchNorm1d(hidden_dim) for _ in range(num_gmms)])
+        self.fcs_mean = nn.ModuleList([nn.Linear(hidden_dim, z_dim) for _ in range(num_gmms)])
+        self.fcs_logvar = nn.ModuleList([nn.Linear(hidden_dim, z_dim) for _ in range(num_gmms)])
 
         # Linear layer to produce gmm_weights
-        self.fc_gmm_weights = nn.Linear(input_dim, gmm_num)
+        self.fc_gmm_weights = nn.Linear(input_dim, num_gmms)
 
         self.fc_d1 = nn.Linear(z_dim, hidden_dim)
         self.bn_d1 = nn.BatchNorm1d(hidden_dim)
@@ -34,29 +34,30 @@ class scVAE(nn.Module):
         self.bn_d3 = nn.BatchNorm1d(hidden_dim)
         self.dropout_d3 = nn.Dropout(dropout_rate)
 
-        self.fc_count = nn.Linear(hidden_dim, input_dim)
-        self.fc_probs = nn.Linear(hidden_dim, input_dim)
-        self.fc_logits = nn.Linear(hidden_dim, input_dim)
+        # self.fc_count = nn.Linear(hidden_dim, input_dim)
+        # self.fc_probs = nn.Linear(hidden_dim, input_dim)
+        # self.fc_logits = nn.Linear(hidden_dim, input_dim)
+
+        self.fc_mean = nn.Linear(hidden_dim, input_dim)
+        self.fc_zero_inflation = nn.Linear(hidden_dim, input_dim)
+        self.theta = nn.Parameter(torch.ones(input_dim) * 0.5)
 
         self.z_dim = z_dim
         self.input_dim = input_dim
-        self.gmm_num = gmm_num
+        self.num_gmms = num_gmms
 
     def encode(self, x):
         mus = []
         logvars = []
 
-        for i in range(self.gmm_num):
+        for i in range(self.num_gmms):
             h = nn.ReLU()(self.bns[i](self.fcs[i](x)))
             h = self.dropout(h)
             mus.append(self.fcs_mean[i](h))
             logvar = self.fcs_logvar[i](h)
             var = F.softplus(logvar)
             logvars.append(torch.log(var + 1e-8))
-        
-        # Produce gmm_weights using the linear layer and softmax activation
-        # gmm_weights = F.softmax(self.fc_gmm_weights(x), dim=-1)
-        # import pdb;pdb.set_trace()
+
         gmm_weights = self.fc_gmm_weights(x)
 
         return mus, logvars, gmm_weights
@@ -64,7 +65,7 @@ class scVAE(nn.Module):
     def reparameterize(self, mus, logvars, gmm_weights):
         zs = []
 
-        for i in range(self.gmm_num):
+        for i in range(self.num_gmms):
             std = torch.exp(0.1 * logvars[i])
             eps = torch.randn_like(std)
             zs.append(mus[i] + eps * std)
@@ -76,26 +77,30 @@ class scVAE(nn.Module):
         return z
 
     def decode(self, z):
-        h3 = nn.ReLU()(self.bn_d1(self.fc_d1(z)))
+        h3 = nn.ReLU()(self.fc_d1(z))
         h3 = self.dropout_d1(h3)
 
-        h4 = nn.ReLU()(self.bn_d2(self.fc_d2(h3)))
+        h4 = nn.ReLU()(self.fc_d2(h3))
         h4 = self.dropout_d2(h4)
 
-        h5 = nn.ReLU()(self.bn_d3(self.fc_d3(h4)))
+        h5 = nn.ReLU()(self.fc_d3(h4))
         h5 = self.dropout_d3(h5)
 
-        return nn.ReLU()(self.fc_count(h5)), torch.clamp(nn.Sigmoid()(self.fc_probs(h5)), min=1e-4, max=1-1e-4), self.fc_logits(h5)
+        preds = nn.ReLU()(self.fc_mean(h5))
+        zero_inflation_prob = torch.sigmoid(self.fc_zero_inflation(h5))
 
+        return preds, zero_inflation_prob, self.theta
+    
+    
     def forward(self, x):
         mus, logvars, gmm_weights = self.encode(x.view(-1, self.input_dim))
         z = self.reparameterize(mus, logvars, gmm_weights)
-        return self.decode(z), mus, logvars, gmm_weights
+        preds, zero_inflation_prob, theta = self.decode(z)
+        return preds, zero_inflation_prob, theta, mus, logvars, gmm_weights
     
 
-
 class bulkVAE(nn.Module):
-    def __init__(self, input_dim, hidden_dim, z_dim, num_gmms=9, dropout_rate=0.1):
+    def __init__(self, input_dim, hidden_dim, z_dim, num_gmms=15, dropout_rate=0.1):
         super(bulkVAE, self).__init__()
 
         self.dropout = nn.Dropout(dropout_rate)
@@ -144,7 +149,7 @@ class bulkVAE(nn.Module):
 
 
 class B2SC(nn.Module):
-    def __init__(self, input_dim, hidden_dim, z_dim, num_gmms=9, dropout_rate=0.1):
+    def __init__(self, input_dim, hidden_dim, z_dim, num_gmms=15, dropout_rate=0.1):
         super(B2SC, self).__init__()
 
         self.dropout = nn.Dropout(dropout_rate)
