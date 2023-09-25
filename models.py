@@ -8,14 +8,13 @@ print(device)
 
 
 class scVAE(nn.Module):
-    def __init__(self, input_dim, hidden_dim, z_dim, num_gmms=15, dropout_rate=0.1):
+    def __init__(self, input_dim, hidden_dim, z_dim, num_gmms=13, dropout_rate=0.1):
         super(scVAE, self).__init__()
 
         self.dropout = nn.Dropout(dropout_rate)
         
         # Generalize for num_gmms mixture models
         self.fcs = nn.ModuleList([nn.Linear(input_dim, hidden_dim) for _ in range(num_gmms)])
-        self.bns = nn.ModuleList([nn.BatchNorm1d(hidden_dim) for _ in range(num_gmms)])
         self.fcs_mean = nn.ModuleList([nn.Linear(hidden_dim, z_dim) for _ in range(num_gmms)])
         self.fcs_logvar = nn.ModuleList([nn.Linear(hidden_dim, z_dim) for _ in range(num_gmms)])
 
@@ -51,7 +50,7 @@ class scVAE(nn.Module):
         logvars = []
 
         for i in range(self.num_gmms):
-            h = nn.ReLU()(self.bns[i](self.fcs[i](x)))
+            h = nn.ReLU()(self.fcs[i](x))
             h = self.dropout(h)
             mus.append(self.fcs_mean[i](h))
             logvar = self.fcs_logvar[i](h)
@@ -100,7 +99,7 @@ class scVAE(nn.Module):
     
 
 class bulkVAE(nn.Module):
-    def __init__(self, input_dim, hidden_dim, z_dim, num_gmms=15, dropout_rate=0.1):
+    def __init__(self, input_dim, hidden_dim, z_dim, num_gmms=13, dropout_rate=0.1):
         super(bulkVAE, self).__init__()
 
         self.dropout = nn.Dropout(dropout_rate)
@@ -149,7 +148,7 @@ class bulkVAE(nn.Module):
 
 
 class B2SC(nn.Module):
-    def __init__(self, input_dim, hidden_dim, z_dim, num_gmms=15, dropout_rate=0.1):
+    def __init__(self, input_dim, hidden_dim, z_dim, num_gmms=13, dropout_rate=0.1):
         super(B2SC, self).__init__()
 
         self.dropout = nn.Dropout(dropout_rate)
@@ -204,13 +203,13 @@ class B2SC(nn.Module):
         return z
 
     def decode(self, z):
-        h1 = nn.ReLU()(self.bn_d1(self.fc_d1(z)))
+        h1 = nn.ReLU()(self.fc_d1(z))
         h1 = self.dropout_d1(h1)
 
-        h2 = nn.ReLU()(self.bn_d2(self.fc_d2(h1)))
+        h2 = nn.ReLU()(self.fc_d2(h1))
         h2 = self.dropout_d2(h2)
 
-        h3 = nn.ReLU()(self.bn_d3(self.fc_d3(h2)))
+        h3 = nn.ReLU()(self.fc_d3(h2))
         h3 = self.dropout_d3(h3)
         
         recon_x = self.fc_count(h3)

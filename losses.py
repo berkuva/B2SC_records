@@ -90,11 +90,9 @@ def zinb_loss(preds, targets, zero_inflation_prob, theta):
 def gmm_loss(gmm_weights, true_gmm_fractions=None, device='cuda'):
     # Default values for the true GMM fractions if not provided
     if true_gmm_fractions is None:
-        fractions = np.array([0.048, 0.248, 0.111, \
-                              0.041, 0.100, 0.045, \
-                              0.068, 0.134, 0.028, \
-                              0.081, 0.009, 0.008, \
-                              0.006, 0.008, 0.064], dtype=np.float32)
+        fractions = np.array([0.07203768, 0.19191099, 0.10923414, 0.09445302, 0.01705514,
+                            0.04280029, 0.13327378, 0.08998619, 0.04840413, 0.10931536,
+                            0.00316738, 0.01080159, 0.0775603 ])
         true_gmm_fractions = torch.tensor(fractions)
 
     # Move true_gmm_fractions to the specified device

@@ -10,26 +10,35 @@ labels = np.load('labels.npy')
 
 # Given label and color maps
 
-mapping_dict = {
-    'Naive B cells': '0',
-    'Non-classical monocytes': '1',
-    'Classical Monocytes': '2',
-    'Natural killer  cells': '3',
-    'CD8+ NKT-like cells': '4',
-    'Memory CD4+ T cells': '5',
-    'Naive CD8+ T cells': '6',
-    'Myeloid Dendritic cells': '7',
-    'Platelets': '8'
-}
+# Given label and color maps
+mapping_dict = {'CD8+ NKT-like cells': '0',\
+                'Classical Monocytes': '1',\
+                'Effector CD4+ T cells': '2',\
+                'Macrophages': '3',\
+                'Myeloid Dendritic cells': '4',\
+                'Naive B cells': '5',\
+                'Naive CD4+ T cells': '6',\
+                'Naive CD8+ T cells': '7',\
+                'Natural killer  cells': '8',\
+                'Non-classical monocytes': '9',\
+                'Plasma B cells': '10',\
+                'Plasmacytoid Dendritic cells': '11',\
+                'Pre-B cells': '12'
+                }
 
 # set label_map as the inverse of mapping_dict
 label_map = {v: k for k, v in mapping_dict.items()}
 
+
 color_map = {
-    'Naive B cells': 'red', 'Non-classical monocytes': 'black', 'Classical Monocytes': 'orange', 'Natural killer  cells': 'cyan',
-    'CD8+ NKT-like cells': 'pink', 'Memory CD4+ T cells': 'purple', 'Naive CD8+ T cells': 'blue', 'Myeloid Dendritic cells': 'green',
-    'Platelets': 'yellow'
+    'CD8+ NKT-like cells':'pink', 'Classical Monocytes':'orange',
+    'Effector CD4+ T cells':'grey', 'Macrophages':'tan', 'Myeloid Dendritic cells':'green',
+    'Naive B cells':'red', 'Naive CD4+ T cells':'slateblue', 'Naive CD8+ T cells':'blue',
+    'Natural killer  cells':'cyan', 'Non-classical monocytes':'black',
+    'Plasma B cells': 'purple', 'Plasmacytoid Dendritic cells':'lime', 'Pre-B cells':'cornflowerblue'
 }
+
+
 
 # import pdb;pdb.set_trace()
 for i in range(len(list(color_map.keys()))):
@@ -74,7 +83,7 @@ legend_elements = [mlines.Line2D([0], [0], marker='o', color='w', label=label, m
 plt.legend(handles=legend_elements, bbox_to_anchor=(1.05, 0.5), loc='center left', fontsize=12)
 
 # Save the plot
-plt.savefig("adjusted_umap_scanpy.png", bbox_inches='tight')
+plt.savefig("pbmc10k_generated.png", bbox_inches='tight')
 
 # Ensure the plot displays
 plt.show()

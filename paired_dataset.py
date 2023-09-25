@@ -13,12 +13,12 @@ seed = 200
 np.random.seed(seed)
 torch.manual_seed(seed)
 
-data_dir = "/u/hc2kc/scVAE/paired/pbmc10k/"
+data_dir = "/u/hc2kc/scVAE/pbmc10k/data/"
 
 # adata = sc.read_10x_mtx(data_dir, var_names='gene_symbols', cache=True)
-adata = sc.read_h5ad("/u/hc2kc/scVAE/paired/pbmc10k/pbmc10k.h5ad")
+adata = sc.read_h5ad("/u/hc2kc/scVAE/pbmc10k/data/pbmc10k.h5ad")
 # import pdb;pdb.set_trace()
-barcode_path = '/u/hc2kc/scVAE/paired/pbmc10k/barcode_to_celltype.csv'
+barcode_path = '/u/hc2kc/scVAE/pbmc10k/data/barcode_to_celltype.csv'
 barcodes_with_labels = pd.read_csv(barcode_path, sep=',', header=None).iloc[1:]
 barcodes_with_labels.columns = ['barcodes', 'labels']
 labels = barcodes_with_labels['labels'].values
@@ -113,13 +113,13 @@ print(indices[:10])
 X_tensor = torch.Tensor(adata.X[indices])#
 cell_types_tensor = cell_types_tensor[indices]#
 dataset = TensorDataset(X_tensor, cell_types_tensor)
-mini_batch = 6156 
+mini_batch = how_many//2 
 
 dataloader = DataLoader(dataset, batch_size=mini_batch, shuffle=False)
 # import pdb;pdb.set_trace()
 input_dim = 36601
 hidden_dim = 700
-z_dim = 15
+z_dim = 13
 
 __all__ = ["mapping_dict", "dataloader", 'X_tensor', "cell_types_tensor", "mini_batch"]
 

@@ -18,7 +18,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Define hyperparameters and other settings
 input_dim = paired_dataset.input_dim
 hidden_dim = paired_dataset.hidden_dim
-epochs = 1200
+epochs = 700
 z_dim = paired_dataset.z_dim
 
 
@@ -60,9 +60,7 @@ color_map = {
     'Plasma B cells': 'purple', 
     'Plasmacytoid Dendritic cells':'lime',
     'Pre-B cells':'cornflowerblue',
-    
 }
-
 
 
 def remove_params_from_optimizer(optimizer, params_to_remove):
@@ -114,45 +112,13 @@ def train(epoch, model, optimizer, train_loader, gmm_weights_backup):
             optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=1e-4)
 
         
-        if epoch != 0:
-            loss.backward()
-            optimizer.step()
+        # if epoch != 0:
+        loss.backward()
+        optimizer.step()
 
         if epoch+1 > train_gmm_till:
             for name, param in model.fc_gmm_weights.named_parameters():
                 param.data = gmm_weights_backup[name]
-
-        if epoch+1 == 0:
-            torch.save(model.cpu().state_dict(), f"sc_model_{epoch+1}.pt")
-            X_tensor = paired_dataset.X_tensor
-            model.to(device)
-            model.eval()
-            
-            with torch.no_grad():
-                # recon_batch, mus, logvars, gmm_weights = model(X_tensor)
-                mus, logvars, gmm_weights = model.encode(X_tensor.to(device))
-                z = model.reparameterize(mus, logvars, gmm_weights).cpu().numpy()
-
-                # Convert cell_types_tensor to numpy for plotting
-                raw_labels = paired_dataset.cell_types_tensor.numpy()
-
-                # Convert raw_labels to their names using the label_map
-                # import pdb;pdb.set_trace()
-                label_names = np.array([label_map[label] for label in raw_labels])
-                unique_labels = np.unique(label_names)
-
-                # embedding
-                reducer = umap.UMAP()
-                embedding = reducer.fit_transform(z)
-
-                # Plot the UMAP representation
-                plt.figure(figsize=(10, 10))
-                for label in unique_labels:
-                    indices = np.where(label_names == label)
-                    plt.scatter(embedding[indices, 0], embedding[indices, 1], color=color_map[label], label=label)
-                plt.legend()
-                plt.savefig(f"umap_{epoch+1}.png")
-        import sys;sys.exit()
     
     if (epoch+1)%100 == 0:
         print(f'====> Epoch: {epoch+1} Average loss: {train_loss / len(train_loader.dataset):.4f}')
@@ -224,7 +190,7 @@ def train(epoch, model, optimizer, train_loader, gmm_weights_backup):
 # for group in optimizer.param_groups:
 #     group['lr'] = 1e-4
 
-epoch_start = -1
+epoch_start = 0
 
 print(paired_dataset.X_tensor.shape)
 gmm_weights_backup = None

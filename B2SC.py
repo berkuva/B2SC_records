@@ -47,7 +47,7 @@ def generate(b2sc_model, loader):
         mus, logvars, gmm_weights = b2sc_model.encode(data)
         
         gmm_weights = gmm_weights.mean(0)
-        # gmm_weights = torch.nn.functional.softmax(gmm_weights, dim=0)
+        gmm_weights = torch.nn.functional.sigmoid(gmm_weights)
         # print(gmm_weights)
         
         selected_neuron = torch.multinomial(gmm_weights, 1).item()
@@ -102,23 +102,20 @@ if __name__ == "__main__":
     b2sc_model.fc_d1.weight.data = scmodel.fc_d1.weight.data.clone()
     b2sc_model.fc_d1.bias.data = scmodel.fc_d1.bias.data.clone()
 
-    b2sc_model.bn_d1.weight.data = scmodel.bn_d1.weight.data.clone()
-    b2sc_model.bn_d1.bias.data = scmodel.bn_d1.bias.data.clone()
+    # b2sc_model.bn_d1.weight.data = scmodel.bn_d1.weight.data.clone()
+    # b2sc_model.bn_d1.bias.data = scmodel.bn_d1.bias.data.clone()
 
     b2sc_model.fc_d2.weight.data = scmodel.fc_d2.weight.data.clone()
     b2sc_model.fc_d2.bias.data = scmodel.fc_d2.bias.data.clone()
 
-    b2sc_model.bn_d2.weight.data = scmodel.bn_d2.weight.data.clone()
-    b2sc_model.bn_d2.bias.data = scmodel.bn_d2.bias.data.clone()
+    # b2sc_model.bn_d2.weight.data = scmodel.bn_d2.weight.data.clone()
+    # b2sc_model.bn_d2.bias.data = scmodel.bn_d2.bias.data.clone()
 
     b2sc_model.fc_d3.weight.data = scmodel.fc_d3.weight.data.clone()
     b2sc_model.fc_d3.bias.data = scmodel.fc_d3.bias.data.clone()
 
-    b2sc_model.bn_d3.weight.data = scmodel.bn_d3.weight.data.clone()
-    b2sc_model.bn_d3.bias.data = scmodel.bn_d3.bias.data.clone()
-
-    b2sc_model.fc_count.weight.data = scmodel.fc_count.weight.data.clone()
-    b2sc_model.fc_count.bias.data = scmodel.fc_count.bias.data.clone()
+    b2sc_model.fc_count.weight.data = scmodel.fc_mean.weight.data.clone()
+    b2sc_model.fc_count.bias.data = scmodel.fc_mean.bias.data.clone()
 
     # Transfer fc_gmm_weights from bulk_model to b2sc_model
     b2sc_model.fc_gmm_weights.weight.data = bulk_model.fc_gmm_weights.weight.data.clone()
@@ -135,6 +132,9 @@ if __name__ == "__main__":
         b2sc_model.fc_logvars[i].weight.data = bulk_model.fc_logvars[i].weight.data.clone()
         b2sc_model.fc_logvars[i].bias.data = bulk_model.fc_logvars[i].bias.data.clone()
 
+        # b2sc_model.bns[i].weight.data = scmodel.bns[i].weight.data.clone()
+        # b2sc_model.bns[i].bias.data = scmodel.bns[i].bias.data.clone()
+        
 
     print("Loaded models")
 
@@ -156,8 +156,8 @@ if __name__ == "__main__":
             labels_tensor = np.array(all_labels)
             np.save('recon_counts.npy', np.array(recon_count_tensor))
             np.save('labels.npy', np.array(labels_tensor))
-            all_recon_counts = []
-            all_labels = []
+            # all_recon_counts = []
+            # all_labels = []
 
         recon_counts, labels = generate(b2sc_model, paired_dataset.dataloader)
         for k in range(len(recon_counts)):
