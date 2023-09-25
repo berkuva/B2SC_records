@@ -4,9 +4,9 @@ import matplotlib.pyplot as plt
 import matplotlib.lines as mlines
 
 # Load data and labels
-data = np.load('recon_counts.npy')
+data = np.load('recon_counts_u.npy')
 adata = sc.AnnData(X=data)
-labels = np.load('labels.npy')
+labels = np.load('labels_u.npy')
 
 # Given label and color maps
 
@@ -27,7 +27,7 @@ label_map = {v: k for k, v in mapping_dict.items()}
 
 color_map = {
     'Naive B cells': 'red', 'Non-classical monocytes': 'black', 'Classical Monocytes': 'orange', 'Natural killer  cells': 'cyan',
-    'CD8+ NKT-like cells': 'pink', 'Memory CD4+ T cells': 'purple', 'Naive CD8+ T cells': 'blue', 'Myeloid Dendritic cells': 'green',
+    'CD8+ NKT-like cells': 'pink', 'Memory CD4+ T cells': 'magenta', 'Naive CD8+ T cells': 'blue', 'Myeloid Dendritic cells': 'green',
     'Platelets': 'yellow'
 }
 
@@ -74,7 +74,7 @@ legend_elements = [mlines.Line2D([0], [0], marker='o', color='w', label=label, m
 plt.legend(handles=legend_elements, bbox_to_anchor=(1.05, 0.5), loc='center left', fontsize=12)
 
 # Save the plot
-plt.savefig("adjusted_umap_scanpy.png", bbox_inches='tight')
+plt.savefig("pbmc3k_generated.png", bbox_inches='tight')
 
 # Ensure the plot displays
 plt.show()

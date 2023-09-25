@@ -52,7 +52,7 @@ color_map = {
     'Classical Monocytes': 'orange',
     'Natural killer  cells': 'cyan',
     'CD8+ NKT-like cells': 'pink',
-    'Memory CD4+ T cells': 'purple',
+    'Memory CD4+ T cells': 'magenta',
     'Naive CD8+ T cells': 'blue',
     'Myeloid Dendritic cells': 'green',
     'Platelets': 'yellow'

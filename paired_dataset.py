@@ -28,7 +28,7 @@ adata.X = adata.X.toarray()
 adata.obs.index = adata.obs.index.astype(str)
 
 # sc.pp.filter_genes_dispersion(adata, min_mean=0.0125, max_mean=3, min_disp=0.5)
-sc.pp.filter_cells(adata, min_genes=10)
+# sc.pp.filter_cells(adata, min_genes=10)
 
 # Calculate standard deviation for each gene across cells
 gene_std_devs = np.std(adata.X, axis=0)
@@ -65,7 +65,14 @@ cell_types_tensor = labels
 # Create a TensorDataset from your AnnData object
 X_tensor = torch.Tensor(adata.X)
 dataset = TensorDataset(X_tensor, labels)
-mini_batch = 2700
+
+
+# Save X_tensor and cell_types_tensor as recon_counts_u.npy and labels_u.npy.
+np.save('recon_counts_u.npy', X_tensor)
+np.save('labels_u.npy', cell_types_tensor)
+
+
+mini_batch = len(adata)//2
 
 dataloader = DataLoader(dataset, batch_size=mini_batch, shuffle=False)
 

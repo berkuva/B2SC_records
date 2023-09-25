@@ -20,7 +20,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Define hyperparameters and other settings
 input_dim = paired_dataset.input_dim
 hidden_dim = paired_dataset.hidden_dim
-epochs = 1200
+epochs = 500
 z_dim = paired_dataset.z_dim
 
 
@@ -49,7 +49,7 @@ label_map = {
     '0': 'Naive B cells',
     '1': 'Non-classical monocytes',
     '2': 'Classical Monocytes',
-    '3': 'Natural killer cells',
+    '3': 'Natural killer  cells',
     '4': 'Naive CD8+ T cells',
     '5': 'Memory CD4+ T cells',
     '6': 'CD8+ NKT-like cells',
@@ -65,54 +65,49 @@ color_map = {
     'Myeloid Dendritic cells': 'green',
     'Naive CD8+ T cells': 'blue',
     'Non-classical monocytes': 'black',
-    'Memory CD4+ T cells': 'purple',
+    'Memory CD4+ T cells': 'magenta',
     'CD8+ NKT-like cells': 'pink',
-    'Natural killer cells': 'cyan'  # Fixed the typo here
+    'Natural killer  cells': 'cyan'
 }
 
-train_gmm_till = 200
+
+def remove_params_from_optimizer(optimizer, params_to_remove):
+    for param in params_to_remove:
+        for group in optimizer.param_groups:
+            # Use the id() function to check the identity of tensors
+            group['params'] = [p for p in group['params'] if id(p) != id(param)]
+    return optimizer
+
+
+train_gmm_till = 300
+
 
 # Training Loop with warm-up
 def train(epoch, model, optimizer, train_loader, gmm_weights_backup):
     print(f'Epoch: {epoch+1}')
     model.train()
 
-        
     train_loss = 0
     
     for batch_idx, (data,labels) in enumerate(train_loader):
-        # Check how much time it takes for each iteration.
+
         data = data.to(device)
+        # model = nn.DataParallel(model).to(device)
         labels = labels.to(device)
         optimizer.zero_grad()
 
-        recon_batch, mus, logvars, gmm_weights = model(data)
-        total_count, probs, logits = recon_batch
+        preds, zero_inflation_prob, theta, mus, logvars, gmm_weights = model(data)
+        # preds.shape, zero_inflation_prob.shape, theta.shape, mus[0].shape, logvars[0].shape, gmm_weights.shape
+        # (torch.Size([5000, 19736]), torch.Size([5000, 19736]), torch.Size([19736]), torch.Size([5000, 12]), torch.Size([5000, 12]), torch.Size([5000, 12]))
 
-        if epoch+1 < train_gmm_till:
-            gmm_loss = 10*losses.gmm_loss(gmm_weights)
-            loss = gmm_loss
-       
-        elif epoch+1 < 500:
-            total_count, probs, logits = recon_batch
-            prob_loss = F.binary_cross_entropy(probs, data, reduction='sum')
-            loss = prob_loss
-        
-        elif epoch+1 < 700:
-            total_count, probs, logits = recon_batch
-            kld = losses.KLDiv(mus, logvars, gmm_weights)
-            loss = kld.clamp(-10000, 10000)
-
+        if train_gmm_till > epoch+1:
+            loss = 10*losses.gmm_loss(gmm_weights)
         else:
-            total_count, probs, logits = recon_batch
-            prob_loss = F.binary_cross_entropy(probs, data, reduction='sum')
+            # recon_L = losses.zinb_loss(preds, data, zero_inflation_prob, theta)
+            ceL = nn.CrossEntropyLoss()(preds, data)
+            loss =  ceL
 
-            loss = prob_loss
-
-
-        train_loss += loss.item()
-        
-        if epoch+1 == train_gmm_till:
+        if train_gmm_till == epoch+1:
             gmm_weights_backup = {name: param.clone() for name, param in model.fc_gmm_weights.named_parameters()}
             for param in model.fc_gmm_weights.parameters():
                 param.requires_grad = False
@@ -121,9 +116,18 @@ def train(epoch, model, optimizer, train_loader, gmm_weights_backup):
         loss.backward()
         optimizer.step()
 
-        if epoch+1 >= train_gmm_till:
+        if epoch+1 > train_gmm_till:
             for name, param in model.fc_gmm_weights.named_parameters():
                 param.data = gmm_weights_backup[name]
+
+    
+    if (epoch+1)%100 == 0:
+        print(f'====> Epoch: {epoch+1} Average loss: {train_loss / len(train_loader.dataset):.4f}')
+    if (epoch+1) < train_gmm_till:
+        print(f'GMM loss: {loss.item():.4f}')
+    else:
+        print(f'BCE loss: {ceL.item():.4f}')
+
 
     if (epoch+1)%10 == 0:
         print(f'Average loss: {train_loss / len(train_loader.dataset):.4f}')
@@ -132,7 +136,7 @@ def train(epoch, model, optimizer, train_loader, gmm_weights_backup):
         print(gmm_weights)
 
     if (epoch+1)%100 == 0:
-        torch.save(model.cpu().state_dict(), f"sc_model_{epoch+1}.pt")
+        # torch.save(model.cpu().state_dict(), f"sc_model_{epoch+1}.pt")
         X_tensor = paired_dataset.X_tensor
         model.to(device)
         model.eval()
@@ -163,11 +167,29 @@ def train(epoch, model, optimizer, train_loader, gmm_weights_backup):
 
 
     return gmm_weights_backup
-            
+
+
+model.load_state_dict(torch.load("sc_model_700.pt"))
+gmm_weights_backup = {name: param.clone() for name, param in model.fc_gmm_weights.named_parameters()}
+
+# # Set requires_grad of those parameters to False and zero their gradients
+# params_to_remove_from_optim = []
+# for param in model.fc_gmm_weights.parameters():
+#     param.requires_grad = False
+#     if param.grad is not None:
+#         param.grad.data.zero_()
+#     params_to_remove_from_optim.append(param)
+
+# # Remove the parameters from the optimizer
+# optimizer = remove_params_from_optimizer(optimizer, params_to_remove_from_optim)
+
+# # Reset the optimizer learning rate
+# for group in optimizer.param_groups:
+#     group['lr'] = 1e-4
+
 epoch_start = 0
 print(paired_dataset.X_tensor.shape)
-gmm_weights_backup = None
+# gmm_weights_backup = None
 for epoch in range(epoch_start, epochs + 1):
-
     gmm_weights_backup = train(epoch, model, optimizer, train_loader, gmm_weights_backup)
 
