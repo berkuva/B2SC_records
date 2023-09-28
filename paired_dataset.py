@@ -67,9 +67,9 @@ X_tensor = torch.Tensor(adata.X)
 dataset = TensorDataset(X_tensor, labels)
 
 
-# Save X_tensor and cell_types_tensor as recon_counts_u.npy and labels_u.npy.
-np.save('recon_counts_u.npy', X_tensor)
-np.save('labels_u.npy', cell_types_tensor)
+# # Save X_tensor and cell_types_tensor as recon_counts_u.npy and labels_u.npy.
+# np.save('recon_counts_u.npy', X_tensor)
+# np.save('labels_u.npy', cell_types_tensor)
 
 
 mini_batch = len(adata)

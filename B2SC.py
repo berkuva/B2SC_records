@@ -44,29 +44,9 @@ def generate(b2sc_model, loader):
         
         b2sc_model = b2sc_model.to(device)
         # import pdb;pdb.set_trace()
-        mus, logvars, gmm_weights = b2sc_model.encode(data)
+        recon_count, selected_neuron = b2sc_model(data, variability=10)
         
-        gmm_weights = gmm_weights.mean(0)
-
-        # find the minimum positive value in gmm_weights or default to 1e-10 if all values are negative
-        min_positive = torch.min(gmm_weights[gmm_weights > 0]).item() if torch.any(gmm_weights > 0) else 1e-3
-
-        # clamp the negative values to the smallest positive number
-        gmm_weights_clamped = torch.clamp(gmm_weights, min=min_positive)
-        # gmm_weights = torch.nn.functional.sigmoid(gmm_weights)
-        # print(gmm_weights)
-        
-        selected_neuron = torch.multinomial(gmm_weights_clamped, 1).item()
-        # print(selected_neuron)
-        # print(selected_neuron)
         labels.append(selected_neuron)
-
-        recon_count = b2sc_model(data, selected_neuron)
-
-        # sys.exit if nan in recon_count.
-        if torch.isnan(recon_count).any():
-            print("Nan in recon_count")
-            import sys; sys.exit()
         recon_counts.append(recon_count)
 
     return recon_counts, labels
