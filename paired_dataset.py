@@ -106,14 +106,20 @@ how_many = 6156#12313
 indices = np.random.choice(len(adata), how_many, replace=False)
 print(indices[:10])
 
-# unselected = np.setdiff1d(np.arange(len(adata)), indices)
-# print(unselected[:10])
+unselected = np.setdiff1d(np.arange(len(adata)), indices)
+print(unselected[:10])
 
 # Create a TensorDataset from your AnnData object
 X_tensor = torch.Tensor(adata.X[indices])#
 cell_types_tensor = cell_types_tensor[indices]#
+
+
+# Save X_tensor and cell_types_tensor as recon_counts_u.npy and labels_u.npy.
+np.save('recon_counts_u.npy', X_tensor)
+np.save('labels_u.npy', cell_types_tensor)
+
 dataset = TensorDataset(X_tensor, cell_types_tensor)
-mini_batch = how_many//2 
+mini_batch = how_many
 
 dataloader = DataLoader(dataset, batch_size=mini_batch, shuffle=False)
 # import pdb;pdb.set_trace()

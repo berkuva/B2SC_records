@@ -35,7 +35,7 @@ color_map = {
     'Effector CD4+ T cells':'grey', 'Macrophages':'tan', 'Myeloid Dendritic cells':'green',
     'Naive B cells':'red', 'Naive CD4+ T cells':'slateblue', 'Naive CD8+ T cells':'blue',
     'Natural killer  cells':'cyan', 'Non-classical monocytes':'black',
-    'Plasma B cells': 'purple', 'Plasmacytoid Dendritic cells':'lime', 'Pre-B cells':'cornflowerblue'
+    'Plasma B cells': 'magenta', 'Plasmacytoid Dendritic cells':'lime', 'Pre-B cells':'cornflowerblue'
 }
 
 
