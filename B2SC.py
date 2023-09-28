@@ -23,24 +23,13 @@ def generate_desired_celltypes(desired_neuron, b2sc_model, num_samples):
     labels = []
 
     for i in range(num_samples):
-        # Assuming that your model can handle single-sample input,
-        # and that the structure of your input data is consistent with this assumption.
-        # You may need to adjust this part to match the actual data structure and model input requirements.
-        data = torch.randn(1, input_dim).to(device)  # Replace with actual data generation or fetching
+        data = torch.randn(1, input_dim).to(device)
 
         b2sc_model = b2sc_model.to(device)
-        mus, logvars, gmm_weights = b2sc_model.encode(data)
+        recon_count = b2sc_model(data, desired_neuron)
 
         # Select the desired neuron instead of sampling one randomly
-        selected_neuron = desired_neuron
-        labels.append(selected_neuron)
-
-        recon_count = b2sc_model(data, selected_neuron)
-
-        # sys.exit if nan in recon_count.
-        if torch.isnan(recon_count).any():
-            print("Nan in recon_count")
-            import sys; sys.exit()
+        labels.append(desired_neuron)
         recon_counts.append(recon_count)
 
     return recon_counts, labels
@@ -60,32 +49,13 @@ def generate(b2sc_model, loader):
         
         b2sc_model = b2sc_model.to(device)
         # import pdb;pdb.set_trace()
-        mus, logvars, gmm_weights = b2sc_model.encode(data)
+        recon_count, selected_neuron = b2sc_model(data, variability=1)
         
-        gmm_weights = gmm_weights.mean(0)
-
-        # find the minimum positive value in gmm_weights or default to 1e-10 if all values are negative
-        min_positive = torch.min(gmm_weights[gmm_weights > 0]).item() if torch.any(gmm_weights > 0) else 1e-3
-
-        # clamp the negative values to the smallest positive number
-        gmm_weights_clamped = torch.clamp(gmm_weights, min=min_positive)
-        # gmm_weights = torch.nn.functional.sigmoid(gmm_weights)
-        # print(gmm_weights)
-        
-        selected_neuron = torch.multinomial(gmm_weights_clamped, 1).item()
-        # print(selected_neuron)
-        # print(selected_neuron)
         labels.append(selected_neuron)
-
-        recon_count = b2sc_model(data, selected_neuron)
-
-        # sys.exit if nan in recon_count.
-        if torch.isnan(recon_count).any():
-            print("Nan in recon_count")
-            import sys; sys.exit()
         recon_counts.append(recon_count)
 
     return recon_counts, labels
+    
     
 
 if __name__ == "__main__":
@@ -175,8 +145,7 @@ if __name__ == "__main__":
     all_recon_counts = []
     all_labels = []
     
-
-    num_runs = 0  # or however many times to run the generation
+    num_runs = 500  # or however many times to run the generation
 
     for i in range(num_runs):
         if (i+1)%100==0:
@@ -187,8 +156,6 @@ if __name__ == "__main__":
             labels_tensor = np.array(all_labels)
             np.save('recon_counts.npy', np.array(recon_count_tensor))
             np.save('labels.npy', np.array(labels_tensor))
-            # all_recon_counts = []
-            # all_labels = []
 
         recon_counts, labels = generate(b2sc_model, paired_dataset.dataloader)
         for k in range(len(recon_counts)):
@@ -196,28 +163,25 @@ if __name__ == "__main__":
             all_labels.append(labels[k])
 
 
-    # set all_recon_counts equal to saved recon_counts.npy.
-    try:
-        all_recon_counts = np.load('recon_counts.npy').tolist()
-        all_labels = np.load('labels.npy').tolist()
-        print("Loaded recon_counts.npy and labels.npy")
-    except:
-        all_recon_counts = []
-        all_labels = []
+    # # set all_recon_counts equal to saved recon_counts.npy.
+    # try:
+    #     all_recon_counts = np.load('recon_counts.npy').tolist()
+    #     all_labels = np.load('labels.npy').tolist()
+    #     print("Loaded recon_counts.npy and labels.npy")
+    # except:
+    #     all_recon_counts = []
+    #     all_labels = []
 
-    howmany = 500
-    for l in range(howmany):
-        print(f"Run: {l+1}")
-        recon_counts, labels = generate_desired_celltypes(11, b2sc_model, 1)
-        for k in range(len(recon_counts)):
-            all_recon_counts.append(recon_counts[k].cpu().detach().numpy().tolist())
-            all_labels.append(labels[k])
-        if (l+1)%10==0:
-            recon_count_tensor = np.array(all_recon_counts)
-            labels_tensor = np.array(all_labels)
+    # howmany = 500
+    # for l in range(howmany):
+    #     print(f"Run: {l+1}")
+    #     recon_counts, labels = generate_desired_celltypes(11, b2sc_model, 1)
+    #     for k in range(len(recon_counts)):
+    #         all_recon_counts.append(recon_counts[k].cpu().detach().numpy().tolist())
+    #         all_labels.append(labels[k])
+    # recon_count_tensor = np.array(all_recon_counts)
+    # labels_tensor = np.array(all_labels)
 
-            # Save to file
-            np.save('recon_counts.npy', recon_count_tensor)
-            np.save('labels.npy', labels_tensor)
-            all_recon_counts = []
-            all_labels = []
+    # # Save to file
+    # np.save('recon_counts.npy', recon_count_tensor)
+    # np.save('labels.npy', labels_tensor)
