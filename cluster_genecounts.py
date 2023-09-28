@@ -4,9 +4,9 @@ import matplotlib.pyplot as plt
 import matplotlib.lines as mlines
 
 # Load data and labels
-data = np.load('recon_counts_u.npy')
+data = np.load('recon_counts.npy')
 adata = sc.AnnData(X=data)
-labels = np.load('labels_u.npy')
+labels = np.load('labels.npy')
 
 # Given label and color maps
 

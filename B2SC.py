@@ -47,10 +47,16 @@ def generate(b2sc_model, loader):
         mus, logvars, gmm_weights = b2sc_model.encode(data)
         
         gmm_weights = gmm_weights.mean(0)
-        gmm_weights = torch.nn.functional.sigmoid(gmm_weights)
+
+        # find the minimum positive value in gmm_weights or default to 1e-10 if all values are negative
+        min_positive = torch.min(gmm_weights[gmm_weights > 0]).item() if torch.any(gmm_weights > 0) else 1e-3
+
+        # clamp the negative values to the smallest positive number
+        gmm_weights_clamped = torch.clamp(gmm_weights, min=min_positive)
+        # gmm_weights = torch.nn.functional.sigmoid(gmm_weights)
         # print(gmm_weights)
         
-        selected_neuron = torch.multinomial(gmm_weights, 1).item()
+        selected_neuron = torch.multinomial(gmm_weights_clamped, 1).item()
         # print(selected_neuron)
         # print(selected_neuron)
         labels.append(selected_neuron)
@@ -74,7 +80,7 @@ if __name__ == "__main__":
     
     # Load state dictionaries
     scmodel_state_dict = torch.load('/u/hc2kc/scVAE/sc_model_700.pt', map_location=device)
-    bulk_model_state_dict = torch.load('/u/hc2kc/scVAE/bulk_model_1000.pt', map_location=device)
+    bulk_model_state_dict = torch.load('/u/hc2kc/scVAE/bulk_model_2500.pt', map_location=device)
 
     # Modify the keys in the state dictionary to remove the "module." prefix
     scmodel_state_dict = {k.replace('module.', ''): v for k, v in scmodel_state_dict.items()}
@@ -144,13 +150,13 @@ if __name__ == "__main__":
 
     print("Loaded models")
 
-    try:
-        all_recon_counts = np.load('recon_counts.npy').tolist()
-        all_labels = np.load('labels.npy').tolist()
-    except:
-        all_recon_counts = []
-        all_labels = []
+    # pdb.set_trace()
+    # b2sc_model.encode(X_tensor.to(device).sum(0))[-1]
+    # tensor([0.1868, 0.1287, 0.1126, 0.1125, 0.1461, 0.1928, 0.1002, 0.0130, 0.0059],
+    #     device='cuda:0', grad_fn=<AddBackward0>)
 
+    all_recon_counts = []
+    all_labels = []
     
 
     num_runs = 2700  # or however many times to run the generation

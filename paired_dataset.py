@@ -72,7 +72,7 @@ np.save('recon_counts_u.npy', X_tensor)
 np.save('labels_u.npy', cell_types_tensor)
 
 
-mini_batch = len(adata)//2
+mini_batch = len(adata)
 
 dataloader = DataLoader(dataset, batch_size=mini_batch, shuffle=False)
 
