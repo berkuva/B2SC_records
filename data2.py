@@ -8,6 +8,7 @@ import collections
 # np.random.seed(1)
 # torch.manual_seed(1)
 
+np.random.seed(4)
 
 data_dir = "B2SC/filtered_gene_bc_matrices/hg19/"
 #data_dir = "/u/hc2kc/hg19/"
@@ -67,6 +68,8 @@ def apply_gaussian_noise(dataset, mean, std_dev, num_rows_to_replace):
     #adata.obs['labels'] = adata.obs['labels'].cat.add_categories([0])
 
     # Generate Gaussian noise
+    #noise = np.zeros(num_rows_to_replace)
+
     noise = np.random.normal(mean, std_dev, num_rows_to_replace)
     
     #Select random rows
@@ -87,7 +90,7 @@ def apply_gaussian_noise(dataset, mean, std_dev, num_rows_to_replace):
 
 # Apply mapping to the 'labels' column of adata.obs
 adata.obs['labels'] = adata.obs['labels'].replace(mapping_dict)
-apply_gaussian_noise(adata.X, 1000, 2, 1000)
+apply_gaussian_noise(adata.X, 0, 0.2, 1000)
 
 adata.obs['labels'] = adata.obs['labels'].astype('category')
 

@@ -30,6 +30,7 @@ hidden_dim = 700
 z_dim = 9
 epochs = 1001
 
+np.random.seed(4)
 
 model = models.ANN(input_dim, hidden_dim, z_dim).to(device)
 optimizer = torch.optim.Adam(model.parameters(), lr=2e-3)
@@ -111,7 +112,6 @@ def ANN_train(model, data_train, labels_train, data_val, labels_val):
 
     model.train()
     train_loss = 0
-    optimizer = optim.Adam(model.parameters(), lr=0.0001)
 
     n_epochs = 100   # number of epochs to run
     batch_size = 32  # size of each batch
@@ -121,8 +121,10 @@ def ANN_train(model, data_train, labels_train, data_val, labels_val):
     best_weights = None
  
     for epoch in range(n_epochs):
+        
         if (epoch+1) % 10 == 0:
             print(f'====> Epoch: {epoch} Average loss: {train_loss / len(train_loader.dataset):.4f}')
+        
     
         if (epoch+1) % 500 == 0:
             # save model checkpoint
@@ -144,6 +146,7 @@ def ANN_train(model, data_train, labels_train, data_val, labels_val):
         loss.backward()
 
         # update weights
+        train_loss = 0
         train_loss += loss.item()
         optimizer.step()
 
