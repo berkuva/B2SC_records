@@ -44,7 +44,7 @@ def generate(b2sc_model, loader):
         
         b2sc_model = b2sc_model.to(device)
         # import pdb;pdb.set_trace()
-        recon_count, selected_neuron = b2sc_model(data, variability=10)
+        recon_count, selected_neuron = b2sc_model(data, variability=1)
         
         labels.append(selected_neuron)
         recon_counts.append(recon_count)
