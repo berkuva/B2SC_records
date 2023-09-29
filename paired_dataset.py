@@ -115,8 +115,8 @@ cell_types_tensor = cell_types_tensor[indices]#
 
 
 # Save X_tensor and cell_types_tensor as recon_counts_u.npy and labels_u.npy.
-np.save('recon_counts_u.npy', X_tensor)
-np.save('labels_u.npy', cell_types_tensor)
+# np.save('recon_counts_u.npy', X_tensor)
+# np.save('labels_u.npy', cell_types_tensor)
 
 dataset = TensorDataset(X_tensor, cell_types_tensor)
 mini_batch = how_many

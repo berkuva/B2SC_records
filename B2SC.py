@@ -26,7 +26,7 @@ def generate_desired_celltypes(desired_neuron, b2sc_model, num_samples):
         data = torch.randn(1, input_dim).to(device)
 
         b2sc_model = b2sc_model.to(device)
-        recon_count = b2sc_model(data, desired_neuron)
+        recon_count, _ = b2sc_model(data, desired_neuron)
 
         # Select the desired neuron instead of sampling one randomly
         labels.append(desired_neuron)
@@ -145,7 +145,7 @@ if __name__ == "__main__":
     all_recon_counts = []
     all_labels = []
     
-    num_runs = 500  # or however many times to run the generation
+    num_runs = 0  # or however many times to run the generation
 
     for i in range(num_runs):
         if (i+1)%100==0:
@@ -163,25 +163,26 @@ if __name__ == "__main__":
             all_labels.append(labels[k])
 
 
-    # # set all_recon_counts equal to saved recon_counts.npy.
-    # try:
-    #     all_recon_counts = np.load('recon_counts.npy').tolist()
-    #     all_labels = np.load('labels.npy').tolist()
-    #     print("Loaded recon_counts.npy and labels.npy")
-    # except:
-    #     all_recon_counts = []
-    #     all_labels = []
+    # set all_recon_counts equal to saved recon_counts.npy.
+    try:
+        all_recon_counts = np.load('recon_counts.npy').tolist()
+        all_labels = np.load('labels.npy').tolist()
+        print("Loaded recon_counts.npy and labels.npy")
+    except:
+        all_recon_counts = []
+        all_labels = []
 
-    # howmany = 500
-    # for l in range(howmany):
-    #     print(f"Run: {l+1}")
-    #     recon_counts, labels = generate_desired_celltypes(11, b2sc_model, 1)
-    #     for k in range(len(recon_counts)):
-    #         all_recon_counts.append(recon_counts[k].cpu().detach().numpy().tolist())
-    #         all_labels.append(labels[k])
-    # recon_count_tensor = np.array(all_recon_counts)
-    # labels_tensor = np.array(all_labels)
+    howmany = 10
+    for l in range(howmany):
+        print(f"Run: {l+1}")
+        recon_counts, labels = generate_desired_celltypes(10, b2sc_model, 1)
+        for k in range(len(recon_counts)):
+            # pdb.set_trace()
+            all_recon_counts.append(recon_counts[k].cpu().detach().numpy().tolist())
+            all_labels.append(labels[k])
+    recon_count_tensor = np.array(all_recon_counts)
+    labels_tensor = np.array(all_labels)
 
-    # # Save to file
-    # np.save('recon_counts.npy', recon_count_tensor)
-    # np.save('labels.npy', labels_tensor)
+    # Save to file
+    np.save('recon_counts.npy', recon_count_tensor)
+    np.save('labels.npy', labels_tensor)

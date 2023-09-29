@@ -192,15 +192,29 @@ class B2SC(nn.Module):
 
         return mus, logvars, gmm_weights
 
-    def reparameterize(self, mus, logvars, gmm_weights, selected_neuron):
+    def reparameterize(self, mus, logvars, gmm_weights, selected_neuron, variability=1):
         zs = []
         mu = mus[selected_neuron]
-        std = torch.exp(0.1 * logvars[selected_neuron])
+
+        # Min-max normalize logvars to allow variance of generated cell types.
+        x = logvars[selected_neuron]
+
+        # Compute the min and max of x
+        x_min = torch.min(x)
+        x_max = torch.max(x)
+
+        # Apply Min-Max scaling
+        scaled_x = (x - x_min) / (x_max - x_min)
+        scaled_x = variability * scaled_x #Change the integer to allow more variability.
+        std = torch.exp(scaled_x)
+
         eps = torch.randn_like(std)
+
         zs.append(mu + eps * std)
         z_stack = torch.stack(zs, dim=-1)
         z = (z_stack * gmm_weights).sum(dim=-1)
         return z
+
 
     def decode(self, z):
         h1 = nn.ReLU()(self.fc_d1(z))
@@ -216,9 +230,17 @@ class B2SC(nn.Module):
         
         return recon_x
 
-    def forward(self, x, selected_neuron):
+    def forward(self, x, selected_neuron=None, variability=1):
         mus, logvars, gmm_weights = self.encode(x)
-        z = self.reparameterize(mus, logvars, gmm_weights, selected_neuron)
+        
+        if selected_neuron == None:
+            gmm_weights = gmm_weights.mean(0)
+            # clamp the negative values to the smallest positive number
+            min_positive = torch.min(gmm_weights[gmm_weights > 0]).item() if torch.any(gmm_weights > 0) else 1e-3
+            gmm_weights_clamped = torch.clamp(gmm_weights, min=min_positive)
+            selected_neuron = torch.multinomial(gmm_weights_clamped, 1).item()
+        
+        z = self.reparameterize(mus, logvars, gmm_weights, selected_neuron, variability)
         recon_x = self.decode(z)
         
-        return recon_x.sum(dim=0)
+        return recon_x.sum(dim=0), selected_neuron
