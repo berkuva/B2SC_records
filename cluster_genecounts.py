@@ -2,13 +2,87 @@ import scanpy as sc
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.lines as mlines
+# import torch
+# import paired_dataset
+# from paired_dataset import *
 
 # Load data and labels
 data = np.load('recon_counts.npy')
 adata = sc.AnnData(X=data)
 labels = np.load('labels.npy')
 
-# Given label and color maps
+# mean_variance_dict = {label.item(): (paired_dataset.X_tensor[paired_dataset.cell_types_tensor == label].mean(dim=0),\
+#                                      paired_dataset.X_tensor[paired_dataset.cell_types_tensor == label].var(dim=0, unbiased=True))\
+#                      for label in torch.unique(paired_dataset.cell_types_tensor)}
+
+
+# labels_tensor = torch.tensor(labels)
+# # Unique labels
+# unique_labels = torch.unique(labels_tensor)
+
+# # Process each label separately
+# for label in unique_labels:
+#     # Get the current label's data
+#     label_indices = (labels_tensor == label)
+#     label_data = data[label_indices]
+    
+#     # Get the desired mean and variance for this label
+#     desired_mean, desired_variance = mean_variance_dict[label.item()]
+    
+#     # Compute the current mean and variance
+#     current_mean = label_data.mean(axis=0)
+#     current_variance = label_data.var(axis=0, ddof=1)  # ddof=1 for unbiased variance
+    
+#     # Convert numpy arrays to tensors for the following calculations
+#     current_mean = torch.tensor(current_mean)
+#     current_variance = torch.tensor(current_variance)
+#     desired_mean = torch.tensor(desired_mean)
+#     desired_variance = torch.tensor(desired_variance)
+    
+#     # Compute scaling and shifting factors
+#     scale_factor = torch.sqrt(desired_variance / current_variance)
+#     shift_value = desired_mean - current_mean * scale_factor
+    
+#     # Adjust the data for this label
+#     data[label_indices] = (label_data * scale_factor.numpy() + shift_value.numpy())
+
+
+# Now, 'data' should have the desired per-label mean and variance
+# import pdb;pdb.set_trace()
+# data = data.astype(np.int64)
+# data = data.clip(min=0)
+
+# # Convert labels to a tensor if it's a numpy array
+# labels_tensor = torch.tensor(labels) if isinstance(labels, np.ndarray) else labels
+
+# # Unique labels
+# unique_labels = torch.unique(labels_tensor)
+
+# # Check mean and variance for each label
+# for label in unique_labels:
+#     label_indices = (labels_tensor == label)
+#     label_data = data[label_indices]
+    
+#     # Compute mean and variance
+#     computed_mean = label_data.mean(axis=0)  # Assuming label_data is a numpy array
+#     computed_variance = label_data.var(axis=0, ddof=1)  # Assuming label_data is a numpy array, ddof=1 for unbiased variance
+    
+#     # Get the desired mean and variance
+#     desired_mean, desired_variance = mean_variance_dict[label.item()]
+    
+#     # Convert desired mean and variance to numpy arrays if they are tensors
+#     desired_mean = desired_mean.numpy() if isinstance(desired_mean, torch.Tensor) else desired_mean
+#     desired_variance = desired_variance.numpy() if isinstance(desired_variance, torch.Tensor) else desired_variance
+    
+#     # Print the results
+#     print(f'Label: {label.item()}')
+#     print(f'Computed mean: {computed_mean}, Desired mean: {desired_mean}')
+#     print(f'Computed variance: {computed_variance}, Desired variance: {desired_variance}')
+#     print(f'Mean match: {np.allclose(computed_mean, desired_mean)}, Variance match: {np.allclose(computed_variance, desired_variance)}')
+#     print('-' * 50)  # Print a separator line
+# # import pdb;pdb.set_trace()
+
+
 
 mapping_dict = {
     'Naive B cells': '0',

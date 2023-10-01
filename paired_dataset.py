@@ -72,7 +72,7 @@ dataset = TensorDataset(X_tensor, labels)
 # np.save('labels_u.npy', cell_types_tensor)
 
 
-mini_batch = len(adata)
+mini_batch = 2700
 
 dataloader = DataLoader(dataset, batch_size=mini_batch, shuffle=False)
 

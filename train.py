@@ -81,7 +81,6 @@ def remove_params_from_optimizer(optimizer, params_to_remove):
 
 train_gmm_till = 300
 
-
 # Training Loop with warm-up
 def train(epoch, model, optimizer, train_loader, gmm_weights_backup):
     print(f'Epoch: {epoch+1}')
@@ -90,7 +89,6 @@ def train(epoch, model, optimizer, train_loader, gmm_weights_backup):
     train_loss = 0
     
     for batch_idx, (data,labels) in enumerate(train_loader):
-
         data = data.to(device)
         # model = nn.DataParallel(model).to(device)
         labels = labels.to(device)
@@ -103,10 +101,9 @@ def train(epoch, model, optimizer, train_loader, gmm_weights_backup):
         if train_gmm_till > epoch+1:
             loss = 10*losses.gmm_loss(gmm_weights)
         else:
-            # recon_L = losses.zinb_loss(preds, data, zero_inflation_prob, theta)
             ceL = nn.CrossEntropyLoss()(preds, data)
             loss =  ceL
-
+        
         if train_gmm_till == epoch+1:
             gmm_weights_backup = {name: param.clone() for name, param in model.fc_gmm_weights.named_parameters()}
             for param in model.fc_gmm_weights.parameters():
@@ -137,6 +134,8 @@ def train(epoch, model, optimizer, train_loader, gmm_weights_backup):
 
     if (epoch+1)%100 == 0:
         # torch.save(model.cpu().state_dict(), f"sc_model_{epoch+1}.pt")
+        print("---")
+        print(preds[0])
         X_tensor = paired_dataset.X_tensor
         model.to(device)
         model.eval()
@@ -172,22 +171,22 @@ def train(epoch, model, optimizer, train_loader, gmm_weights_backup):
 model.load_state_dict(torch.load("sc_model_700.pt"))
 gmm_weights_backup = {name: param.clone() for name, param in model.fc_gmm_weights.named_parameters()}
 
-# # Set requires_grad of those parameters to False and zero their gradients
-# params_to_remove_from_optim = []
-# for param in model.fc_gmm_weights.parameters():
-#     param.requires_grad = False
-#     if param.grad is not None:
-#         param.grad.data.zero_()
-#     params_to_remove_from_optim.append(param)
+# Set requires_grad of those parameters to False and zero their gradients
+params_to_remove_from_optim = []
+for param in model.fc_gmm_weights.parameters():
+    param.requires_grad = False
+    if param.grad is not None:
+        param.grad.data.zero_()
+    params_to_remove_from_optim.append(param)
 
-# # Remove the parameters from the optimizer
-# optimizer = remove_params_from_optimizer(optimizer, params_to_remove_from_optim)
+# Remove the parameters from the optimizer
+optimizer = remove_params_from_optimizer(optimizer, params_to_remove_from_optim)
 
-# # Reset the optimizer learning rate
-# for group in optimizer.param_groups:
-#     group['lr'] = 1e-4
+# Reset the optimizer learning rate
+for group in optimizer.param_groups:
+    group['lr'] = 1e-4
 
-epoch_start = 0
+epoch_start = 700
 print(paired_dataset.X_tensor.shape)
 # gmm_weights_backup = None
 for epoch in range(epoch_start, epochs + 1):
