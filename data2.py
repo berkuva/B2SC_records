@@ -4,6 +4,7 @@ import torch
 from torch.utils.data import TensorDataset, DataLoader
 import numpy as np
 import collections
+import anndata as ad
 
 # np.random.seed(1)
 # torch.manual_seed(1)
@@ -15,6 +16,12 @@ data_dir = "B2SC/filtered_gene_bc_matrices/hg19/"
 # data_dir = "/home/hc2kc/Rivanna/scVAE/hg19/"
 
 adata = sc.read_10x_mtx(data_dir, var_names='gene_symbols', cache=True)
+
+gendata = np.load('B2SC/filtered_gene_bc_matrices/hg19/recon_counts.npy')
+genlabels = np.load('B2SC/filtered_gene_bc_matrices/hg19/labels.npy')
+
+# Create a pandas Series from genlabels
+genlabels_series = pd.Series(genlabels)
 
 # Read your barcodes_with_labels file
 barcode_path = 'B2SC/filtered_gene_bc_matrices/hg19/barcodes_with_labels.txt'
@@ -31,6 +38,8 @@ adata.obs['barcodes'] = adata.obs.index
 # Merge adata.obs and barcodes_with_labels on barcodes
 adata.obs = adata.obs.reset_index(drop=True)
 adata.obs = adata.obs.merge(barcodes_with_labels, on='barcodes', how='left')
+
+
 
 # Now your labels are part of the adata object and can be accessed using adata.obs['labels']
 # Convert to dense array if necessary
@@ -76,30 +85,35 @@ def apply_gaussian_noise(dataset, mean, std_dev, num_rows_to_replace):
     random_row_indices = np.random.choice(num_rows, num_rows_to_replace, replace=False)
     # Add the noise to the original data
     for i in range(0,num_rows_to_replace):
-        print("AAAAA")
-        print(dataset[random_row_indices[i]])
         dataset[random_row_indices[i]] = dataset[random_row_indices[i]] + noise[i]
-        print(dataset[random_row_indices[i]])
-        print("BBBBBB")
-        print(adata.obs.at[str(random_row_indices[i]),'labels'])
         adata.obs.at[str(random_row_indices[i]),'labels'] = '0'
-        print(adata.obs.at[str(random_row_indices[i]),'labels'])
-
     return dataset
-
 
 # Apply mapping to the 'labels' column of adata.obs
 adata.obs['labels'] = adata.obs['labels'].replace(mapping_dict)
-apply_gaussian_noise(adata.X, 0, 0.2, 1000)
+#apply_gaussian_noise(adata.X, 0, 0.2, 1000)
 
+
+gen = ad.AnnData(X = gendata)
+gen.var_names = adata.var_names
+
+adata = ad.concat([adata, gen], join="outer")
+labels_list = ['1'] * 2700 + ['0'] * 2700
+
+# Set the 'labels' column of the adata.obs DataFrame to the shuffled list of labels
+adata.obs['labels'] = labels_list
 adata.obs['labels'] = adata.obs['labels'].astype('category')
 
-
 labels = adata.obs['labels'].cat.codes.values
+
+# Shuffle the indices
+shuffled_indices = np.random.permutation(len(adata.X))
+
+# Rearrange both arrays using the shuffled indices
+adata.X = adata.X[shuffled_indices]
+labels = labels[shuffled_indices]
+
 labels = torch.LongTensor(labels)
-
-
-
 
 # 419
 
@@ -107,7 +121,6 @@ labels = torch.LongTensor(labels)
 label_indices = collections.defaultdict(list)
 for idx, label in enumerate(labels):
     label_indices[label.item()].append(idx)
-
 # Create a TensorDataset from your AnnData object
 tensor_x = torch.Tensor(adata.X)
 

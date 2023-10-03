@@ -35,6 +35,7 @@ np.random.seed(4)
 model = models.ANN(input_dim, hidden_dim, z_dim).to(device)
 optimizer = torch.optim.Adam(model.parameters(), lr=2e-3)
 train_loader = data2.loader 
+
 '''
 def ANN_train(model, X_train, y_train, X_val, y_val):
     model.to(device) 
@@ -114,7 +115,7 @@ def ANN_train(model, data_train, labels_train, data_val, labels_val):
     train_loss = 0
 
     n_epochs = 100   # number of epochs to run
-    batch_size = 32  # size of each batch
+    batch_size = 20  # size of each batch
  
     # Hold the best model
     best_acc = -np.inf   # init to negative infinity
@@ -167,8 +168,6 @@ def ANN_train(model, data_train, labels_train, data_val, labels_val):
 
     model.load_state_dict(best_weights)
     return best_acc
-
-
 
 
 
