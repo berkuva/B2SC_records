@@ -220,7 +220,7 @@ class B2SC(nn.Module):
         return recon_x.sum(dim=0)
 
 class ANN(nn.Module):
-    def __init__(self, input_dim, hidden_dim, z_dim = 1, dropout_rate = 0.1):
+    def __init__(self, input_dim, hidden_dim, z_dim=3, dropout_rate=0.1):
         super().__init__()
         self.hidden = nn.Linear(input_dim, hidden_dim)
         self.relu = nn.ReLU()

@@ -6,6 +6,7 @@ import numpy as np
 import collections
 import anndata as ad
 
+
 # np.random.seed(1)
 # torch.manual_seed(1)
 
@@ -73,26 +74,31 @@ mapping_dict = {
 }
 
 def apply_gaussian_noise(dataset, mean, std_dev, num_rows_to_replace):
-    num_rows = dataset.shape[0]
+    num_rows = 2700
     #adata.obs['labels'] = adata.obs['labels'].cat.add_categories([0])
 
     # Generate Gaussian noise
     #noise = np.zeros(num_rows_to_replace)
 
     noise = np.random.normal(mean, std_dev, num_rows_to_replace)
-    
     #Select random rows
     random_row_indices = np.random.choice(num_rows, num_rows_to_replace, replace=False)
+
     # Add the noise to the original data
     for i in range(0,num_rows_to_replace):
-        dataset[random_row_indices[i]] = dataset[random_row_indices[i]] + noise[i]
-        adata.obs.at[str(random_row_indices[i]),'labels'] = '0'
+        current_row = dataset[random_row_indices[i]]
+        current_noise = noise[i]
+
+    
+        # Add noise only to non-zero values in the row
+        for j in range(len(current_row)):
+            if current_row[j] != 0:
+                current_row[j] += current_noise
+        adata.obs.at[str(random_row_indices[i]),'labels'] = '2'
     return dataset
 
 # Apply mapping to the 'labels' column of adata.obs
 adata.obs['labels'] = adata.obs['labels'].replace(mapping_dict)
-#apply_gaussian_noise(adata.X, 0, 0.2, 1000)
-
 
 gen = ad.AnnData(X = gendata)
 gen.var_names = adata.var_names
@@ -102,6 +108,8 @@ labels_list = ['1'] * 2700 + ['0'] * 2700
 
 # Set the 'labels' column of the adata.obs DataFrame to the shuffled list of labels
 adata.obs['labels'] = labels_list
+apply_gaussian_noise(adata.X, 0, 0.2, 1350)
+
 adata.obs['labels'] = adata.obs['labels'].astype('category')
 
 labels = adata.obs['labels'].cat.codes.values
@@ -113,9 +121,9 @@ shuffled_indices = np.random.permutation(len(adata.X))
 adata.X = adata.X[shuffled_indices]
 labels = labels[shuffled_indices]
 
+
 labels = torch.LongTensor(labels)
 
-# 419
 
 # Create a dictionary of labels and their corresponding indices
 label_indices = collections.defaultdict(list)
@@ -127,9 +135,8 @@ tensor_x = torch.Tensor(adata.X)
 dataset = TensorDataset(tensor_x, labels)
 # pdb.set_trace()
 
-mini_batch = 1000
 # Dataloader
-loader = DataLoader(dataset, batch_size=mini_batch, shuffle=False)
+loader = DataLoader(dataset, batch_size=5400, shuffle=False)
 
 
 __all__ = ['adata', 'loader']

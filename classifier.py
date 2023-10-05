@@ -15,6 +15,7 @@ import pdb
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import StratifiedKFold
+from sklearn.metrics import confusion_matrix, classification_report
 import copy
 import tqdm
 import scanpy as sc
@@ -27,7 +28,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Define hyperparameters and other settings
 input_dim = 32738
 hidden_dim = 700
-z_dim = 9
+z_dim = 3
 epochs = 1001
 
 np.random.seed(4)
@@ -114,6 +115,10 @@ def ANN_train(model, data_train, labels_train, data_val, labels_val):
     model.train()
     train_loss = 0
 
+    labels_train = torch.nn.functional.one_hot(labels_train, 3)
+    labels_val = torch.nn.functional.one_hot(labels_val, 3)
+
+
     n_epochs = 100   # number of epochs to run
     batch_size = 20  # size of each batch
  
@@ -159,14 +164,16 @@ def ANN_train(model, data_train, labels_train, data_val, labels_val):
         labels_pred = model(data_val)
         acc = (labels_pred.round() == labels_val).float().mean()
         acc = float(acc)
-        
+
         #remember accuracy
         if acc > best_acc:
             best_acc = acc
             best_weights = copy.deepcopy(model.state_dict())
+        
     # restore model and return best accuracy
 
     model.load_state_dict(best_weights)
+
     return best_acc
 
 
@@ -174,7 +181,6 @@ def ANN_train(model, data_train, labels_train, data_val, labels_val):
 for batch_idx, (data,labels) in enumerate(train_loader):
         data = data.to(device)
         # model = nn.DataParallel(model).to(device)
-        labels = labels.view(-1,1).to(device)
         optimizer.zero_grad()
         loss_fn = nn.BCELoss()  # binary cross entropy
 
@@ -182,18 +188,50 @@ for batch_idx, (data,labels) in enumerate(train_loader):
 
 kfold = StratifiedKFold(n_splits=5, shuffle=True)
 cv_scores = []
+all_labels_val = []
+all_labels_pred = []
 
 #turn into numpy arrays then back into tensors eventually
+print(data.cpu().shape)
+
 for train, test in kfold.split(data.cpu(), labels.cpu()):
     # create model, train, and get accuracy
     model = models.ANN(input_dim, hidden_dim)
+    model.train()
     optimizer = torch.optim.Adam(model.parameters(), lr=2e-3)
     acc = ANN_train(model, data[train], labels[train], data[test], labels[test])
     print("Accuracy (wide): %.2f" % acc)
     cv_scores.append(acc)
+    model.eval()
+    labels_val_fold = labels[test]
+    labels_pred_fold = model(data[test]).round().cpu().detach().numpy()
 
+    all_labels_val.extend(labels_val_fold)
+    all_labels_pred.extend(labels_pred_fold)
+
+    #size of all_labels_val
+    print(len(all_labels_val))
+
+# Convert lists to numpy arrays
+all_labels_val = np.array(all_labels_val)
+all_labels_pred = np.array(all_labels_pred)
+all_labels_pred_classes = np.argmax(all_labels_pred, axis=1)
+
+# Compute the overall confusion matrix
+conf_matrix_overall = confusion_matrix(all_labels_val, all_labels_pred_classes)
+
+# Print the overall confusion matrix
+print("Overall Confusion Matrix:")
+print(pd.DataFrame(conf_matrix_overall, columns=['Predicted Generated', 'Predicted Real', 'Predicted Noise'], index=['Actual Generated', 'Actual Real', 'Actual Noise']))
+
+# Print classification report for more detailed information
+print("Classification Report:")
+print(classification_report(all_labels_val, all_labels_pred_classes))
 
 # evaluate the model
 acc = np.mean(cv_scores)
 std = np.std(cv_scores)
 print("Model accuracy: %.2f%% (+/- %.2f%%)" % (acc*100, std*100))
+
+
+
