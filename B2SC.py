@@ -60,8 +60,8 @@ if __name__ == "__main__":
     b2sc_model = models.B2SC(input_dim, hidden_dim, z_dim).to(device)
     
     # Load state dictionaries
-    scmodel_state_dict = torch.load('/u/hc2kc/scVAE/sc_model_700.pt', map_location=device)
-    bulk_model_state_dict = torch.load('/u/hc2kc/scVAE/bulk_model_2500.pt', map_location=device)
+    scmodel_state_dict = torch.load('/u/hc2kc/scVAE/sc_model_1000.pt', map_location=device)
+    bulk_model_state_dict = torch.load('/u/hc2kc/scVAE/bulk_model_15000.pt', map_location=device)
 
     # Modify the keys in the state dictionary to remove the "module." prefix
     scmodel_state_dict = {k.replace('module.', ''): v for k, v in scmodel_state_dict.items()}
@@ -138,89 +138,51 @@ if __name__ == "__main__":
 
     all_recon_counts = []
     all_labels = []
+    # pdb.set_trace()
     
 
-    num_runs =2700  # or however many times to run the generation
+    num_runs = 2700 # or however many times to run the generation
 
     for i in range(num_runs):
         if (i+1)%100==0:
             print(f"Run: {i+1}")
             # Save to file
-            # recon_count_tensor = np.array(all_recon_counts)
-            # labels_tensor = np.array(all_labels)
-            # np.save('recon_counts.npy', np.array(recon_count_tensor))
-            # np.save('labels.npy', np.array(labels_tensor))
+            recon_count_tensor = np.array(all_recon_counts)
+            labels_tensor = np.array(all_labels)
+            np.save('recon_counts.npy', np.array(recon_count_tensor))
+            np.save('labels.npy', np.array(labels_tensor))
 
         recon_counts, labels = generate(b2sc_model, paired_dataset.dataloader)
         for k in range(len(recon_counts)):
             all_recon_counts.append(recon_counts[k].cpu().detach().numpy().tolist())
             all_labels.append(labels[k])
     
-    # all_recon_counts = np.load('recon_counts.npy')
-    # all_labels = np.load('labels.npy')
-    all_recon_counts = np.array(all_recon_counts)
-    all_labels = np.array(all_labels)
 
 
-    mean_variance_dict = {label.item(): (paired_dataset.X_tensor[paired_dataset.cell_types_tensor == label].mean(dim=0),\
-                                        paired_dataset.X_tensor[paired_dataset.cell_types_tensor == label].var(dim=0, unbiased=True))\
-                        for label in torch.unique(paired_dataset.cell_types_tensor)}
-
-    # 
-    # Convert labels to a tensor if it's a numpy array
-    labels_tensor = torch.tensor(all_labels)
-
-    # Unique labels
-    unique_labels = torch.unique(labels_tensor)
-
-    for label in unique_labels:
-        label = label.item()
-        label_indices = (all_labels == label)
-        label_data = all_recon_counts[label_indices]
-        
-        desired_mean, desired_variance = mean_variance_dict[label]
-        
-        # If your desired_mean and desired_variance are torch tensors, convert them to numpy arrays
-        desired_mean = desired_mean.numpy() if isinstance(desired_mean, torch.Tensor) else desired_mean
-        desired_variance = desired_variance.numpy() if isinstance(desired_variance, torch.Tensor) else desired_variance
-        
-        current_mean = np.mean(label_data, axis=0)
-        # pdb.set_trace()
-        current_variance = np.var(label_data, axis=0, ddof=1)  # ddof=1 for unbiased variance
-        
-        # Avoid division by zero by replacing zero variance with a small value
-        current_variance = np.where(current_variance == 0, np.finfo(float).eps, current_variance)
-        
-        scale_factor = np.sqrt(desired_variance / current_variance)
-        shift_value = desired_mean - current_mean * scale_factor
-        
-        # Print statements for verification
-        print(f'Label: {label}')
-        print(f'Current Mean: {current_mean}, Desired Mean: {desired_mean}')
-        print(f'Current Variance: {current_variance}, Desired Variance: {desired_variance}')
-        print(f'Scale Factor: {scale_factor}')
-        print(f'Shift Value: {shift_value}')
-        
-        # Update data for the current label
-        all_recon_counts[label_indices] = label_data * scale_factor + shift_value
-
-        # Verification after adjustment
-        adjusted_mean = np.mean(all_recon_counts[label_indices], axis=0)
-        adjusted_variance = np.var(all_recon_counts[label_indices], axis=0, ddof=1)
-        print(f'Adjusted Mean: {adjusted_mean}')
-        print(f'Adjusted Variance: {adjusted_variance}')
-        print('-' * 50)  # separator line
 
 
-    # Clipping negative values to 0
-    all_recon_counts = np.clip(all_recon_counts, 0, None)
+    # def custom_round(arr):
+    #     # Create a mask for values between 0.3 and 0.5 (exclusive)
+    #     mask = (arr > 0.49999) & (arr <= 1)
 
-    # Converting values to integers
+    #     # Create an array of the same shape filled with rounded values
+    #     rounded = np.round(arr)
+
+    #     # Adjust values for those in the mask
+    #     rounded[mask] = 1.0
+
+    #     return rounded
+    
+    # all_recon_counts = all_recon_counts.clip(0)
+    # # pdb.set_trace()
+    # # np.count_nonzero(np.median(data2, axis=0).astype(int))
+
+    
+    # all_recon_counts = custom_round(all_recon_counts)
     all_recon_counts = all_recon_counts.astype(np.int)
 
-    # Save updated all_recon_counts and labels to disk
-    np.save('recon_counts.npy', all_recon_counts)
-    np.save('labels.npy', all_labels)
+    np.save('recon_counts_l1_sc.npy', all_recon_counts)
+    np.save('labels_l1_sc.npy', all_labels)
 
 
     # import pdb;pdb.set_trace()

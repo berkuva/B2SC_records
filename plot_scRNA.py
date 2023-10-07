@@ -16,19 +16,15 @@ adata.obs['barcodes'] = adata.obs.index
 adata.obs = adata.obs.reset_index(drop=True)
 adata.obs = adata.obs.merge(barcodes_with_labels, on='barcodes', how='left')
 
-# Convert sparse matrix to dense matrix if necessary
 adata.X = adata.X.toarray()
 adata.obs.index = adata.obs.index.astype(str)
 
-sc.pp.filter_cells(adata, min_genes=10)
+# sc.pp.filter_cells(adata, min_genes=10)
 
-# Calculate standard deviation for each gene across cells
-gene_std_devs = np.std(adata.X, axis=0)
+# gene_std_devs = np.std(adata.X, axis=0)
+# top_variable_genes = np.argsort(gene_std_devs)[-500:]
 
-# Select top variable genes based on standard deviation. Note: you may want to limit to a certain number of genes, e.g., top 500
-top_variable_genes = np.argsort(gene_std_devs)[-500:]
-
-adata = adata[:, top_variable_genes]
+# adata = adata[:, top_variable_genes]
 
 mapping_dict = {
     'Naive B cells': '0',
@@ -43,7 +39,6 @@ mapping_dict = {
 }
 
 adata.obs['labels'] = adata.obs['labels'].replace(mapping_dict).astype('category')
-
 label_map = {v: k for k, v in mapping_dict.items()}
 
 color_map = {
@@ -58,6 +53,7 @@ color_map = {
     'Platelets': 'yellow'
 }
 
+
 adata.obs['labels'] = adata.obs['labels'].map(label_map).astype('category')
 unique_labels = adata.obs['labels'].cat.categories
 adata.uns['labels_colors'] = [color_map[label] for label in unique_labels]
@@ -65,14 +61,20 @@ adata.uns['labels_colors'] = [color_map[label] for label in unique_labels]
 sc.pp.normalize_total(adata, target_sum=1e5)
 sc.pp.scale(adata, max_value=5000)
 
-sc.pp.pca(adata, n_comps=100)
-sc.pp.neighbors(adata, n_neighbors=10, n_pcs=100)
-sc.tl.umap(adata)
+sc.pp.pca(adata, n_comps=50)
+sc.pp.neighbors(adata, n_neighbors=10, n_pcs=50)
+sc.tl.tsne(adata)  # Compute t-SNE instead of UMAP
 
 sc.settings.figsize = (12, 12)
-sc.pl.umap(adata, color='labels', legend_loc=None, frameon=True, show=False)
+sc.pl.tsne(adata, color='labels', legend_loc=None, frameon=True, show=False)  # Plot t-SNE results
+# Remove ticks.
+plt.tick_params(axis='both', which='both', bottom=False, top=False, labelbottom=False, right=False, left=False, labelleft=False)
+# x label as TSNE1 and y label as TSNE2.
+plt.xlabel('TSNE1', fontsize=13)
+plt.ylabel('TSNE2', fontsize=13)
 
 legend_elements = [mlines.Line2D([0], [0], marker='o', color='w', label=label, markersize=10, markerfacecolor=color_map[label]) for label in unique_labels]
 plt.legend(handles=legend_elements, bbox_to_anchor=(1.05, 0.5), loc='center left', fontsize=12)
-
-plt.savefig("pbmc_original.png", bbox_inches='tight')
+# Set title to PBMC 3K Raw.
+plt.title('PBMC 3K Raw', fontsize=15)
+plt.savefig("pbmc_tsne.png", bbox_inches='tight', dpi=300)

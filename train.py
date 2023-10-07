@@ -20,7 +20,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Define hyperparameters and other settings
 input_dim = paired_dataset.input_dim
 hidden_dim = paired_dataset.hidden_dim
-epochs = 500
+epochs = 1000
 z_dim = paired_dataset.z_dim
 
 
@@ -79,7 +79,7 @@ def remove_params_from_optimizer(optimizer, params_to_remove):
     return optimizer
 
 
-train_gmm_till = 300
+train_gmm_till = 500
 
 # Training Loop with warm-up
 def train(epoch, model, optimizer, train_loader, gmm_weights_backup):
@@ -93,6 +93,8 @@ def train(epoch, model, optimizer, train_loader, gmm_weights_backup):
         # model = nn.DataParallel(model).to(device)
         labels = labels.to(device)
         optimizer.zero_grad()
+
+        
 
         preds, zero_inflation_prob, theta, mus, logvars, gmm_weights = model(data)
         # preds.shape, zero_inflation_prob.shape, theta.shape, mus[0].shape, logvars[0].shape, gmm_weights.shape
@@ -132,8 +134,8 @@ def train(epoch, model, optimizer, train_loader, gmm_weights_backup):
     if (epoch+1)%20 == 0:
         print(gmm_weights)
 
-    if (epoch+1)%100 == 0:
-        # torch.save(model.cpu().state_dict(), f"sc_model_{epoch+1}.pt")
+    if (epoch+1)%500 == 0:
+        torch.save(model.cpu().state_dict(), f"sc_model_{epoch+1}.pt")
         print("---")
         print(preds[0])
         X_tensor = paired_dataset.X_tensor
@@ -152,43 +154,56 @@ def train(epoch, model, optimizer, train_loader, gmm_weights_backup):
             label_names = np.array([label_map[str(label)] for label in raw_labels])
             unique_labels = np.unique(label_names)
 
-            # embedding
-            reducer = umap.UMAP()
-            embedding = reducer.fit_transform(z)
+            # # embedding
+            # reducer = umap.UMAP()
+            # embedding = reducer.fit_transform(z)
 
-            # Plot the UMAP representation
+            # # Plot the UMAP representation
+            # plt.figure(figsize=(10, 10))
+            # for label in unique_labels:
+            #     indices = np.where(label_names == label)
+            #     plt.scatter(embedding[indices, 0], embedding[indices, 1], color=color_map[label], label=label)
+            # plt.legend()
+            # plt.savefig(f"umap_{epoch+1}.png")
+
+
+            # Set up t-SNE
+            tsne = TSNE()
+            embedding = tsne.fit_transform(z)
+
+            # Plot the t-SNE representation
             plt.figure(figsize=(10, 10))
             for label in unique_labels:
                 indices = np.where(label_names == label)
                 plt.scatter(embedding[indices, 0], embedding[indices, 1], color=color_map[label], label=label)
             plt.legend()
-            plt.savefig(f"umap_{epoch+1}.png")
-
+            plt.savefig(f"tsne_{epoch+1}.png")
+            
 
     return gmm_weights_backup
 
 
-model.load_state_dict(torch.load("sc_model_700.pt"))
-gmm_weights_backup = {name: param.clone() for name, param in model.fc_gmm_weights.named_parameters()}
+# model.load_state_dict(torch.load("sc_model_700.pt"))
+# gmm_weights_backup = {name: param.clone() for name, param in model.fc_gmm_weights.named_parameters()}
 
-# Set requires_grad of those parameters to False and zero their gradients
-params_to_remove_from_optim = []
-for param in model.fc_gmm_weights.parameters():
-    param.requires_grad = False
-    if param.grad is not None:
-        param.grad.data.zero_()
-    params_to_remove_from_optim.append(param)
+# # Set requires_grad of those parameters to False and zero their gradients
+# params_to_remove_from_optim = []
+# for param in model.fc_gmm_weights.parameters():
+#     param.requires_grad = False
+#     if param.grad is not None:
+#         param.grad.data.zero_()
+#     params_to_remove_from_optim.append(param)
 
-# Remove the parameters from the optimizer
-optimizer = remove_params_from_optimizer(optimizer, params_to_remove_from_optim)
+# # Remove the parameters from the optimizer
+# optimizer = remove_params_from_optimizer(optimizer, params_to_remove_from_optim)
 
-# Reset the optimizer learning rate
-for group in optimizer.param_groups:
-    group['lr'] = 1e-4
+# # Reset the optimizer learning rate
+# for group in optimizer.param_groups:
+#     group['lr'] = 1e-4
 
-epoch_start = 700
+epoch_start = 0
 print(paired_dataset.X_tensor.shape)
-# gmm_weights_backup = None
+gmm_weights_backup = None
 for epoch in range(epoch_start, epochs + 1):
     gmm_weights_backup = train(epoch, model, optimizer, train_loader, gmm_weights_backup)
 

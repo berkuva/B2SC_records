@@ -22,6 +22,7 @@ adata.obs['barcodes'] = adata.obs.index
 adata.obs = adata.obs.reset_index(drop=True)
 adata.obs = adata.obs.merge(barcodes_with_labels, on='barcodes', how='left')
 
+
 # Now your labels are part of the adata object and can be accessed using adata.obs['labels']
 # Convert to dense array if necessary
 adata.X = adata.X.toarray()
@@ -31,13 +32,13 @@ adata.obs.index = adata.obs.index.astype(str)
 # sc.pp.filter_cells(adata, min_genes=10)
 
 # Calculate standard deviation for each gene across cells
-gene_std_devs = np.std(adata.X, axis=0)
+# gene_std_devs = np.std(adata.X, axis=0)
 
 # Select top variable genes based on standard deviation
-top_variable_genes = np.argsort(gene_std_devs)
+# top_variable_genes = np.argsort(gene_std_devs)
 
 # Subset your data to include only these genes
-adata = adata[:, top_variable_genes]
+# adata = adata[:, top_variable_genes]
 # Doublet-removed adata
 # adata = remove_doublets(adata)
 # Your mapping dictionary
@@ -62,7 +63,7 @@ labels = adata.obs['labels'].cat.codes.values
 labels = torch.LongTensor(labels)
 cell_types_tensor = labels
 
-# Create a TensorDataset from your AnnData object
+# Create a TensorDataset. from your AnnData object
 X_tensor = torch.Tensor(adata.X)
 dataset = TensorDataset(X_tensor, labels)
 

@@ -16,7 +16,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 input_dim = paired_dataset.input_dim
 hidden_dim = paired_dataset.hidden_dim
 z_dim = paired_dataset.z_dim
-epochs = 20000
+epochs = 15000
 
 training_losses = []
 def train(epoch, bulkmodel, optimizer, train_loader, sc_mus, sc_logvars, sc_gmm_weights, train_gmm_till=500):
@@ -59,7 +59,7 @@ def train(epoch, bulkmodel, optimizer, train_loader, sc_mus, sc_logvars, sc_gmm_
             for param in bulkmodel.fc_gmm_weights.parameters():
                 param.requires_grad = False
             
-            if epoch+1 < 15000:
+            if epoch+1 < 7500:
                 mus_loss = nn.MSELoss()(concatenated_sc_mus, bulk_mus.expand(paired_dataset.z_dim, concatenated_sc_mus.shape[1], paired_dataset.z_dim))
                 combined_loss = mus_loss
             else:
@@ -78,7 +78,7 @@ def train(epoch, bulkmodel, optimizer, train_loader, sc_mus, sc_logvars, sc_gmm_
         if epoch+1 > train_gmm_till:
             for name, param in bulkmodel.fc_gmm_weights.named_parameters():
                 param.data = gmm_weights_backup[name]
-        if epoch+1 > 15000:
+        if epoch+1 > 7500:
             for name, param in bulkmodel.fc_means.named_parameters():
                 param.data = mu_weights_backup[name]
 
@@ -88,17 +88,18 @@ def train(epoch, bulkmodel, optimizer, train_loader, sc_mus, sc_logvars, sc_gmm_
         print(f'====> Epoch: {epoch+1} Average loss: {train_loss:.4f}')
         print(bulk_gmm_weights.mean(0))
         print(sc_gmm_weights.mean(0))
-    elif (epoch+1)%50 == 0 and epoch+1 < 15000 and epoch+1 > train_gmm_till:
+    elif (epoch+1)%50 == 0 and epoch+1 < 7500 and epoch+1 > train_gmm_till:
         print(f'====> Epoch: {epoch+1} Average loss: {train_loss:.4f}')
         print(mus_loss.item())
-    elif (epoch+1)%50 == 0 and epoch+1 > 15000:
+    elif (epoch+1)%50 == 0 and epoch+1 > 7500:
         print(f'====> Epoch: {epoch+1} Average loss: {train_loss:.4f}')
+        print(len(np.count_nonzero(bulk_mus.cpu().detach().numpy(), axis=1)))
         print(logvars_loss.item())
 
     training_losses.append(combined_loss.item())
     
   
-    if (epoch+1)%500 == 0:
+    if (epoch+1)%1000 == 0 and epoch+1 > 11000:
         bulkmodel = bulkmodel.eval()
         torch.save(bulkmodel.cpu().state_dict(), f"bulk_model_{epoch+1}.pt")
     
@@ -114,7 +115,7 @@ if __name__ == "__main__":
     scmodel = models.scVAE(input_dim, hidden_dim, z_dim)
 
     # Load the state dictionary and modify the keys
-    state_dict = torch.load('sc_model_700.pt')
+    state_dict = torch.load('sc_model_1000.pt')
     new_state_dict = {k.replace('module.', ''): v for k, v in state_dict.items()}
 
     scmodel.load_state_dict(new_state_dict)
@@ -128,25 +129,25 @@ if __name__ == "__main__":
     bulk_model.fc_gmm_weights.weight.data.copy_(scmodel.fc_gmm_weights.weight.data)
     bulk_model.fc_gmm_weights.bias.data.copy_(scmodel.fc_gmm_weights.bias.data)
 
-    bulk_model_state_dict = torch.load('bulk_model_10000.pt', map_location=device)
-    bulk_model_state_dict = {k.replace('module.', ''): v for k, v in bulk_model_state_dict.items()}
+    # bulk_model_state_dict = torch.load('bulk_model_11000.pt', map_location=device)
+    # bulk_model_state_dict = {k.replace('module.', ''): v for k, v in bulk_model_state_dict.items()}
 
-    def modify_keys(state_dict):
-        new_state_dict = {}
-        for k, v in state_dict.items():
-            # Modify keys for fcs, bns, fc_means, and fc_logvars
-            for idx in range(1, 10):  # Assuming 9 GMMs
-                k = k.replace(f"fc{idx}.", f"fcs.{idx-1}.")
-                k = k.replace(f"bn{idx}.", f"bns.{idx-1}.")
-                k = k.replace(f"fc{idx}_mean.", f"fc_means.{idx-1}.")
-                k = k.replace(f"fc{idx}_logvar.", f"fc_logvars.{idx-1}.")
-            new_state_dict[k] = v
-        return new_state_dict
+    # def modify_keys(state_dict):
+    #     new_state_dict = {}
+    #     for k, v in state_dict.items():
+    #         # Modify keys for fcs, bns, fc_means, and fc_logvars
+    #         for idx in range(1, 10):  # Assuming 9 GMMs
+    #             k = k.replace(f"fc{idx}.", f"fcs.{idx-1}.")
+    #             k = k.replace(f"bn{idx}.", f"bns.{idx-1}.")
+    #             k = k.replace(f"fc{idx}_mean.", f"fc_means.{idx-1}.")
+    #             k = k.replace(f"fc{idx}_logvar.", f"fc_logvars.{idx-1}.")
+    #         new_state_dict[k] = v
+    #     return new_state_dict
 
-    bulk_model_state_dict = modify_keys(bulk_model_state_dict)
+    # bulk_model_state_dict = modify_keys(bulk_model_state_dict)
 
     # Load the state dictionaries into the models
-    bulk_model.load_state_dict(bulk_model_state_dict)
+    # bulk_model.load_state_dict(bulk_model_state_dict)
     sc_mus, sc_logvars, sc_gmm_weights = scmodel.encode(paired_dataset.X_tensor.to(device))
 
     bulk_model = bulk_model.to(device)
