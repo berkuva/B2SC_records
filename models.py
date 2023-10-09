@@ -232,3 +232,17 @@ class ANN(nn.Module):
         x = self.relu(self.hidden(x))
         x = self.sigmoid(self.output(x))
         return x
+    
+class binary_ANN(nn.Module):
+    def __init__(self, input_dim, hidden_dim, z_dim = 1, dropout_rate = 0.1):
+        super().__init__()
+        self.hidden = nn.Linear(input_dim, hidden_dim)
+        self.relu = nn.ReLU()
+        self.output = nn.Linear(hidden_dim, z_dim)
+        self.sigmoid = nn.Sigmoid()
+        self.dropout = nn.Dropout(dropout_rate)
+ 
+    def forward(self, x):
+        x = self.relu(self.hidden(x))
+        x = self.sigmoid(self.output(x))
+        return x

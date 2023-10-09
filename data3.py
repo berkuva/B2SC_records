@@ -6,7 +6,6 @@ import numpy as np
 import collections
 import anndata as ad
 
-
 # np.random.seed(1)
 # torch.manual_seed(1)
 
@@ -20,6 +19,10 @@ adata = sc.read_10x_mtx(data_dir, var_names='gene_symbols', cache=True)
 
 gendata = np.load('B2SC/filtered_gene_bc_matrices/hg19/recon_counts.npy')
 genlabels = np.load('B2SC/filtered_gene_bc_matrices/hg19/labels.npy')
+
+
+gen = ad.AnnData(X = gendata)
+gen.var_names = adata.var_names
 
 # Create a pandas Series from genlabels
 genlabels_series = pd.Series(genlabels)
@@ -50,14 +53,6 @@ adata.obs.index = adata.obs.index.astype(str)
 # sc.pp.filter_genes_dispersion(adata, min_mean=0.0125, max_mean=3, min_disp=0.5)
 sc.pp.filter_cells(adata, min_genes=10)
 
-# Calculate standard deviation for each gene across cells
-gene_std_devs = np.std(adata.X, axis=0)
-
-# Select top variable genes based on standard deviation
-top_variable_genes = np.argsort(gene_std_devs)
-
-# Subset your data to include only these genes
-adata = adata[:, top_variable_genes]
 # Doublet-removed adata
 # adata = remove_doublets(adata)
 # Your mapping dictionary
@@ -94,24 +89,34 @@ def apply_gaussian_noise(dataset, mean, std_dev, num_rows_to_replace):
         for j in range(len(current_row)):
             if current_row[j] != 0:
                 current_row[j] += current_noise
-        adata.obs.at[str(random_row_indices[i]),'labels'] = '2'
+        #adata.obs.at[str(random_row_indices[i]),'labels'] = '0'
     return dataset
 
 # Apply mapping to the 'labels' column of adata.obs
 adata.obs['labels'] = adata.obs['labels'].replace(mapping_dict)
 
-gen = ad.AnnData(X = gendata)
-gen.var_names = adata.var_names
+#non_zero_cols = np.any(gen.X != 0, axis=0)
+#gen = gen[:, non_zero_cols]
+#adata = adata[:, non_zero_cols]
+
+#non_zero_cols = np.any(adata.X != 0, axis=0)
+#gen = gen[:, non_zero_cols]
+#adata = adata[:, non_zero_cols]
+
+#maximum value in each column
+#max_value = np.amax(adata.X, axis=0)
+#number of 0's in max value
+#num_zeros = np.count_nonzero(max_value == 0)
+#print(num_zeros)
 
 adata = ad.concat([adata, gen], join="outer")
-labels_list = ['0'] * 2700 + ['1'] * 2700
+labels_list = ['1'] * 2700 + ['0'] * 2700
+#apply_gaussian_noise(adata.X, 0, 1, 2000)
 
 # Set the 'labels' column of the adata.obs DataFrame to the shuffled list of labels
 adata.obs['labels'] = labels_list
-apply_gaussian_noise(adata.X, 0, 1, 1350)
 
 adata.obs['labels'] = adata.obs['labels'].astype('category')
-
 labels = adata.obs['labels'].cat.codes.values
 
 # Shuffle the indices
@@ -121,9 +126,8 @@ shuffled_indices = np.random.permutation(len(adata.X))
 adata.X = adata.X[shuffled_indices]
 labels = labels[shuffled_indices]
 
-
 labels = torch.LongTensor(labels)
-
+# 419
 
 # Create a dictionary of labels and their corresponding indices
 label_indices = collections.defaultdict(list)
