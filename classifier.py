@@ -32,6 +32,7 @@ z_dim = 3
 epochs = 1001
 
 np.random.seed(4)
+torch.cuda.empty_cache()
 
 model = models.ANN(input_dim, hidden_dim, z_dim).to(device)
 optimizer = torch.optim.Adam(model.parameters(), lr=2e-3)
