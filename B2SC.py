@@ -1,33 +1,10 @@
-import models
-import paired_dataset
-from paired_dataset import *
 import numpy as np
 import torch
-# import scanpy as sc
-import time
-import pdb
+
 
 # Define device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # device="cpu"
-
-# Define hyperparameters and other settings
-input_dim = paired_dataset.input_dim
-hidden_dim = paired_dataset.hidden_dim
-z_dim = paired_dataset.z_dim
-
-
-# def sample_neuron(gmm_weights):
-#     num_neurons = len(gmm_weights)
-#     gmm_weights_np = gmm_weights.cpu().detach().numpy()
-#     # Generate a random neuron index based on the weights
-#     selected_neuron = np.random.choice(num_neurons, p=gmm_weights_np)
-#     return selected_neuron
-
-# def sample_neuron(gmm_weights):
-#     probabilities = torch.nn.functional.softmax(gmm_weights, dim=0)
-#     probabilities = probabilities / (probabilities.sum() + 1e-10)
-#     return torch.multinomial(probabilities, 1).item()
 
 
 def generate(b2sc_model, loader):
@@ -53,15 +30,31 @@ def generate(b2sc_model, loader):
     return recon_counts, labels
     
 
+
 if __name__ == "__main__":
+    from configure import configure
+    from models import scVAE, bulkVAE, B2SC
+    
+
+    data_dir = "/u/hc2kc/scVAE/pbmc1k/data/" # "path_to_data_directory"  # Please provide the correct path here
+    barcode_path = data_dir+'barcode_to_celltype.csv' #"path_to_barcode_path"  # And also the correct path here
+
+    args = configure(data_dir, barcode_path)
+
+
+    bulk_model = bulkVAE(args)
+    optimizer = torch.optim.Adam(bulk_model.parameters(), lr=args.learning_rate)
+
+    scmodel = scVAE(args)
+
     # Instantiate models
-    scmodel = models.scVAE(input_dim, hidden_dim, z_dim).to(device)
-    bulk_model = models.bulkVAE(input_dim, hidden_dim, z_dim).to(device)
-    b2sc_model = models.B2SC(input_dim, hidden_dim, z_dim).to(device)
+    scmodel = scVAE(args).to(device)
+    bulk_model = bulkVAE(args).to(device)
+    b2sc_model = B2SC(args).to(device)
     
     # Load state dictionaries
-    scmodel_state_dict = torch.load('/u/hc2kc/scVAE/sc_model_1000.pt', map_location=device)
-    bulk_model_state_dict = torch.load('/u/hc2kc/scVAE/bulk_model_15000.pt', map_location=device)
+    scmodel_state_dict = torch.load('/u/hc2kc/scVAE/general/sc_model_50.pt', map_location=device) # Please provide the correct path here
+    bulk_model_state_dict = torch.load('/u/hc2kc/scVAE/general/bulk_model_30.pt', map_location=device) # Please provide the correct path here
 
     # Modify the keys in the state dictionary to remove the "module." prefix
     scmodel_state_dict = {k.replace('module.', ''): v for k, v in scmodel_state_dict.items()}
@@ -89,23 +82,11 @@ if __name__ == "__main__":
     b2sc_model.fc_d1.weight.data = scmodel.fc_d1.weight.data.clone()
     b2sc_model.fc_d1.bias.data = scmodel.fc_d1.bias.data.clone()
 
-    # b2sc_model.bn_d1.weight.data = scmodel.bn_d1.weight.data.clone()
-    # b2sc_model.bn_d1.bias.data = scmodel.bn_d1.bias.data.clone()
-
     b2sc_model.fc_d2.weight.data = scmodel.fc_d2.weight.data.clone()
     b2sc_model.fc_d2.bias.data = scmodel.fc_d2.bias.data.clone()
 
-    # b2sc_model.bn_d2.weight.data = scmodel.bn_d2.weight.data.clone()
-    # b2sc_model.bn_d2.bias.data = scmodel.bn_d2.bias.data.clone()
-
     b2sc_model.fc_d3.weight.data = scmodel.fc_d3.weight.data.clone()
     b2sc_model.fc_d3.bias.data = scmodel.fc_d3.bias.data.clone()
-
-    # b2sc_model.bn_d3.weight.data = scmodel.bn_d3.weight.data.clone()
-    # b2sc_model.bn_d3.bias.data = scmodel.bn_d3.bias.data.clone()
-
-    # b2sc_model.bns.weight.data = scmodel.bns.weight.data.clone()
-    # b2sc_model.bns.bias.data = scmodel.bns.bias.data.clone()
 
     b2sc_model.fc_count.weight.data = scmodel.fc_mean.weight.data.clone()
     b2sc_model.fc_count.bias.data = scmodel.fc_mean.bias.data.clone()
@@ -115,7 +96,7 @@ if __name__ == "__main__":
     b2sc_model.fc_gmm_weights.bias.data = bulk_model.fc_gmm_weights.bias.data.clone()
 
     # Transfer bulk_model's encode to b2sc_model's encode
-    for i in range(b2sc_model.num_gmms):
+    for i in range(args.z_dim):
         b2sc_model.fcs[i].weight.data = bulk_model.fcs[i].weight.data.clone()
         b2sc_model.fcs[i].bias.data = bulk_model.fcs[i].bias.data.clone()
 
@@ -125,23 +106,13 @@ if __name__ == "__main__":
         b2sc_model.fc_logvars[i].weight.data = bulk_model.fc_logvars[i].weight.data.clone()
         b2sc_model.fc_logvars[i].bias.data = bulk_model.fc_logvars[i].bias.data.clone()
 
-        # b2sc_model.bns[i].weight.data = scmodel.bns[i].weight.data.clone()
-        # b2sc_model.bns[i].bias.data = scmodel.bns[i].bias.data.clone()
-
-
     print("Loaded models")
-
-    # pdb.set_trace()
-    # b2sc_model.encode(X_tensor.to(device).sum(0))[-1]
-    # tensor([0.1868, 0.1287, 0.1126, 0.1125, 0.1461, 0.1928, 0.1002, 0.0130, 0.0059],
-    #     device='cuda:0', grad_fn=<AddBackward0>)
 
     all_recon_counts = []
     all_labels = []
-    # pdb.set_trace()
     
 
-    num_runs = 2700 # or however many times to run the generation
+    num_runs = args.batch_size # or however many times to run the generation
 
     for i in range(num_runs):
         if (i+1)%100==0:
@@ -152,40 +123,18 @@ if __name__ == "__main__":
             np.save('recon_counts.npy', np.array(recon_count_tensor))
             np.save('labels.npy', np.array(labels_tensor))
 
-        recon_counts, labels = generate(b2sc_model, paired_dataset.dataloader)
+        recon_counts, labels = generate(b2sc_model, args.dataloader)
         for k in range(len(recon_counts)):
             all_recon_counts.append(recon_counts[k].cpu().detach().numpy().tolist())
             all_labels.append(labels[k])
     
 
-
-
-
-    # def custom_round(arr):
-    #     # Create a mask for values between 0.3 and 0.5 (exclusive)
-    #     mask = (arr > 0.49999) & (arr <= 1)
-
-    #     # Create an array of the same shape filled with rounded values
-    #     rounded = np.round(arr)
-
-    #     # Adjust values for those in the mask
-    #     rounded[mask] = 1.0
-
-    #     return rounded
-    
-    # all_recon_counts = all_recon_counts.clip(0)
-    # # pdb.set_trace()
-    # # np.count_nonzero(np.median(data2, axis=0).astype(int))
-
-    
-    # all_recon_counts = custom_round(all_recon_counts)
     all_recon_counts = all_recon_counts.astype(np.int)
 
     np.save('recon_counts_l1_sc.npy', all_recon_counts)
     np.save('labels_l1_sc.npy', all_labels)
 
 
-    # import pdb;pdb.set_trace()
 
     # # set all_recon_counts equal to saved recon_counts.npy.
     # try:

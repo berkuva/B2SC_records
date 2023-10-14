@@ -2,50 +2,45 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-# device="cpu" 
-print(device)
-
 
 class scVAE(nn.Module):
-    def __init__(self, input_dim, hidden_dim, z_dim, gmm_num=9, dropout_rate=0.1):
+    def __init__(self, args):
         super(scVAE, self).__init__()
 
-        self.dropout = nn.Dropout(dropout_rate)
+        self.dropout = nn.Dropout(args.dropout)
         
-        # Generalize for gmm_num mixture models
-        self.fcs = nn.ModuleList([nn.Linear(input_dim, hidden_dim) for _ in range(gmm_num)])
-        self.fcs_mean = nn.ModuleList([nn.Linear(hidden_dim, z_dim) for _ in range(gmm_num)])
-        self.fcs_logvar = nn.ModuleList([nn.Linear(hidden_dim, z_dim) for _ in range(gmm_num)])
+        # Generalize for z_dim mixture models
+        self.fcs = nn.ModuleList([nn.Linear(args.input_dim, args.hidden_dim) for _ in range(args.z_dim)])
+        self.fcs_mean = nn.ModuleList([nn.Linear(args.hidden_dim, args.z_dim) for _ in range(args.z_dim)])
+        self.fcs_logvar = nn.ModuleList([nn.Linear(args.hidden_dim, args.z_dim) for _ in range(args.z_dim)])
 
         # Linear layer to produce gmm_weights
-        self.fc_gmm_weights = nn.Linear(input_dim, gmm_num)
+        self.fc_gmm_weights = nn.Linear(args.input_dim, args.z_dim)
 
-        self.fc_d1 = nn.Linear(z_dim, hidden_dim)
-        self.bn_d1 = nn.BatchNorm1d(hidden_dim)
-        self.dropout_d1 = nn.Dropout(dropout_rate)
+        self.fc_d1 = nn.Linear(args.z_dim, args.hidden_dim)
+        self.bn_d1 = nn.BatchNorm1d(args.hidden_dim)
+        self.dropout_d1 = nn.Dropout(args.dropout)
 
-        self.fc_d2 = nn.Linear(hidden_dim, hidden_dim)
-        self.bn_d2 = nn.BatchNorm1d(hidden_dim)
-        self.dropout_d2 = nn.Dropout(dropout_rate)
+        self.fc_d2 = nn.Linear(args.hidden_dim, args.hidden_dim)
+        self.bn_d2 = nn.BatchNorm1d(args.hidden_dim)
+        self.dropout_d2 = nn.Dropout(args.dropout)
 
-        self.fc_d3 = nn.Linear(hidden_dim, hidden_dim)
-        self.bn_d3 = nn.BatchNorm1d(hidden_dim)
-        self.dropout_d3 = nn.Dropout(dropout_rate)
+        self.fc_d3 = nn.Linear(args.hidden_dim, args.hidden_dim)
+        self.bn_d3 = nn.BatchNorm1d(args.hidden_dim)
+        self.dropout_d3 = nn.Dropout(args.dropout)
 
-        self.fc_mean = nn.Linear(hidden_dim, input_dim)
-        self.fc_zero_inflation = nn.Linear(hidden_dim, input_dim)
-        self.theta = nn.Parameter(torch.ones(input_dim) * 0.5)
+        self.fc_mean = nn.Linear(args.hidden_dim, args.input_dim)
+        self.fc_zero_inflation = nn.Linear(args.hidden_dim, args.input_dim)
+        self.theta = nn.Parameter(torch.ones(args.input_dim) * 0.5)
 
-        self.z_dim = z_dim
-        self.input_dim = input_dim
-        self.gmm_num = gmm_num
+        self.z_dim = args.z_dim
+        self.input_dim = args.input_dim
 
     def encode(self, x):
         mus = []
         logvars = []
 
-        for i in range(self.gmm_num):
+        for i in range(self.z_dim):
             h = nn.ReLU()(self.fcs[i](x))
             h = self.dropout(h)
             mus.append(self.fcs_mean[i](h))
@@ -60,7 +55,7 @@ class scVAE(nn.Module):
     def reparameterize(self, mus, logvars, gmm_weights):
         zs = []
 
-        for i in range(self.gmm_num):
+        for i in range(self.z_dim):
             std = torch.exp(0.1 * logvars[i])
             eps = torch.randn_like(std)
             zs.append(mus[i] + eps * std)
@@ -95,39 +90,38 @@ class scVAE(nn.Module):
     
 
 class bulkVAE(nn.Module):
-    def __init__(self, input_dim, hidden_dim, z_dim, num_gmms=9, dropout_rate=0.1):
+    def __init__(self, args):
         super(bulkVAE, self).__init__()
 
-        self.dropout = nn.Dropout(dropout_rate)
-        self.num_gmms = num_gmms
+        self.dropout = nn.Dropout(args.dropout)
+        self.z_dim = args.z_dim
+        self.input_dim = args.input_dim
 
         # GMMs
-        self.fcs = nn.ModuleList([nn.Linear(input_dim, hidden_dim) for _ in range(num_gmms)])
-        # self.bns = nn.ModuleList([nn.InstanceNorm1d(hidden_dim) for _ in range(num_gmms)])
-        self.fc_means = nn.ModuleList([nn.Linear(hidden_dim, z_dim) for _ in range(num_gmms)])
-        self.fc_logvars = nn.ModuleList([nn.Linear(hidden_dim, z_dim) for _ in range(num_gmms)])
+        self.fcs = nn.ModuleList([nn.Linear(args.input_dim, args.hidden_dim) for _ in range(args.z_dim)])
+        # self.bns = nn.ModuleList([nn.InstanceNorm1d(hidden_dim) for _ in range(args.z_dim)])
+        self.fc_means = nn.ModuleList([nn.Linear(args.hidden_dim, args.z_dim) for _ in range(args.z_dim)])
+        self.fc_logvars = nn.ModuleList([nn.Linear(args.hidden_dim, args.z_dim) for _ in range(args.z_dim)])
 
         # Linear layer to produce gmm_weights
-        self.fc_gmm_weights = nn.Linear(input_dim, num_gmms)
+        self.fc_gmm_weights = nn.Linear(args.input_dim, args.z_dim)
 
-        self.fc_d1 = nn.Linear(z_dim, hidden_dim)
-        # self.bn_d1 = nn.InstanceNorm1d(hidden_dim)
-        self.dropout_d1 = nn.Dropout(dropout_rate)
+        self.fc_d1 = nn.Linear(args.z_dim, args.hidden_dim)
+        self.dropout_d1 = nn.Dropout(args.dropout)
 
-        self.fc_d2 = nn.Linear(hidden_dim, hidden_dim)
-        # self.bn_d2 = nn.InstanceNorm1d(hidden_dim)
-        self.dropout_d2 = nn.Dropout(dropout_rate)
+        self.fc_d2 = nn.Linear(args.hidden_dim, args.hidden_dim)
+        self.dropout_d2 = nn.Dropout(args.dropout)
 
-        self.fc_d3 = nn.Linear(hidden_dim, input_dim)
+        self.fc_d3 = nn.Linear(args.hidden_dim, args.input_dim)
 
-        self.z_dim = z_dim
-        self.input_dim = input_dim
+        self.z_dim = args.z_dim
+        self.input_dim = args.input_dim
 
     def encode(self, x):
         mus = []
         logvars = []
 
-        for i in range(self.num_gmms):
+        for i in range(self.z_dim):
             h = nn.ReLU()(self.fcs[i](x))
             h = self.dropout(h)
             mus.append(self.fc_means[i](h))
@@ -144,43 +138,40 @@ class bulkVAE(nn.Module):
 
 
 class B2SC(nn.Module):
-    def __init__(self, input_dim, hidden_dim, z_dim, num_gmms=9, dropout_rate=0.1):
+    def __init__(self, args):
         super(B2SC, self).__init__()
 
-        self.dropout = nn.Dropout(dropout_rate)
-        self.num_gmms = num_gmms
+        self.dropout = nn.Dropout(args.dropout)
+        self.z_dim = args.z_dim
 
         # Encoder
-        self.fcs = nn.ModuleList([nn.Linear(input_dim, hidden_dim) for _ in range(num_gmms)])
-        self.fc_means = nn.ModuleList([nn.Linear(hidden_dim, z_dim) for _ in range(num_gmms)])
-        self.fc_logvars = nn.ModuleList([nn.Linear(hidden_dim, z_dim) for _ in range(num_gmms)])
+        self.fcs = nn.ModuleList([nn.Linear(args.input_dim, args.hidden_dim) for _ in range(args.z_dim)])
+        self.fc_means = nn.ModuleList([nn.Linear(args.hidden_dim, args.z_dim) for _ in range(args.z_dim)])
+        self.fc_logvars = nn.ModuleList([nn.Linear(args.hidden_dim, args.z_dim) for _ in range(args.z_dim)])
 
         # Linear layer to produce gmm_weights
-        self.fc_gmm_weights = nn.Linear(input_dim, num_gmms)
+        self.fc_gmm_weights = nn.Linear(args.input_dim, args.z_dim)
         
         # Decoder
-        self.fc_d1 = nn.Linear(z_dim, hidden_dim)
-        # self.bn_d1 = nn.BatchNorm1d(hidden_dim)
-        self.dropout_d1 = nn.Dropout(dropout_rate)
+        self.fc_d1 = nn.Linear(args.z_dim,args. hidden_dim)
+        self.dropout_d1 = nn.Dropout(args.dropout)
 
-        self.fc_d2 = nn.Linear(hidden_dim, hidden_dim)
-        # self.bn_d2 = nn.BatchNorm1d(hidden_dim)
-        self.dropout_d2 = nn.Dropout(dropout_rate)
+        self.fc_d2 = nn.Linear(args.hidden_dim, args.hidden_dim)
+        self.dropout_d2 = nn.Dropout(args.dropout)
 
-        self.fc_d3 = nn.Linear(hidden_dim, hidden_dim)
-        # self.bn_d3 = nn.BatchNorm1d(hidden_dim)
-        self.dropout_d3 = nn.Dropout(dropout_rate)
+        self.fc_d3 = nn.Linear(args.hidden_dim, args.hidden_dim)
+        self.dropout_d3 = nn.Dropout(args.dropout)
 
-        self.fc_count = nn.Linear(hidden_dim, input_dim)
+        self.fc_count = nn.Linear(args.hidden_dim, args.input_dim)
 
-        self.z_dim = z_dim
-        self.input_dim = input_dim
+        self.z_dim = args.z_dim
+        self.input_dim = args.input_dim
 
     def encode(self, x):
         mus = []
         logvars = []
 
-        for i in range(self.num_gmms):
+        for i in range(self.z_dim):
             h = nn.ReLU()(self.fcs[i](x))
             h = self.dropout(h)
             mus.append(self.fc_means[i](h))
