@@ -10,8 +10,6 @@ from paired_dataset import *
 import losses
 import torch.nn as nn
 import umap
-import pdb
-import time
 
 # Define device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -20,7 +18,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Define hyperparameters and other settings
 input_dim = paired_dataset.input_dim
 hidden_dim = paired_dataset.hidden_dim
-epochs = 1000
+epochs = 1500
 z_dim = paired_dataset.z_dim
 
 
@@ -45,29 +43,24 @@ for m in model.modules():
 train_loader = paired_dataset.dataloader 
 
 
-label_map = {
-    '0': 'Naive B cells',
-    '1': 'Non-classical monocytes',
-    '2': 'Classical Monocytes',
-    '3': 'Natural killer  cells',
-    '4': 'Naive CD8+ T cells',
-    '5': 'Memory CD4+ T cells',
-    '6': 'CD8+ NKT-like cells',
-    '7': 'Myeloid Dendritic cells',
-    '8': 'Platelets',
-}
+
+label_map = {v:k for k,v in paired_dataset.mapping_dict.items()}
 
 
 color_map = {
-    'Naive B cells': 'red',
-    'Classical Monocytes': 'orange',
-    'Platelets': 'yellow',
-    'Myeloid Dendritic cells': 'green',
-    'Naive CD8+ T cells': 'blue',
-    'Non-classical monocytes': 'black',
-    'Memory CD4+ T cells': 'magenta',
+    'Basophils': 'goldenrod',
     'CD8+ NKT-like cells': 'pink',
-    'Natural killer  cells': 'cyan'
+    'Classical Monocytes': 'orange',
+    'Erythroid-like and erythroid precursor cells': 'silver',
+    'Memory CD4+ T cells': 'magenta',
+    'Naive B cells': 'red',
+    'Naive CD4+ T cells': 'slateblue',
+    'Natural killer  cells': 'cyan',
+    'Non-classical monocytes': 'black',
+    'Plasmacytoid Dendritic cells': 'lime',
+    'Platelets': 'yellow',
+    'Pre-B cells': 'cornflowerblue',
+    'Progenitor cells': 'darkgreen'
 }
 
 
@@ -79,46 +72,87 @@ def remove_params_from_optimizer(optimizer, params_to_remove):
     return optimizer
 
 
-train_gmm_till = 500
+def to_float(gmm_weights_backup):
+    float_dict = {name: tensor.float() for name, tensor in gmm_weights_backup.items()}
+    return float_dict
+
+train_gmm_till = 700
 
 # Training Loop with warm-up
 def train(epoch, model, optimizer, train_loader, gmm_weights_backup):
     print(f'Epoch: {epoch+1}')
     model.train()
-
     train_loss = 0
     
     for batch_idx, (data,labels) in enumerate(train_loader):
+        data = data.to(torch.float32)
+
         data = data.to(device)
         # model = nn.DataParallel(model).to(device)
         labels = labels.to(device)
         optimizer.zero_grad()
 
-        
+
+        with torch.no_grad():
+            # recon_batch, mus, logvars, gmm_weights = model(X_tensor)
+            mus, logvars, gmm_weights = model.encode(paired_dataset.X_tensor.to(device))
+            z = model.reparameterize(mus, logvars, gmm_weights).cpu().numpy()
+
+            # Convert cell_types_tensor to numpy for plotting
+            raw_labels = paired_dataset.cell_types_tensor.numpy()
+
+            # Convert raw_labels to their names using the label_map
+            # import pdb;pdb.set_trace()
+            label_names = np.array([label_map[label] for label in raw_labels])
+            unique_labels = np.unique(label_names)
+
+            # embedding
+            tsne = TSNE()
+            embedding = tsne.fit_transform(z)
+
+            # Plot the t-SNE representation
+            plt.figure(figsize=(10, 10))
+            for label in unique_labels:
+                indices = np.where(label_names == label)
+                plt.scatter(embedding[indices, 0], embedding[indices, 1], color=color_map[label], label=label)
+            # plt.legend()
+            plt.title("PBMC 5K Latent", fontsize=25)
+            # Set X_label as TSNE 1 and Y_label as TSNE 2
+            plt.xlabel('TSNE1', fontsize=18)
+            plt.ylabel('TSNE2', fontsize=18)
+            # remove the ticks
+            plt.xticks([])
+            plt.yticks([])
+            plt.savefig(f"pbmc5k_latent_tsne.png")
+            import sys;sys.exit(0)
 
         preds, zero_inflation_prob, theta, mus, logvars, gmm_weights = model(data)
         # preds.shape, zero_inflation_prob.shape, theta.shape, mus[0].shape, logvars[0].shape, gmm_weights.shape
-        # (torch.Size([5000, 19736]), torch.Size([5000, 19736]), torch.Size([19736]), torch.Size([5000, 12]), torch.Size([5000, 12]), torch.Size([5000, 12]))
-
+        # (torch.Size([mb, feat]), torch.Size([mb, feat]), torch.Size([feat]), torch.Size([mb, z_dim]), torch.Size([5000, 12]), torch.Size([5000, 12]))
         if train_gmm_till > epoch+1:
             loss = 10*losses.gmm_loss(gmm_weights)
         else:
+            # recon_L = losses.zinb_loss(preds, data, zero_inflation_prob, theta)
             ceL = nn.CrossEntropyLoss()(preds, data)
-            loss =  ceL
-        
+            loss = ceL
+            
+        loss = loss.to(torch.float32)
+
         if train_gmm_till == epoch+1:
             gmm_weights_backup = {name: param.clone() for name, param in model.fc_gmm_weights.named_parameters()}
+            gmm_weights_backup = to_float(gmm_weights_backup)
+
             for param in model.fc_gmm_weights.parameters():
                 param.requires_grad = False
             optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=1e-4)
 
+        
         loss.backward()
         optimizer.step()
 
-        if epoch+1 > train_gmm_till:
+        if epoch+1 >= train_gmm_till:
             for name, param in model.fc_gmm_weights.named_parameters():
                 param.data = gmm_weights_backup[name]
-
     
     if (epoch+1)%100 == 0:
         print(f'====> Epoch: {epoch+1} Average loss: {train_loss / len(train_loader.dataset):.4f}')
@@ -127,6 +161,9 @@ def train(epoch, model, optimizer, train_loader, gmm_weights_backup):
     else:
         print(f'BCE loss: {ceL.item():.4f}')
 
+        if epoch+1 >= train_gmm_till:
+            for name, param in model.fc_gmm_weights.named_parameters():
+                param.data = gmm_weights_backup[name]
 
     if (epoch+1)%10 == 0:
         print(f'Average loss: {train_loss / len(train_loader.dataset):.4f}')
@@ -134,10 +171,8 @@ def train(epoch, model, optimizer, train_loader, gmm_weights_backup):
     if (epoch+1)%20 == 0:
         print(gmm_weights)
 
-    if (epoch+1)%500 == 0:
+    if (epoch+1)%100 == 0:
         torch.save(model.cpu().state_dict(), f"sc_model_{epoch+1}.pt")
-        print("---")
-        print(preds[0])
         X_tensor = paired_dataset.X_tensor
         model.to(device)
         model.eval()
@@ -151,23 +186,11 @@ def train(epoch, model, optimizer, train_loader, gmm_weights_backup):
             raw_labels = paired_dataset.cell_types_tensor.numpy()
 
             # Convert raw_labels to their names using the label_map
-            label_names = np.array([label_map[str(label)] for label in raw_labels])
+            # import pdb;pdb.set_trace()
+            label_names = np.array([label_map[label] for label in raw_labels])
             unique_labels = np.unique(label_names)
 
-            # # embedding
-            # reducer = umap.UMAP()
-            # embedding = reducer.fit_transform(z)
-
-            # # Plot the UMAP representation
-            # plt.figure(figsize=(10, 10))
-            # for label in unique_labels:
-            #     indices = np.where(label_names == label)
-            #     plt.scatter(embedding[indices, 0], embedding[indices, 1], color=color_map[label], label=label)
-            # plt.legend()
-            # plt.savefig(f"umap_{epoch+1}.png")
-
-
-            # Set up t-SNE
+            # embedding
             tsne = TSNE()
             embedding = tsne.fit_transform(z)
 
@@ -178,13 +201,12 @@ def train(epoch, model, optimizer, train_loader, gmm_weights_backup):
                 plt.scatter(embedding[indices, 0], embedding[indices, 1], color=color_map[label], label=label)
             plt.legend()
             plt.savefig(f"tsne_{epoch+1}.png")
-            
 
     return gmm_weights_backup
 
 
-# model.load_state_dict(torch.load("sc_model_700.pt"))
-# gmm_weights_backup = {name: param.clone() for name, param in model.fc_gmm_weights.named_parameters()}
+model.load_state_dict(torch.load("sc_model_1500.pt"))
+gmm_weights_backup = {name: param.clone() for name, param in model.fc_gmm_weights.named_parameters()}
 
 # # Set requires_grad of those parameters to False and zero their gradients
 # params_to_remove_from_optim = []
@@ -202,8 +224,11 @@ def train(epoch, model, optimizer, train_loader, gmm_weights_backup):
 #     group['lr'] = 1e-4
 
 epoch_start = 0
+
 print(paired_dataset.X_tensor.shape)
 gmm_weights_backup = None
+
 for epoch in range(epoch_start, epochs + 1):
     gmm_weights_backup = train(epoch, model, optimizer, train_loader, gmm_weights_backup)
-
+    if gmm_weights_backup:
+        gmm_weights_backup = to_float(gmm_weights_backup)

@@ -8,7 +8,7 @@ print(device)
 
 
 class scVAE(nn.Module):
-    def __init__(self, input_dim, hidden_dim, z_dim, gmm_num=9, dropout_rate=0.1):
+    def __init__(self, input_dim, hidden_dim, z_dim, gmm_num=13, dropout_rate=0.1):
         super(scVAE, self).__init__()
 
         self.dropout = nn.Dropout(dropout_rate)
@@ -95,7 +95,7 @@ class scVAE(nn.Module):
     
 
 class bulkVAE(nn.Module):
-    def __init__(self, input_dim, hidden_dim, z_dim, num_gmms=9, dropout_rate=0.1):
+    def __init__(self, input_dim, hidden_dim, z_dim, num_gmms=13, dropout_rate=0.1):
         super(bulkVAE, self).__init__()
 
         self.dropout = nn.Dropout(dropout_rate)
@@ -144,7 +144,7 @@ class bulkVAE(nn.Module):
 
 
 class B2SC(nn.Module):
-    def __init__(self, input_dim, hidden_dim, z_dim, num_gmms=9, dropout_rate=0.1):
+    def __init__(self, input_dim, hidden_dim, z_dim, num_gmms=13, dropout_rate=0.1):
         super(B2SC, self).__init__()
 
         self.dropout = nn.Dropout(dropout_rate)
@@ -232,13 +232,15 @@ class B2SC(nn.Module):
         mus, logvars, gmm_weights = self.encode(x)
         
         if selected_neuron == None:
-            gmm_weights = gmm_weights.mean(0)
+            gmm_weights = gmm_weights.abs()
             # clamp the negative values to the smallest positive number
-            min_positive = torch.min(gmm_weights[gmm_weights > 0]).item() if torch.any(gmm_weights > 0) else 1e-3
-            gmm_weights_clamped = torch.clamp(gmm_weights, min=min_positive)
-            selected_neuron = torch.multinomial(gmm_weights_clamped, 1).item()
+            # min_positive = torch.min(gmm_weights[gmm_weights > 0]).item() if torch.any(gmm_weights > 0) else 1e-3
+            # gmm_weights_clamped = torch.clamp(gmm_weights, min=min_positive)
+            selected_neuron = torch.multinomial(gmm_weights, 1).item()
         
         z = self.reparameterize(mus, logvars, gmm_weights, selected_neuron, variability)
         recon_x = self.decode(z)
+        recon_x = recon_x.clip(0)
+        
         
         return recon_x.sum(dim=0), selected_neuron

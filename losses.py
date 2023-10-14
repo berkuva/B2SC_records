@@ -90,18 +90,25 @@ def zinb_loss(preds, targets, zero_inflation_prob, theta):
 def gmm_loss(gmm_weights, true_gmm_fractions=None, device='cuda'):
     # Default values for the true GMM fractions if not provided
     if true_gmm_fractions is None:
-        true_gmm_fractions = torch.tensor([0.187, 0.129, 0.113, 0.113, 0.146, 0.193, 0.10, 0.013, 0.006])
+        fractions = np.array([0.012, 0.108, 0.138, 0.0191, 0.139,
+                              0.041, 0.260, 0.141, 0.041, 0.013,
+                              0.023 , 0.061, 0.004])
+        true_gmm_fractions = torch.tensor(fractions)
 
     # Move true_gmm_fractions to the specified device
-    true_gmm_fractions = true_gmm_fractions.to(device)
+    true_gmm_fractions = true_gmm_fractions.to(device).float()
     
     batch_size = gmm_weights.size(0)
-    true_gmm_fractions_expanded = true_gmm_fractions.unsqueeze(0).repeat(batch_size, 1)
+    true_gmm_fractions_expanded = true_gmm_fractions.unsqueeze(0).repeat(batch_size, 1).float()
+
+    # Ensure gmm_weights is also float dtype
+    gmm_weights = gmm_weights.float()
 
     # Calculate the MSE loss
     loss = nn.MSELoss()(gmm_weights, true_gmm_fractions_expanded)
-    
+
     return loss
+
 
 
 def KLDiv(mus, logvars, gmm_weights):
